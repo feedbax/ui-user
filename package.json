@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": false,
   "dependencies": {
+    "@feedbax/api": "1.0.1",
     "@rebass/forms": "^4.0.6",
     "@rebass/preset": "^4.0.5",
     "emotion": "^10.0.27",
     "emotion-theming": "^10.0.27",
-    "fbx-api": "ssh://git@gitlab.com:feedbax-v2/fbx-api.git#v1.0.1",
     "framer-motion": "^1.9.1",
     "lodash.isequal": "^4.5.0",
     "react": "^16.13.0",

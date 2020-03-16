@@ -1,4 +1,4 @@
-import FBXAPI from 'fbx-api';
+import FBXAPI from '@feedbax/api';
 
 import React, { useState, useEffect } from 'react';
 
