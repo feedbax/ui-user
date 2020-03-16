@@ -1,13 +1,94 @@
-body {
+body,
+#root,
+.grommet {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+}
+
+@font-face {
+  font-family: "Klinic Slab";
+  src: url("assets/fonts/KlinicSlab-Bold.woff2") format("woff2"),
+    url("assets/fonts/KlinicSlab-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Klinic Slab Book";
+  src: url("assets/fonts/KlinicSlab-Book.woff2") format("woff2"),
+    url("assets/fonts/KlinicSlab-Book.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Klinic Slab Book";
+  src: url("assets/fonts/KlinicSlab-BookItalic.woff2") format("woff2"),
+    url("assets/fonts/KlinicSlab-BookItalic.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Roboto Slab";
+  src: url("assets/fonts/RobotoSlab-Bold.woff2") format("woff2"),
+    url("assets/fonts/RobotoSlab-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Roboto Slab";
+  src: url("assets/fonts/RobotoSlab-Regular.woff2") format("woff2"),
+    url("assets/fonts/RobotoSlab-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "steps-feedback-icons";
+  src: url("assets/fonts/steps-feedback-icons.woff2") format("woff2"),
+    url("assets/fonts/steps-feedback-icons.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.steps-icon {
+  font-family: "steps-feedback-icons";
+  display: inline-block;
+  vertical-align: baseline;
+  font-weight: normal;
+  font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.steps-icon[data-glyph="person"]:before {
+  content: "\e800";
+}
+
+.steps-icon[data-glyph="paper-plane"]:before {
+  content: "\e801";
+}
+
+.steps-icon[data-glyph="heart-outline"]:before {
+  content: "\e802";
+}
+
+.steps-icon[data-glyph="heart-filled"]:before {
+  content: "\e803";
+}
+
+.steps-icon[data-glyph="clock"]:before {
+  content: "\e804";
+}
+
+.steps-icon[data-glyph="arrow-left"]:before {
+  content: "\e806";
+}
+
+.steps-icon[data-glyph="arrow-right"]:before {
+  content: "\e805";
 }
