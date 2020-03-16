@@ -38,8 +38,8 @@ const Input = ({ children: placeholder, ...props }: Props): JSX.Element => {
       {...props}
       placeholder={placeholder}
       sx={inputStyles}
-      onFocus={() => rootElement?.addEventListener('touchmove', noScroll)}
-      onBlur={() => rootElement?.removeEventListener('touchmove', noScroll)}
+      onFocus={(): void => rootElement?.addEventListener('touchmove', noScroll)}
+      onBlur={(): void => rootElement?.removeEventListener('touchmove', noScroll)}
     />
   );
 };

@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import FBXAPI from '@feedbax/api';
 
 import React, { useState, useEffect } from 'react';
