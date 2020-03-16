@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": false,
   "dependencies": {
-    "@feedbax/api": "1.0.1",
+    "@feedbax/api": "1.0.2",
     "@rebass/forms": "^4.0.6",
     "@rebass/preset": "^4.0.5",
     "emotion": "^10.0.27",

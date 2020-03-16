@@ -1102,10 +1102,10 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.5.tgz#8eed982e2ee6f7f4e44c253e12962980791efd46"
   integrity sha512-6U71C2Wp7r5XtFtQzYrW5iKFT67OixrSxjI4MptCHzdSVlgabczzqLe0ZSgnub/5Kp4hSbpDB1tMytZY9pwxxA==
 
-"@feedbax/api@1.0.1":
-  version "1.0.1"
-  resolved "https://npm.pkg.github.com/download/@feedbax/api/1.0.1/9d2994d14d6edc08e90cd5ca3592ad0d953ef07a3aa9dbf83dd4231a1ddfda04#619e28366168d832aee922b986292dddbd7c4031"
-  integrity sha512-HS9OWQYCykd657wIfB65oeJQ36dX5nzel1YfkrksKhdNKDGiZJpP4KC5d9xspO0YIyggvPZHYhuWJdjlPmADog==
+"@feedbax/api@1.0.2":
+  version "1.0.2"
+  resolved "https://npm.pkg.github.com/download/@feedbax/api/1.0.2/45597899438b322f2eecc2beaef831337b3aa01710c3c3451ba1b0535cac4f07#bd741dc5bfae015fcb51cdf1a15fe15a56057635"
+  integrity sha512-IK4TjzwrlmNwxcKhZSL0kPVoBrYzaTRYPuNzf+1ZTy7sXQqj74cP1NPrATe41pBsGNdHU7JOlujW8RQgEZ0j+w==
   dependencies:
     js-cookie "^2.2.1"
     lodash.flattendeep "^4.4.0"
@@ -4807,17 +4807,6 @@ fb-watchman@^2.0.0:
   integrity sha512-DkPJKQeY6kKwmuMretBhr7G6Vodr7bFwDYTXIkfG1gjvNpaxBTQV3PbXg6bR1c1UP4jPOX0jHUbbHANL9vRjVg==
   dependencies:
     bser "2.1.1"
-
-"fbx-api@ssh://git@gitlab.com:feedbax-v2/fbx-api.git#v1.0.1":
-  version "1.0.1"
-  resolved "ssh://git@gitlab.com:feedbax-v2/fbx-api.git#e449616985af90021d67743fec423743d979ba9b"
-  dependencies:
-    js-cookie "^2.2.1"
-    lodash.flattendeep "^4.4.0"
-    redux "^4.0.5"
-    socket.io-client "^2.3.0"
-    socket.io-msgpack-parser "^2.2.0"
-    uuid "^3.4.0"
 
 figgy-pudding@^3.5.1:
   version "3.5.1"
