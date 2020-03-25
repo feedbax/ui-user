@@ -1,56 +1,50 @@
-body,
-#root,
-.grommet {
-  height: 100vh;
-  width: 100vw;
+body, #root {
+  height: 100%;
+  width: 100%;
   position: fixed;
   margin: 0;
+  background-color: #3a556a;
+  overflow: hidden;
 }
 
 @font-face {
   font-family: "Klinic Slab";
-  src: url("assets/fonts/KlinicSlab-Bold.woff2") format("woff2"),
-    url("assets/fonts/KlinicSlab-Bold.woff") format("woff");
+  src: url("fonts/KlinicSlab-Bold.woff2") format("woff2"), url("fonts/KlinicSlab-Bold.woff") format("woff");
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Klinic Slab Book";
-  src: url("assets/fonts/KlinicSlab-Book.woff2") format("woff2"),
-    url("assets/fonts/KlinicSlab-Book.woff") format("woff");
+  src: url("fonts/KlinicSlab-Book.woff2") format("woff2"), url("fonts/KlinicSlab-Book.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Klinic Slab Book";
-  src: url("assets/fonts/KlinicSlab-BookItalic.woff2") format("woff2"),
-    url("assets/fonts/KlinicSlab-BookItalic.woff") format("woff");
+  src: url("fonts/KlinicSlab-BookItalic.woff2") format("woff2"), url("fonts/KlinicSlab-BookItalic.woff") format("woff");
   font-weight: normal;
   font-style: italic;
 }
 
 @font-face {
   font-family: "Roboto Slab";
-  src: url("assets/fonts/RobotoSlab-Bold.woff2") format("woff2"),
-    url("assets/fonts/RobotoSlab-Bold.woff") format("woff");
+  src: url("fonts/RobotoSlab-Bold.woff2") format("woff2"), url("fonts/RobotoSlab-Bold.woff") format("woff");
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Roboto Slab";
-  src: url("assets/fonts/RobotoSlab-Regular.woff2") format("woff2"),
-    url("assets/fonts/RobotoSlab-Regular.woff") format("woff");
+  src: url("fonts/RobotoSlab-Regular.woff2") format("woff2"), url("fonts/RobotoSlab-Regular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "steps-feedback-icons";
-  src: url("assets/fonts/steps-feedback-icons.woff2") format("woff2"),
-    url("assets/fonts/steps-feedback-icons.woff") format("woff");
+  src: url("fonts/steps-feedback-icons.woff2") format("woff2"), url("fonts/steps-feedback-icons.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -63,6 +57,14 @@ body,
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.steps-icon:before {
+  transition: opacity .3s ease;
+}
+
+.steps-icon:disabled:before {
+  opacity: .5;
 }
 
 .steps-icon[data-glyph="person"]:before {

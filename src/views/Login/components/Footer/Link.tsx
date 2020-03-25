@@ -13,7 +13,7 @@ const Link = ({ children, ...props }: Props): JSX.Element => (
     sx={{
       fontFamily: 'secondaryAccent',
       fontSize: 1,
-      color: 'primary'
+      color: 'primary',
     }}
   >
     {children}

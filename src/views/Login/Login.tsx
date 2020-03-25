@@ -1,30 +1,24 @@
 /* eslint-disable no-console */
 
-import FBXAPI from '@feedbax/api';
+import api from 'lib/api';
+import sleep from 'lib/sleep';
 
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useRouteMatch, useHistory, useLocation } from 'react-router-dom';
 
 import logo from 'assets/images/logo.png';
 import bgProtrait from 'assets/images/background_vertical.jpg';
 import bgLandscape from 'assets/images/background_horizontal.jpg';
 
+import Logo, { Image, Title, Description } from 'components/Logo';
+
 import Container from './components/Container';
-import { Logo, Image, Title, Description } from './components/Logo';
 import Greeting from './components/Greeting';
 import { Form, Input, Button } from './components/Form';
 import { Footer, Divider, Text, Link } from './components/Footer';
 
-interface Props {
-  history: History;
-  location: Location;
-  match: import('react-router-dom').match<{ eventCode?: string }>;
-}
-
-const api = new FBXAPI('http://157.230.29.66:3000', 'user');
-
-const sleep = (duration: number): Promise<void> => {
-  return new Promise(resolve => setTimeout(resolve, duration));
-};
+type ApiState = import('@feedbax/api/dist/store').ApiState;
 
 const doLoginApi = async (eventCode: string): Promise<void> => {
   try {
@@ -36,38 +30,54 @@ const doLoginApi = async (eventCode: string): Promise<void> => {
   }
 };
 
-const Login = ({ match }: Props): JSX.Element => {
+function Login(): JSX.Element {
+  const match = useRouteMatch<{ eventCode?: string }>();
+  const location = useLocation<{ reconnect?: boolean }>();
+  const history = useHistory();
+
   const { params } = match;
+  const { state = {} } = location;
+
   const { eventCode: eventCodeInitial } = params;
+  const { reconnect: shouldReconnect } = state;
+
+  const isEventLoaded = useSelector<ApiState>((_state) => _state.event.id !== '');
 
   const [eventCode, setEventCode] = useState(eventCodeInitial || '');
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
 
   const doLogin = async (): Promise<void> => {
-    if (eventCode !== '') {
-      const timeStart = Date.now();
-      let doLoginApiDuration = 0;
+    const timeStart = Date.now();
+    let doLoginApiDuration = 0;
 
-      setLoading(true);
+    setLoading(true);
 
-      await doLoginApi(eventCode);
+    await doLoginApi(eventCode);
 
-      doLoginApiDuration = Date.now() - timeStart;
-      await sleep(Math.max(0, 500 - doLoginApiDuration));
+    doLoginApiDuration = Date.now() - timeStart;
+    await sleep(Math.max(0, 500 - doLoginApiDuration));
 
-      setLoading(false);
-    }
+    setLoading(false);
   };
 
   useEffect(() => {
-    if (typeof eventCodeInitial !== 'undefined') {
+    api.logout();
+    setLoading(false);
+
+    if (shouldReconnect && eventCode !== '') {
       doLogin();
     }
   }, []); // eslint-disable-line
 
+  useEffect(() => {
+    if (isEventLoaded && !isLoading) {
+      history.push(`/e/${eventCode}`);
+    }
+  }, [isEventLoaded, eventCode, history, isLoading]);
+
   return (
     <Container bgLandscape={bgLandscape} bgProtrait={bgProtrait}>
-      <Logo>
+      <Logo mb={[30, 40, 50]}>
         <Image image={logo} />
         <Title>feedbax</Title>
         <Description>by 365steps</Description>
@@ -76,11 +86,7 @@ const Login = ({ match }: Props): JSX.Element => {
       <Greeting>Hallo!</Greeting>
 
       <Form>
-        <Input
-          autoFocus
-          value={eventCode}
-          onChange={(e): void => setEventCode(e.currentTarget.value)}
-        >
+        <Input value={eventCode} onChange={(e): void => setEventCode(e.currentTarget.value)}>
           EVENT-CODE
         </Input>
 
@@ -91,11 +97,11 @@ const Login = ({ match }: Props): JSX.Element => {
 
       <Footer>
         <Divider />
-        <Text>&copy; 2019-2020 | feedb.ax by 365steps</Text>
+        <Text>{`© 2019-${new Date().getFullYear()} | feedb.ax by 365steps`}</Text>
         <Link to="/legal/privacy-policy">{`Datenschutz & Impressum`}</Link>
       </Footer>
     </Container>
   );
-};
+}
 
 export default React.memo(Login);

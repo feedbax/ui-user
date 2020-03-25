@@ -2,6 +2,8 @@ import React from 'react';
 import { Button as RebassButton, ButtonProps } from 'rebass';
 import { AnimatePresence } from 'framer-motion';
 
+import theme from 'assets/theme';
+
 import MotionLabel from './components/MotionLabel';
 import MotionDots from './components/MotionDots';
 
@@ -22,7 +24,10 @@ const buttonStyles = {
   width: '100%',
   textAlign: 'left',
   px: [28, 32, 36],
-  py: [12, 16, 20]
+  py: [12, 16, 20],
+  boxShadow: `
+    inset -5px -5px 20px ${theme.colors.accent1_light_20},
+    inset 5px 5px 20px ${theme.colors.accent1_dark_20}`,
 };
 
 const Button = ({

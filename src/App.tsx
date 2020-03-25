@@ -1,29 +1,21 @@
 import React from 'react';
+import FBXAPI from '@feedbax/api';
 
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
-
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider } from 'emotion-theming';
-import theme from 'theme';
 
-import Login from 'views/Login';
+import theme from 'assets/theme';
+import Routes from 'lib/routes';
 
 function App(): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
-      <Router>
-        <Route
-          render={({ location }): JSX.Element => (
-            <AnimatePresence exitBeforeEnter initial={false}>
-              <Switch location={location} key={location.pathname}>
-                <Route exact path="/" component={Login} />
-                <Route exact path="/:eventCode" component={Login} />
-                <Route exact path="/legal/privacy-policy" component={Login} />
-              </Switch>
-            </AnimatePresence>
-          )}
-        />
-      </Router>
+      <Provider store={FBXAPI.store}>
+        <Router>
+          <Routes />
+        </Router>
+      </Provider>
     </ThemeProvider>
   );
 }

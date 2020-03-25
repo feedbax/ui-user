@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Box } from 'rebass';
 
 interface Props {
-  children: JSX.Element | JSX.Element[];
+  children: ReactNode;
 }
 
 const Form = ({ children }: Props): JSX.Element => <Box>{children}</Box>;

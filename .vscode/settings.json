@@ -1,0 +1,15 @@
+{
+  "editor.tabSize": 2,
+  "files.exclude": {
+    "node_modules/": true,
+    "build/": true,
+    ".vscode/": true,
+    ".cache/": true
+  },
+  "eslint.validate":[
+    "vue",
+    "html",
+    "javascript",
+    "typescript"
+  ]
+}

@@ -5,7 +5,7 @@ import Dot from './Dot';
 const boxStyles = {
   justifyContent: 'center',
   alignItems: 'center',
-  height: '100%'
+  height: '100%',
 };
 
 const dotStyles = {
@@ -15,7 +15,7 @@ const dotStyles = {
   width: '12px',
   margin: '0 5px',
   borderRadius: '50%',
-  transform: 'scale(0.7)'
+  transform: 'scale(0.7)',
 };
 
 const Dots = (): JSX.Element => (

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Text } from 'rebass';
 
 interface Props {
-  children: JSX.Element | JSX.Element[] | string;
+  children: ReactNode;
 }
 
 const Greeting = ({ children }: Props): JSX.Element => (
@@ -12,11 +12,11 @@ const Greeting = ({ children }: Props): JSX.Element => (
       fontFamily: 'secondary',
       fontWeight: 'bold',
       fontSize: [82, 92, 102],
-      textAlign: 'center'
+      textAlign: 'center',
     }}
   >
     {children}
   </Text>
 );
 
-export default Greeting;
+export default React.memo(Greeting);

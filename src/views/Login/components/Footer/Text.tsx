@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Text as RebassText, TextProps } from 'rebass';
 
 interface Props extends TextProps {
-  children: JSX.Element | JSX.Element[] | string;
+  children: ReactNode;
 }
 
 const Text = ({ children, ...props }: Props): JSX.Element => (

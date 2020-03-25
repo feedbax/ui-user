@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Flex, Box } from 'rebass';
 
 interface Props {
-  children: JSX.Element | JSX.Element[];
+  children: ReactNode;
   bgProtrait: string;
   bgLandscape: string;
 }
@@ -16,13 +16,13 @@ const Container = ({ children, bgProtrait, bgLandscape }: Props): JSX.Element =>
     overflow="auto"
     sx={{
       '@media (orientation: portrait)': {
-        backgroundImage: `url(${bgProtrait})`
+        backgroundImage: `url(${bgProtrait})`,
       },
       '@media (orientation: landscape)': {
-        backgroundImage: `url(${bgLandscape})`
+        backgroundImage: `url(${bgLandscape})`,
       },
       backgroundSize: 'cover',
-      backgroundPosition: 'center'
+      backgroundPosition: 'center',
     }}
   >
     <Box flex="1 1 auto" m="auto" p={3} maxWidth={[380, 440, 500]} color="primary">
@@ -31,4 +31,4 @@ const Container = ({ children, bgProtrait, bgLandscape }: Props): JSX.Element =>
   </Flex>
 );
 
-export default Container;
+export default React.memo(Container);

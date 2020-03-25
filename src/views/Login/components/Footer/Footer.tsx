@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Flex } from 'rebass';
 
 interface Props {
-  children: JSX.Element | JSX.Element[] | string;
+  children: ReactNode;
 }
 
 const Footer = ({ children }: Props): JSX.Element => (

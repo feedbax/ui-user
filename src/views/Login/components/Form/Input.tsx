@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Input as RebassInput, InputProps } from '@rebass/forms';
-import rootElement from 'rootElement';
+
+import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
 interface Props extends InputProps {
   children: string;
@@ -26,22 +27,30 @@ const inputStyles = {
     fontWeight: 'bold',
     color: 'accent1',
     opacity: 0.5,
-    fontSize: [1, 2, 3]
-  }
+    fontSize: [1, 2, 3],
+  },
 };
 
-const noScroll = (e: TouchEvent): void => e.preventDefault();
+const defaultElement = document.createElement('div');
 
-const Input = ({ children: placeholder, ...props }: Props): JSX.Element => {
+function Input({ children: placeholder, ...props }: Props): JSX.Element {
+  useEffect(
+    () =>
+      function unmount(): void {
+        clearAllBodyScrollLocks();
+      },
+    []
+  );
+
   return (
     <RebassInput
       {...props}
       placeholder={placeholder}
       sx={inputStyles}
-      onFocus={(): void => rootElement?.addEventListener('touchmove', noScroll)}
-      onBlur={(): void => rootElement?.removeEventListener('touchmove', noScroll)}
+      onFocus={(): void => disableBodyScroll(defaultElement)}
+      onBlur={(): void => enableBodyScroll(defaultElement)}
     />
   );
-};
+}
 
 export default Input;
