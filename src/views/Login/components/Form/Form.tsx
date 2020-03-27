@@ -7,4 +7,4 @@ interface Props {
 
 const Form = ({ children }: Props): JSX.Element => <Box>{children}</Box>;
 
-export default Form;
+export default React.memo(Form);

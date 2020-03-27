@@ -13,4 +13,4 @@ const MotionLabel = ({ label }: { label: string }): JSX.Element => (
   </motion.div>
 );
 
-export default MotionLabel;
+export default React.memo(MotionLabel);

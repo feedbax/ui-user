@@ -1,19 +1,20 @@
 import React, { Ref, ReactNode } from 'react';
-import { SxStyleProp, Box } from 'rebass';
+import { SxStyleProp, Box, BoxProps } from 'rebass';
 
-interface Props {
+interface Props extends BoxProps {
   children: ReactNode;
 }
 
 const styleContent: SxStyleProp = {
   flex: '1 1 100%',
-  overflowY: 'scroll',
+  overflowY: 'auto',
+  position: 'relative',
 };
 
-const Content = ({ children }: Props, ref: Ref<Element>): JSX.Element => (
-  <Box ref={ref} sx={styleContent}>
+const Content = ({ children, ...props }: Props, ref: Ref<Element>): JSX.Element => (
+  <Box {...props} ref={ref} sx={styleContent}>
     {children}
   </Box>
 );
 
-export default React.memo(React.forwardRef(Content));
+export default React.forwardRef(Content);

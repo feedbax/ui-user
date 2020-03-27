@@ -16,4 +16,4 @@ const WriteAnswer = ({ children }: Props): JSX.Element => (
   <Box sx={styleWriteAnswer}>{children}</Box>
 );
 
-export default React.memo(WriteAnswer);
+export default WriteAnswer;

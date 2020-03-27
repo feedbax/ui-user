@@ -53,4 +53,4 @@ function Input({ children: placeholder, ...props }: Props): JSX.Element {
   );
 }
 
-export default Input;
+export default React.memo(Input);

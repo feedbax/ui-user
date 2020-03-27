@@ -1,3 +1,4 @@
+import React from 'react';
 import { Box } from 'rebass';
 import styled, { keyframes } from 'styled-components';
 
@@ -21,4 +22,4 @@ const Dot = styled(Box)`
   animation: ${scale} 1s infinite ${delayProp};
 `;
 
-export default Dot;
+export default React.memo(Dot);

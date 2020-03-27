@@ -11,4 +11,4 @@ const Text = ({ children, ...props }: Props): JSX.Element => (
   </RebassText>
 );
 
-export default Text;
+export default React.memo(Text);

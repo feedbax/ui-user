@@ -23,4 +23,4 @@ const Logo = ({ children, size = LogoSize.Regular, ...props }: Props): JSX.Eleme
   </Box>
 );
 
-export default React.memo(Logo);
+export default Logo;

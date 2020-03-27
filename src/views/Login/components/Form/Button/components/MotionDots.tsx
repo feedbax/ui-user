@@ -15,4 +15,4 @@ const MotionDots = (): JSX.Element => (
   </motion.div>
 );
 
-export default MotionDots;
+export default React.memo(MotionDots);

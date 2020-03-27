@@ -44,4 +44,4 @@ const Button = ({
   </RebassButton>
 );
 
-export default Button;
+export default React.memo(Button);

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 
 import { SxStyleProp } from 'rebass';
 import { Textarea, TextareaProps } from '@rebass/forms';
@@ -6,16 +6,13 @@ import { Textarea, TextareaProps } from '@rebass/forms';
 import autosize from 'autosize';
 
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
-import getScrollBarWidth from 'lib/get-scrollbar-width';
-
-import { useIsScrollable, useFontLoader } from './hooks';
+import { useFontLoader } from './hooks';
 
 interface Props extends TextareaProps {
   paddingRight?: number;
   onScrollable: (isScollable: boolean) => void;
 }
 
-const scrollBarWidth = getScrollBarWidth();
 const styleTextArea: SxStyleProp = {
   backgroundColor: 'accent1',
   fontSize: 1,
@@ -34,11 +31,11 @@ const styleTextArea: SxStyleProp = {
 };
 
 function TextArea(props: Props): JSX.Element {
-  const { onFocus, onBlur, onScrollable, ..._props } = props;
+  const { onChange, onFocus, onBlur, onScrollable, ..._props } = props;
   const { paddingRight = 65, ...propsRest } = _props;
 
   const textareaRef = useRef<Element>();
-  const isScrollable = useIsScrollable(textareaRef);
+  const [isScrollable, setScrollable] = useState(false);
   const isLoading = useFontLoader(['Klinic Slab Book']);
 
   useEffect(
@@ -75,30 +72,62 @@ function TextArea(props: Props): JSX.Element {
 
   const _sx: SxStyleProp = {
     ...styleTextArea,
-    paddingRight: `${paddingRight + (isScrollable ? scrollBarWidth : 0)}px`,
+    paddingRight: `${paddingRight}px`,
   };
 
-  const _onFocus = (e: React.FocusEvent<HTMLTextAreaElement>): void => {
-    if (onFocus) {
-      onFocus(e);
-    }
+  const _onChange = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
+      if (onChange) {
+        onChange(e);
+      }
 
-    if (textareaRef.current) {
-      disableBodyScroll(textareaRef.current);
-    }
-  };
+      const scrollHeight = textareaRef.current?.scrollHeight || 0;
+      const clientHeight = textareaRef.current?.clientHeight || 0;
+      const _isScrollable = scrollHeight > clientHeight;
 
-  const _onBlur = (e: React.FocusEvent<HTMLTextAreaElement>): void => {
-    if (onBlur) {
-      onBlur(e);
-    }
+      if (isScrollable !== _isScrollable) {
+        setScrollable(_isScrollable);
+      }
+    },
+    [isScrollable, onChange]
+  );
 
-    if (textareaRef.current) {
-      enableBodyScroll(textareaRef.current);
-    }
-  };
+  const _onFocus = useCallback(
+    (e: React.FocusEvent<HTMLTextAreaElement>): void => {
+      if (onFocus) {
+        onFocus(e);
+      }
 
-  return <Textarea {...propsRest} ref={textareaRef} sx={_sx} onFocus={_onFocus} onBlur={_onBlur} />;
+      if (textareaRef.current) {
+        disableBodyScroll(textareaRef.current);
+      }
+    },
+    [onFocus]
+  );
+
+  const _onBlur = useCallback(
+    (e: React.FocusEvent<HTMLTextAreaElement>): void => {
+      if (onBlur) {
+        onBlur(e);
+      }
+
+      if (textareaRef.current) {
+        enableBodyScroll(textareaRef.current);
+      }
+    },
+    [onBlur]
+  );
+
+  return (
+    <Textarea
+      {...propsRest}
+      ref={textareaRef}
+      sx={_sx}
+      onFocus={_onFocus}
+      onBlur={_onBlur}
+      onChange={_onChange}
+    />
+  );
 }
 
-export default React.memo(TextArea);
+export default TextArea;

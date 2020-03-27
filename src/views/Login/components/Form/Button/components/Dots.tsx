@@ -11,8 +11,8 @@ const boxStyles = {
 const dotStyles = {
   display: 'inline-block',
   background: '#fff',
-  height: '12px',
-  width: '12px',
+  height: [8, 10, 12],
+  width: [8, 10, 12],
   margin: '0 5px',
   borderRadius: '50%',
   transform: 'scale(0.7)',
@@ -26,4 +26,4 @@ const Dots = (): JSX.Element => (
   </Flex>
 );
 
-export default Dots;
+export default React.memo(Dots);

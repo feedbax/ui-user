@@ -1,13 +1,12 @@
 /* eslint-disable no-console */
 
 import api from 'lib/api';
-import sleep from 'lib/sleep';
+import { useLocationEffect } from 'lib/hooks';
 
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { useRouteMatch, useHistory, useLocation } from 'react-router-dom';
 
-import logo from 'assets/images/logo.png';
+import logo from 'assets/images/logo_128c.png';
 import bgProtrait from 'assets/images/background_vertical.jpg';
 import bgLandscape from 'assets/images/background_horizontal.jpg';
 
@@ -18,62 +17,41 @@ import Greeting from './components/Greeting';
 import { Form, Input, Button } from './components/Form';
 import { Footer, Divider, Text, Link } from './components/Footer';
 
-type ApiState = import('@feedbax/api/dist/store').ApiState;
-
-const doLoginApi = async (eventCode: string): Promise<void> => {
-  try {
-    console.log('doLoginApi', eventCode);
-    await api.login({ event: { slug: eventCode } });
-    console.log(api.store.getState());
-  } catch (error) {
-    console.error(error);
-  }
-};
+import { useApiLogin } from './hooks';
 
 function Login(): JSX.Element {
   const match = useRouteMatch<{ eventCode?: string }>();
-  const location = useLocation<{ reconnect?: boolean }>();
+  const location = useLocation<{ eventCode?: string }>();
   const history = useHistory();
 
   const { params } = match;
   const { state = {} } = location;
 
   const { eventCode: eventCodeInitial } = params;
-  const { reconnect: shouldReconnect } = state;
+  const { eventCode: eventCodeLast } = state;
 
-  const isEventLoaded = useSelector<ApiState>((_state) => _state.event.id !== '');
+  const [eventCode, setEventCode] = useState(eventCodeInitial || eventCodeLast || '');
+  const [isLoading, isLoggedIn, doLogin] = useApiLogin(eventCode);
 
-  const [eventCode, setEventCode] = useState(eventCodeInitial || '');
-  const [isLoading, setLoading] = useState(true);
+  useLocationEffect([`/${eventCode}`, '/login'], () => {
+    console.log('Login', 'useLocationEffect');
+    console.log('Login', 'eventCodeInitial?', eventCodeInitial);
 
-  const doLogin = async (): Promise<void> => {
-    const timeStart = Date.now();
-    let doLoginApiDuration = 0;
-
-    setLoading(true);
-
-    await doLoginApi(eventCode);
-
-    doLoginApiDuration = Date.now() - timeStart;
-    await sleep(Math.max(0, 500 - doLoginApiDuration));
-
-    setLoading(false);
-  };
-
-  useEffect(() => {
     api.logout();
-    setLoading(false);
 
-    if (shouldReconnect && eventCode !== '') {
+    if (eventCodeInitial && eventCodeInitial !== '') {
       doLogin();
     }
-  }, []); // eslint-disable-line
+  });
 
-  useEffect(() => {
-    if (isEventLoaded && !isLoading) {
-      history.push(`/e/${eventCode}`);
-    }
-  }, [isEventLoaded, eventCode, history, isLoading]);
+  useEffect(
+    function onLogin() {
+      if (isLoggedIn && !isLoading) {
+        history.push(`/e/${eventCode}`);
+      }
+    },
+    [isLoggedIn, eventCode, history, isLoading]
+  );
 
   return (
     <Container bgLandscape={bgLandscape} bgProtrait={bgProtrait}>

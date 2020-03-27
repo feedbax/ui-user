@@ -12,4 +12,4 @@ const Divider = (props: BoxProps): JSX.Element => (
   />
 );
 
-export default Divider;
+export default React.memo(Divider);

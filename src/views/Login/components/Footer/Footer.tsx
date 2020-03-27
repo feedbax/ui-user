@@ -11,4 +11,4 @@ const Footer = ({ children }: Props): JSX.Element => (
   </Flex>
 );
 
-export default Footer;
+export default React.memo(Footer);

@@ -49,4 +49,4 @@ const Container = ({ children, bgProtrait, bgLandscape }: Props): JSX.Element =>
   </Flex>
 );
 
-export default React.memo(Container);
+export default Container;

@@ -20,4 +20,4 @@ const Link = ({ children, ...props }: Props): JSX.Element => (
   </RebassLink>
 );
 
-export default Link;
+export default React.memo(Link);
