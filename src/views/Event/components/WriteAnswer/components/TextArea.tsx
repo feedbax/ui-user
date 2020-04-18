@@ -1,54 +1,57 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 
-import { SxStyleProp } from 'rebass';
-import { Textarea, TextareaProps } from '@rebass/forms';
-
+import styled from 'styled-components';
+import { color, fontFamily } from 'assets/theme';
 import autosize from 'autosize';
 
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import { useFontLoader } from './hooks';
 
-interface Props extends TextareaProps {
+interface StyledProps {
   paddingRight?: number;
+}
+
+type TextAreaProps = JSX.IntrinsicElements['textarea'];
+
+interface Props extends TextAreaProps, StyledProps {
   onScrollable: (isScollable: boolean) => void;
 }
 
-const styleTextArea: SxStyleProp = {
-  backgroundColor: 'accent1',
-  fontSize: 1,
-  fontFamily: 'secondaryAccent',
-  color: 'primary',
-  resize: 'none',
-  border: 0,
-  outline: 0,
-  maxHeight: '116px',
-  padding: '20px 15px',
-  boxSizing: 'border-box',
-  '::placeholder': {
-    color: 'primary',
-    opacity: 0.7,
-  },
-};
+const paddingRightProp = ({ paddingRight = 65 }: StyledProps): string => `${paddingRight}px`;
+
+const StyledTextArea = styled.textarea<StyledProps>`
+  font-size: 16px;
+  resize: none;
+  border: 0;
+  outline: 0;
+  max-height: 116px;
+  padding: 20px 15px;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 0;
+
+  background-color: ${color('accent1')};
+  font-family: ${fontFamily('secondaryAccent')};
+  color: ${color('primary')};
+  padding-right: ${paddingRightProp};
+
+  &::placeholder {
+    color: ${color('primary')};
+    opacity: 0.7;
+  }
+`;
 
 function TextArea(props: Props): JSX.Element {
-  const { onChange, onFocus, onBlur, onScrollable, ..._props } = props;
-  const { paddingRight = 65, ...propsRest } = _props;
+  const { onChange, onScrollable, ..._props } = props;
 
-  const textareaRef = useRef<Element>();
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const [isScrollable, setScrollable] = useState(false);
   const isLoading = useFontLoader(['Klinic Slab Book']);
 
   useEffect(
     function onScrollablechanged() {
-      if (textareaRef.current && isScrollable) {
-        disableBodyScroll(textareaRef.current);
-      } else if (textareaRef.current) {
-        enableBodyScroll(textareaRef.current);
-      }
-
       onScrollable(isScrollable);
     },
-    [isScrollable, textareaRef] // eslint-disable-line react-hooks/exhaustive-deps
+    [isScrollable, onScrollable]
   );
 
   useEffect(
@@ -59,21 +62,6 @@ function TextArea(props: Props): JSX.Element {
     },
     [isLoading, textareaRef]
   );
-
-  useEffect(
-    () =>
-      function unmount(): void {
-        if (textareaRef.current) {
-          enableBodyScroll(textareaRef.current);
-        }
-      },
-    []
-  );
-
-  const _sx: SxStyleProp = {
-    ...styleTextArea,
-    paddingRight: `${paddingRight}px`,
-  };
 
   const _onChange = useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
@@ -92,40 +80,12 @@ function TextArea(props: Props): JSX.Element {
     [isScrollable, onChange]
   );
 
-  const _onFocus = useCallback(
-    (e: React.FocusEvent<HTMLTextAreaElement>): void => {
-      if (onFocus) {
-        onFocus(e);
-      }
-
-      if (textareaRef.current) {
-        disableBodyScroll(textareaRef.current);
-      }
-    },
-    [onFocus]
-  );
-
-  const _onBlur = useCallback(
-    (e: React.FocusEvent<HTMLTextAreaElement>): void => {
-      if (onBlur) {
-        onBlur(e);
-      }
-
-      if (textareaRef.current) {
-        enableBodyScroll(textareaRef.current);
-      }
-    },
-    [onBlur]
-  );
-
   return (
-    <Textarea
-      {...propsRest}
+    <StyledTextArea
+      {..._props}
       ref={textareaRef}
-      sx={_sx}
-      onFocus={_onFocus}
-      onBlur={_onBlur}
       onChange={_onChange}
+      data-scroll-lock-scrollable
     />
   );
 }

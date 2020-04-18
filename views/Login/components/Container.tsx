@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
-import { color } from 'assets/theme';
+import { color } from './Form/Button/node_modules/assets/theme';
+import media from './Form/Button/node_modules/lib/media-queries';
 
 interface Props {
   children: ReactNode;
@@ -9,10 +10,10 @@ interface Props {
 }
 
 const StyledWrapper = styled.div<Props>`
-  display: flex;
   width: 100%;
   height: 100%;
-  flex-direction: row;
+  display: flex;
+  flex-direction: center;
   justify-content: center;
   align-items: center;
   overflow: auto;
@@ -30,21 +31,15 @@ const StyledWrapper = styled.div<Props>`
   `}
 `;
 
+const mq = media('xs', 'sm', 'md');
 const StyledContent = styled.div`
-  display: flex;
-  flex-direction: column;
   flex: 1 1 auto;
-  max-width: 540px;
-  height: 100%;
-  max-height: 100%;
-  color: ${color('accent1')};
+  margin: auto;
+  color: ${color('primary')};
 
-  @media (min-width: 540px) {
-    max-height: 800px;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.5);
-  }
+  ${mq`
+    max-width: ${[380, 440, 500]}px;
+  `}
 `;
 
 const Container = ({ children, bgProtrait, bgLandscape }: Props): JSX.Element => (
@@ -53,4 +48,4 @@ const Container = ({ children, bgProtrait, bgLandscape }: Props): JSX.Element =>
   </StyledWrapper>
 );
 
-export default Container;
+export default React.memo(Container);

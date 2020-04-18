@@ -3,9 +3,9 @@ import { Switch, Route, RouteProps, useLocation } from 'react-router-dom';
 
 import { AnimatePresence, motion } from 'framer-motion';
 
-import Login from 'views/Login';
-import Event from 'views/Event';
-import Error404 from 'views/Error/404';
+import Login from '../views/Login';
+import Event from '../views/Event';
+import Error404 from '../views/Error/404';
 
 interface MyRouteProps extends RouteProps {
   key: string;
@@ -57,9 +57,9 @@ const Routes = (): JSX.Element => {
               <motion.div
                 key={key}
                 style={{ position: 'absolute', width: '100%', height: '100%' }}
-                initial={{ x: 0, opacity: 0, zIndex: 0 }}
-                animate={{ x: 0, zIndex: 0, opacity: 1 }}
-                exit={{ x: '-20px', zIndex: 1, opacity: 0 }}
+                initial={{ opacity: 0, zIndex: 0 }}
+                animate={{ zIndex: 0, opacity: 1 }}
+                exit={{ zIndex: 1, opacity: 0 }}
                 transition={{ duration: 0.5 }}
               >
                 <RouteChild />

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { color, fontFamily } from 'assets/theme';
-import media from 'lib/media-queries';
+import { color, fontFamily } from './Button/node_modules/assets/theme';
+import media from './Button/node_modules/lib/media-queries';
 
 type InputProps = Omit<JSX.IntrinsicElements['input'], 'ref' | 'children'>;
 
@@ -12,19 +12,16 @@ interface Props extends InputProps {
 const mq = media('xs', 'sm', 'md');
 
 const StyledInput = styled.input<InputProps>`
-  flex: 1 1 100%;
-  width: 100%;
-  outline: 0;
-  border: 0;
+  flex: 1 1 100%
+  width: 100%
+  outline: 0,
+  border: 0,
   border-radius: 0;
   font-weight: bold;
-  text-transform: uppercase;
-  box-sizing: border-box;
-  margin: 0;
+  textTransform: uppercase;
 
   color: ${color('accent1')};
   background-color: ${color('primary')};
-  font-family: ${fontFamily('secondary')};
 
   &::placeholder {
     font-style: italic;
@@ -33,7 +30,7 @@ const StyledInput = styled.input<InputProps>`
 
     color: ${color('accent1')};
     font-family: ${fontFamily('secondary')};
-  }
+  },
 
   ${mq`
     padding: ${[20, 24, 28]}px ${[28, 32, 36]}px;

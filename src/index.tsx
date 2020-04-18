@@ -1,11 +1,15 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 
+import { disablePageScroll } from 'scroll-lock';
+
 import App from 'App';
 import rootElement from 'lib/rootElement';
 import * as serviceWorker from 'serviceWorker';
 
 import 'assets/style.css';
+
+disablePageScroll();
 
 if (rootElement?.hasChildNodes()) {
   ReactDom.hydrate(<App />, rootElement);

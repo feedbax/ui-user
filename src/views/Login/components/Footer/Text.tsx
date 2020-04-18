@@ -1,14 +1,16 @@
 import React, { ReactNode } from 'react';
-import { Text as RebassText, TextProps } from 'rebass';
+import styled from 'styled-components';
+import { fontFamily } from 'assets/theme';
 
-interface Props extends TextProps {
+interface Props {
   children: ReactNode;
 }
 
-const Text = ({ children, ...props }: Props): JSX.Element => (
-  <RebassText {...props} sx={{ fontFamily: 'secondaryAccent', fontSize: 1 }}>
-    {children}
-  </RebassText>
-);
+const StyledText = styled.div`
+  font-family: ${fontFamily('secondaryAccent')};
+  font-size: 16px;
+`;
+
+const Text = ({ children }: Props): JSX.Element => <StyledText>{children}</StyledText>;
 
 export default React.memo(Text);

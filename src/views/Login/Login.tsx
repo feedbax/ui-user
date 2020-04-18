@@ -55,7 +55,7 @@ function Login(): JSX.Element {
 
   return (
     <Container bgLandscape={bgLandscape} bgProtrait={bgProtrait}>
-      <Logo mb={[30, 40, 50]}>
+      <Logo margin={['0 0 30px 0', '0 0 40px 0', '0 0 50px 0']}>
         <Image image={logo} />
         <Title>feedbax</Title>
         <Description>by 365steps</Description>

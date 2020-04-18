@@ -1,10 +1,15 @@
-body, #root {
+html, body, #root {
   height: 100%;
   width: 100%;
-  position: fixed;
-  margin: 0;
-  background-color: #3a556a;
+  position: relative;
+  background-color: rgb(58, 85, 106);
   overflow: hidden;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  padding: 0px;
+  margin: 0px;
 }
 
 *:focus {
@@ -13,6 +18,7 @@ body, #root {
 
 * {
   -webkit-tap-highlight-color: transparent;
+  -webkit-overflow-scrolling: touch;
 }
 
 @font-face {

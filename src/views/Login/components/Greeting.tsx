@@ -1,22 +1,24 @@
 import React, { ReactNode } from 'react';
-import { Text } from 'rebass';
+import styled from 'styled-components';
+import media from 'lib/media-queries';
+import { color, fontFamily } from 'assets/theme';
 
 interface Props {
   children: ReactNode;
 }
 
-const Greeting = ({ children }: Props): JSX.Element => (
-  <Text
-    sx={{
-      color: 'primary',
-      fontFamily: 'secondary',
-      fontWeight: 'bold',
-      fontSize: [82, 92, 102],
-      textAlign: 'center',
-    }}
-  >
-    {children}
-  </Text>
-);
+const mq = media('xs', 'sm', 'md');
+const StyledText = styled.div`
+  color: ${color('primary')};
+  font-family: ${fontFamily('secondary')};
+  font-weight: bold;
+  text-align: center;
+
+  ${mq`
+    font-size: ${[82, 92, 102]}px;
+  `}
+`;
+
+const Greeting = ({ children }: Props): JSX.Element => <StyledText>{children}</StyledText>;
 
 export default React.memo(Greeting);

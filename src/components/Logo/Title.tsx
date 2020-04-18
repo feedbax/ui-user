@@ -1,5 +1,8 @@
 import React, { useContext, ReactNode } from 'react';
-import { Text, SxStyleProp } from 'rebass';
+
+import media from 'lib/media-queries';
+import styled, { FlattenInterpolation } from 'styled-components';
+import { fontFamily, color, ThemeProps } from 'assets/theme';
 
 import { LogoProps, LogoSize } from './Logo';
 
@@ -7,21 +10,38 @@ interface Props {
   children: ReactNode;
 }
 
+type StyledPropsApperance = {
+  fontSize: number[];
+};
+
+interface StyledProps {
+  apperance: StyledPropsApperance;
+}
+
+const mq = media('xs', 'sm', 'md');
+
+const StyledText = styled.div<StyledProps>`
+  font-family: ${fontFamily('secondary')};
+  color: ${color('primary')};
+  font-weight: bold;
+
+  ${(props): FlattenInterpolation<ThemeProps> => mq`
+    font-size: ${props.apperance.fontSize}px;
+  `}
+`;
+
 const Title = ({ children }: Props): JSX.Element => {
   const { size } = useContext(LogoProps);
 
-  let titleStyle: SxStyleProp = {
-    fontFamily: 'secondary',
-    fontWeight: 'bold',
-    color: 'primary',
+  let titleStyle: StyledPropsApperance = {
+    fontSize: [0],
   };
 
   // eslint-disable-next-line default-case
   switch (size) {
     case LogoSize.Small: {
       titleStyle = {
-        ...titleStyle,
-        fontSize: [0, 1, 2],
+        fontSize: [14, 16, 18],
       };
 
       break;
@@ -29,15 +49,14 @@ const Title = ({ children }: Props): JSX.Element => {
 
     case LogoSize.Regular: {
       titleStyle = {
-        ...titleStyle,
-        fontSize: [2, 3, 4],
+        fontSize: [18, 22, 26],
       };
 
       break;
     }
   }
 
-  return <Text sx={titleStyle}>{children}</Text>;
+  return <StyledText apperance={titleStyle}>{children}</StyledText>;
 };
 
 export default React.memo(Title);

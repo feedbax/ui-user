@@ -1,1 +1,1 @@
-export default document.getElementById('root');
+export default document.getElementById('root') as HTMLElement;

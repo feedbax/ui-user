@@ -1,14 +1,17 @@
 import React, { ReactNode } from 'react';
-import { Flex } from 'rebass';
+import styled from 'styled-components';
 
 interface Props {
   children: ReactNode;
 }
 
-const Footer = ({ children }: Props): JSX.Element => (
-  <Flex flexDirection="column" justifyContent="center" alignItems="center">
-    {children}
-  </Flex>
-);
+const StyledFooter = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Footer = ({ children }: Props): JSX.Element => <StyledFooter>{children}</StyledFooter>;
 
 export default React.memo(Footer);

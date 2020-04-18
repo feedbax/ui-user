@@ -1,20 +1,22 @@
 import React, { Ref, ReactNode } from 'react';
-import { SxStyleProp, Box, BoxProps } from 'rebass';
+import styled from 'styled-components';
+import { color } from 'assets/theme';
 
-interface Props extends BoxProps {
+interface Props {
   children: ReactNode;
 }
 
-const styleContent: SxStyleProp = {
-  flex: '1 1 100%',
-  overflowY: 'auto',
-  position: 'relative',
-};
+const StyledContent = styled.div`
+  flex: 1 1 100%;
+  overflow-y: auto;
+  position: relative;
+  background-color: ${color('accent2')};
+`;
 
-const Content = ({ children, ...props }: Props, ref: Ref<Element>): JSX.Element => (
-  <Box {...props} ref={ref} sx={styleContent}>
+const Content = ({ children }: Props, ref: Ref<HTMLDivElement>): JSX.Element => (
+  <StyledContent ref={ref} data-scroll-lock-scrollable>
     {children}
-  </Box>
+  </StyledContent>
 );
 
 export default React.forwardRef(Content);

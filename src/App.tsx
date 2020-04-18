@@ -3,7 +3,7 @@ import FBXAPI from '@feedbax/api';
 
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { ThemeProvider } from 'emotion-theming';
+import { ThemeProvider } from 'styled-components';
 
 import theme from 'assets/theme';
 import Routes from 'lib/routes';

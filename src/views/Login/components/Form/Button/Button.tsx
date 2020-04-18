@@ -1,47 +1,54 @@
 import React from 'react';
-import { Button as RebassButton, ButtonProps } from 'rebass';
+
+import styled, { FlattenInterpolation } from 'styled-components';
+import media from 'lib/media-queries';
 import { AnimatePresence } from 'framer-motion';
 
-import theme from 'assets/theme';
+import { ThemeProps, fontFamily, color } from 'assets/theme';
 
 import MotionLabel from './components/MotionLabel';
 import MotionDots from './components/MotionDots';
 
-interface Props extends ButtonProps {
-  children: string;
-  loading?: boolean;
-  height?: number | number[] | string;
+type ButtonProps = Omit<JSX.IntrinsicElements['button'], 'ref'>;
+
+interface StyledProps {
+  height?: number[];
 }
 
-const buttonStyles = {
-  cursor: 'pointer',
-  fontSize: [2, 3, 4],
-  fontWeight: 'bold',
-  fontFamily: 'secondary',
-  color: 'primary',
-  bg: 'accent1',
-  borderRadius: '0',
-  width: '100%',
-  textAlign: 'left',
-  px: [28, 32, 36],
-  py: [12, 16, 20],
-  boxShadow: `
-    inset -5px -5px 20px ${theme.colors.accent1_light_20},
-    inset 5px 5px 20px ${theme.colors.accent1_dark_20}`,
-};
+interface Props extends ButtonProps, StyledProps {
+  loading?: boolean;
+  children: string;
+}
 
-const Button = ({
-  height = 'auto',
-  loading = false,
-  children: label,
-  ...props
-}: Props): JSX.Element => (
-  <RebassButton {...props} sx={{ ...buttonStyles, height }}>
+const mq = media('xs', 'sm', 'md');
+
+const StyledButton = styled.button<StyledProps>`
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 0;
+  width: 100%;
+  text-align: left;
+  font-family: ${fontFamily('secondary')};
+  color: ${color('primary')};
+  background-color: ${color('accent1')};
+
+  outline: 0;
+  border: 0;
+
+  ${(props: StyledProps): FlattenInterpolation<ThemeProps> => mq`
+    height: ${props?.height || 'auto'}px;
+    font-size: ${[18, 22, 26]}px;
+    padding: ${[12, 16, 20]}px ${[28, 32, 36]}px;
+  `}
+`;
+
+const Button = ({ loading = false, children: label, ...props }: Props): JSX.Element => (
+  <StyledButton {...props}>
     <AnimatePresence exitBeforeEnter initial={false}>
       {loading && <MotionDots />}
       {!loading && <MotionLabel label={label} />}
     </AnimatePresence>
-  </RebassButton>
+  </StyledButton>
 );
 
 export default React.memo(Button);
