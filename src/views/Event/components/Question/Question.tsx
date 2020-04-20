@@ -2,11 +2,14 @@ import React, { useState, useCallback } from 'react';
 
 import { createSelector } from 'reselect';
 import { useSelector } from 'react-redux';
-import { motion, AnimatePresence, PanInfo } from 'framer-motion';
 import { useLocationEffect } from 'lib/hooks';
+
 import styled from 'styled-components';
 import { fontFamily, color } from 'assets/theme';
 import media from 'lib/media-queries';
+
+import Dragger from './components/Dragger';
+import Placeholder from './components/Placeholder';
 
 type ApiState = import('@feedbax/api/dist/store').ApiState;
 type QuestionState = import('@feedbax/api/dist/store/questions/types').QuestionState;
@@ -21,7 +24,7 @@ interface Props {
 }
 
 type StyledProps = {
-  height: number;
+  questionHeight: number;
 };
 
 const StyledWrapper = styled.div<StyledProps>`
@@ -34,7 +37,7 @@ const StyledWrapper = styled.div<StyledProps>`
   user-select: none;
   position: absolute;
 
-  height: ${(props): number => props.height}px;
+  height: ${(props): number => props.questionHeight}px;
 `;
 
 const StyledQuestionWrapper = styled.div`
@@ -66,7 +69,6 @@ const StyledQuestionNumber = styled.div`
 
 const StyledQuestionText = styled.div`
   flex: 0 1 auto;
-  text-align: justify;
 
   ${mq`
     font-size: ${[18, 22, 25]}px;
@@ -87,7 +89,6 @@ function Question({
   onQuestionChange,
   onQuestionHeightChange,
 }: Props): JSX.Element {
-  const [direction, setDirection] = useState<number>(-1);
   const [questionHeight, setQuestionHeight] = useState<number>(0);
 
   const questions = useSelector<ApiState, Question[]>(questionsSelector);
@@ -104,76 +105,37 @@ function Question({
     console.log('Question', 'isEventLoaded?', isEventLoaded);
   });
 
-  const _getHeight = (questionElement: HTMLDivElement | null): void => {
-    if (questionElement) {
-      const { height } = questionElement.getBoundingClientRect();
-      setQuestionHeight(height);
-      onQuestionHeightChange(height + 40);
-      console.log('question', 'height', height);
-    }
-  };
-
-  const _onDragEnd = useCallback(
-    (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo): void => {
-      if (info.point.x >= 10) {
-        setDirection(1);
-        onQuestionChange(Math.max(questionNumber - 1, 0));
-      }
-
-      if (info.point.x <= -10) {
-        setDirection(-1);
-        onQuestionChange(Math.min(questionNumber + 1, questions.length - 1));
+  const _getHeight = useCallback(
+    (questionElement: HTMLDivElement | null): void => {
+      if (questionElement) {
+        const { height } = questionElement.getBoundingClientRect();
+        setQuestionHeight(height);
+        onQuestionHeightChange(height + 40);
+        console.log('question', 'height', height);
       }
     },
-    [onQuestionChange, questionNumber, questions.length]
+    [onQuestionHeightChange]
   );
 
-  const _content = (
-    <>
-      <motion.div
-        key={`overlay-${question?.id}`}
-        initial={{ display: 'block' }}
-        animate={{ display: 'inherit', transitionEnd: { display: 'none' } }}
-        exit={{ display: 'block' }}
-        transition={{ duration: 0.3 }}
-        style={{
-          position: 'absolute',
-          height: '100%',
-          width: '100%',
-          left: 0,
-          top: 0,
-          zIndex: 2,
-        }}
-      />
-      <AnimatePresence initial={false}>
-        <motion.div
-          drag="x"
-          dragConstraints={{ left: 0, right: 0 }}
-          dragElastic={0.2}
-          onDragEnd={_onDragEnd}
-          style={{
-            position: 'absolute',
-            padding: '20px 30px',
-            width: '100%',
-            height: '100%',
-            boxSizing: 'border-box',
-          }}
-          key={question?.id}
-          initial={{ x: `${direction * -100}%` }}
-          animate={{ x: 0 }}
-          exit={{ x: `${direction * 100}%`, zIndex: 1 }}
-          transition={{ duration: 0.3 }}
+  return (
+    <StyledWrapper questionHeight={questionHeight + 40}>
+      {isReady ? (
+        <Dragger
+          onQuestionChange={onQuestionChange}
+          question={question}
+          questionNumber={questionNumber}
+          questionsLength={questions.length}
         >
           <StyledQuestionWrapper ref={_getHeight}>
             <StyledQuestionNumber>{`${questionNumber + 1}`.padStart(2, '0')}</StyledQuestionNumber>
             <StyledQuestionText>{question?.text || ''}</StyledQuestionText>
           </StyledQuestionWrapper>
-        </motion.div>
-      </AnimatePresence>
-    </>
+        </Dragger>
+      ) : (
+        <Placeholder ref={_getHeight} />
+      )}
+    </StyledWrapper>
   );
-
-  return <StyledWrapper height={questionHeight + 40}> {isReady ? _content : ''}</StyledWrapper>;
 }
 
 export default React.memo(Question);

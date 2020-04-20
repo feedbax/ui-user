@@ -1,7 +1,7 @@
 import { css, FlattenInterpolation } from 'styled-components';
 import { ThemeProps } from 'assets/theme';
 
-type Fn = (props: any) => string;
+type Fn = (props: unknown) => string;
 type Prop = string[] | number[] | string | number | Fn;
 type CSS = typeof css;
 type CSSReturn = ReturnType<CSS>;
@@ -80,11 +80,26 @@ const createSubstitutions: CreateSubstitutions = (_sizes, template, substitution
   return _substitutions;
 };
 
+const mqCache = new Map<string, Query>();
+const sortSizes = (a: Size, b: Size): number => (sizes[a] || 0) - (sizes[b] || 0);
+
 export default function media(..._sizes: Size[]): Query {
-  return (template, ...substitutions): CSSReturn => {
-    const _template = createTemplate(_sizes);
-    const _substitutions = createSubstitutions(_sizes, template, substitutions);
+  const sortedSizes = _sizes.sort(sortSizes);
+  const mqKey = sortedSizes.join('.');
+
+  const mqCached = mqCache.get(mqKey);
+
+  if (mqCached) {
+    return mqCached;
+  }
+
+  const mq: Query = (template, ...substitutions): CSSReturn => {
+    const _template = createTemplate(sortedSizes);
+    const _substitutions = createSubstitutions(sortedSizes, template, substitutions);
 
     return css(_template, ..._substitutions);
   };
+
+  mqCache.set(mqKey, mq);
+  return mq;
 }
