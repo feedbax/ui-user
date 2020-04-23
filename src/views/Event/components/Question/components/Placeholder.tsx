@@ -32,16 +32,18 @@ const StyledPlaceholder = styled.div`
       display: inline-block;
       color: rgba(0, 0, 0, 0);
       background: #fff;
-      border-radius: 50px;
+      border-radius: 5px;
       margin: 5px;
       margin-right: 15px;
       opacity: 0.3;
+      letter-spacing: 4px;
 
       ${mq`
         font-size: ${[32, 40, 46]}px;
         line-height: ${[21, 25, 28]}px;
         padding-bottom: ${[5.5, 7.5, 9]}px;
         border-bottom-width: ${[3, 3, 4]}px;
+        border-radius: ${[9, 10, 11]}px;
       `}
     }
 
@@ -50,7 +52,7 @@ const StyledPlaceholder = styled.div`
 
       ${mq`
         font-size: ${[10, 14, 17]}px;
-        line-height: ${[13, 17, 20]}px;    
+        line-height: ${[13, 17, 20]}px;
       `}
 
       .word {
@@ -58,8 +60,12 @@ const StyledPlaceholder = styled.div`
         display: inline-block;
         color: rgba(0, 0, 0, 0);
         background: #fff;
-        border-radius: 50px;
-        margin: 5px;
+        margin: 2px;
+        letter-spacing: 4px;
+
+        ${mq`
+          border-radius: ${[5, 6, 7]}px;
+        `}
       }
     }
   }
@@ -70,8 +76,9 @@ const QuestionPlaceholder = (_props: unknown, ref: Ref<HTMLDivElement>): JSX.Ele
     <div className="question" ref={ref}>
       <div className="number">01</div>
       <div className="text">
-        {'Glaube und Gesellschaft (Arbeit, Politik, Kulturm Musik, Kunst, Medien, Sport)'
+        {'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed'
           .split(' ')
+          .sort(() => Math.random() - 0.5)
           .map((word) => (
             <span key={word} className="word">
               {word}

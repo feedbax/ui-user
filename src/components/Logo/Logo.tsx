@@ -40,6 +40,8 @@ const autoSuffix = (arg: number | number[] | string | string[]): string => {
 };
 
 const StyledContainer = styled.div<StyledProps>`
+  flex: 0 0 auto;
+
   display: flex;
   flex-direction: column;
   justify-content: center;

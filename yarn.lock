@@ -1022,10 +1022,10 @@
   resolved "https://registry.yarnpkg.com/@emotion/unitless/-/unitless-0.7.5.tgz#77211291c1900a700b8a78cfafda3160d76949ed"
   integrity sha512-OWORNpfjMsSSUBVrRBVGECkhWcULOAJz9ZW8uK9qgxD+87M7jHRcvh/A96XXNhXTLmKcoYSQtBEX7lHMO7YRwg==
 
-"@feedbax/api@1.0.8":
-  version "1.0.8"
-  resolved "https://npm.pkg.github.com/download/@feedbax/api/1.0.8/74b6a420326962595e9e855afc15c3179aaa7bdf203828c6489c8c63b6acc524#170ce7864abeba8fc610b9b11bb0933a276e8dc4"
-  integrity sha512-cPIaIexuU5ShtbuyLyihYv+hC7RUhDHU+hX8ZFPXtJBjPjz6cm7fKSBcoxKSK9vTzIYctdleJSJQpT8cU+0BGg==
+"@feedbax/api@1.0.21":
+  version "1.0.21"
+  resolved "https://npm.pkg.github.com/download/@feedbax/api/1.0.21/1694ff04a762454044af9a91da168b7a32688a07a1240d962d889a1e6a862c32#c75a5c4f9cb09e50a4358f359ac0773d5025242e"
+  integrity sha512-f+eOg1E6DKdzxbGWCELeLfolwGSzt4zoqntS+qH8RL1nt2hpgB3Mg+CdsPfA59EQZ4cO+NnEO60p+e4/K6X5og==
   dependencies:
     js-cookie "^2.2.1"
     lodash.flattendeep "^4.4.0"
@@ -4172,9 +4172,9 @@ end-of-stream@^1.0.0, end-of-stream@^1.1.0:
     once "^1.4.0"
 
 engine.io-client@~3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/engine.io-client/-/engine.io-client-3.4.0.tgz#82a642b42862a9b3f7a188f41776b2deab643700"
-  integrity sha512-a4J5QO2k99CM2a0b12IznnyQndoEvtA4UAldhGzKqnHf42I3Qs2W5SPnDvatZRcMaNZs4IevVicBPayxYt6FwA==
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/engine.io-client/-/engine.io-client-3.4.1.tgz#922ddb47eecdcb541136a93aeead24718fd05461"
+  integrity sha512-RJNmA+A9Js+8Aoq815xpGAsgWH1VoSYM//2VgIiu9lNOaHFfLpTjH4tOzktBpjIs5lvOfiNY1dwf+NuU6D38Mw==
   dependencies:
     component-emitter "1.2.1"
     component-inherit "0.0.3"

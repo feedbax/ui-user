@@ -12,10 +12,10 @@ const StyledWrapper = styled.div<Props>`
   display: flex;
   width: 100%;
   height: 100%;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  overflow: auto;
+  overflow: hidden;
   background-size: cover;
   background-position: center;
 
@@ -38,6 +38,7 @@ const StyledContent = styled.div`
   height: 100%;
   max-height: 100%;
   color: ${color('accent1')};
+  width: 100%;
 
   @media (min-width: 540px) {
     max-height: 800px;

@@ -6,6 +6,7 @@ interface Props {
 }
 
 const Box = styled.div`
+  flex: 0 0 auto;
   display: block;
   position: relative;
   max-width: 100%;

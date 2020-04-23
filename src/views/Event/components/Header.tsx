@@ -7,10 +7,9 @@ interface Props {
 }
 
 const StyledContent = styled.div`
-  flex: 1 1 100%;
-  overflow-y: scroll;
+  flex: 0 1 auto;
   position: relative;
-  background-color: ${color('primary')};
+  background-color: ${color('accent2')};
   display: flex;
   flex-direction: column;
 `;

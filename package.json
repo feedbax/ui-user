@@ -17,15 +17,14 @@
     ]
   },
   "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not op_mini all"
+    ">0.0%"
   ],
   "dependencies": {
-    "@feedbax/api": "1.0.8",
+    "@feedbax/api": "1.0.21",
     "autosize": "^4.0.2",
     "framer-motion": "^1.9.1",
     "react": "^16.13.0",
+    "react-app-polyfill": "^1.0.6",
     "react-dom": "^16.13.0",
     "react-helmet": "^5.2.1",
     "react-redux": "^7.2.0",

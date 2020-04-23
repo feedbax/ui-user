@@ -1,15 +1,15 @@
 import React, { useState, useCallback, ReactNode } from 'react';
 
 import { motion, AnimatePresence, PanInfo, Variants } from 'framer-motion';
+import { useSelector } from 'react-redux';
 
+type ApiState = import('@feedbax/api/dist/store').ApiStateDefault;
 type QuestionState = import('@feedbax/api/dist/store/questions/types').QuestionState;
 type Question = Omit<QuestionState, 'answers' | 'likes'>;
 
 interface Props {
   children: ReactNode;
   question: Question;
-  questionNumber: number;
-  questionsLength: number;
   onQuestionChange: (newQuestionNumber: number) => void;
 }
 
@@ -68,6 +68,7 @@ const Question = ({ _key, children, direction, onDragEnd }: QuestionProps): JSX.
     style={{
       position: 'absolute',
       padding: '20px 30px',
+      paddingBottom: '0',
       width: '100%',
       height: '100%',
       boxSizing: 'border-box',
@@ -79,25 +80,27 @@ const Question = ({ _key, children, direction, onDragEnd }: QuestionProps): JSX.
 
 function Dragger(props: Props): JSX.Element {
   const { question } = props;
-  const { questionNumber, questionsLength } = props;
   const { onQuestionChange } = props;
   const { children } = props;
 
   const [direction, setDirection] = useState<number>(-1);
+  const questionsLength = useSelector<ApiState, number>(
+    (state) => state.api.event.questions.length
+  );
 
   const _onDragEnd = useCallback(
     (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo): void => {
       if (info.point.x >= 10) {
         setDirection(1);
-        onQuestionChange(Math.max(questionNumber - 1, 0));
+        onQuestionChange(Math.max(question.order - 1, 0));
       }
 
       if (info.point.x <= -10) {
         setDirection(-1);
-        onQuestionChange(Math.min(questionNumber + 1, questionsLength - 1));
+        onQuestionChange(Math.min(question.order + 1, questionsLength - 1));
       }
     },
-    [onQuestionChange, questionNumber, questionsLength]
+    [onQuestionChange, question.order, questionsLength]
   );
 
   return (

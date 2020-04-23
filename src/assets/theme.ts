@@ -22,4 +22,6 @@ export type Color = 'primary' | 'accent1' | 'accent2';
 export const fontFamily = (f: FontFamily) => ({ theme: t }: ThemeProps): string => t.fonts[f];
 export const color = (c: Color) => ({ theme: t }: ThemeProps): string => t.colors[c];
 
+export type ColorFn = ReturnType<typeof color>;
+
 export default theme;

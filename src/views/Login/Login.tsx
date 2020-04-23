@@ -11,11 +11,11 @@ import bgProtrait from 'assets/images/background_vertical.jpg';
 import bgLandscape from 'assets/images/background_horizontal.jpg';
 
 import Logo, { Image, Title, Description } from 'components/Logo';
+import { Footer, Divider, Text, Link } from 'components/Footer';
 
 import Container from './components/Container';
 import Greeting from './components/Greeting';
 import { Form, Input, Button } from './components/Form';
-import { Footer, Divider, Text, Link } from './components/Footer';
 
 import { useApiLogin } from './hooks';
 
@@ -30,12 +30,14 @@ function Login(): JSX.Element {
   const { eventCode: eventCodeInitial } = params;
   const { eventCode: eventCodeLast } = state;
 
-  const [eventCode, setEventCode] = useState(eventCodeInitial || eventCodeLast || '');
+  const [eventCode, _setEventCode] = useState(eventCodeInitial || eventCodeLast || '');
+  const setEventCode = (code: string): void => _setEventCode(code.trim().toLocaleLowerCase());
+
   const [isLoading, isLoggedIn, doLogin] = useApiLogin(eventCode);
 
   useLocationEffect([`/${eventCode}`, '/login'], () => {
-    console.log('Login', 'useLocationEffect');
-    console.log('Login', 'eventCodeInitial?', eventCodeInitial);
+    // console.log('Login', 'useLocationEffect');
+    // console.log('Login', 'eventCodeInitial?', eventCodeInitial);
 
     api.logout();
 
@@ -73,7 +75,7 @@ function Login(): JSX.Element {
         </Button>
       </Form>
 
-      <Footer>
+      <Footer color="primary">
         <Divider />
         <Text>{`© 2019-${new Date().getFullYear()} | feedb.ax by 365steps`}</Text>
         <Link to="/legal/privacy-policy">{`Datenschutz & Impressum`}</Link>

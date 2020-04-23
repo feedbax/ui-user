@@ -13,10 +13,10 @@ function useApiLogin(eventCode: string): [boolean, boolean, () => Promise<void>]
     let doLoginApiDuration = 0;
 
     try {
-      const event = await api.login({ event: { slug: eventCode } });
-      console.log('event', event);
+      await api.login({ event: { slug: eventCode } });
       setLoggedIn(true);
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error);
     }
 

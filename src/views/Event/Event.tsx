@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 
 import Logo, { LogoSize, Title, Description, Image } from 'components/Logo';
+import Button from 'components/ButtonNeumorphism';
+import { Footer, Divider, Link, Text } from 'components/Footer';
 
 import getScrollBarWidth from 'lib/get-scrollbar-width';
 import { useLocationEffect } from 'lib/hooks';
@@ -13,33 +15,17 @@ import bgLandscape from 'assets/images/background_horizontal.jpg';
 
 import Container from './components/Container';
 import Content from './components/Content';
+import Pagination from './components/Pagination';
 import Question from './components/Question';
-import WriteAnswer, { TextArea, Button } from './components/WriteAnswer';
+import AnswerFilter from './components/AnswerFilter';
+import Answers from './components/Answers';
+import WriteAnswer, { TextArea } from './components/WriteAnswer';
+import Header from './components/Header';
 
-type ApiState = import('@feedbax/api/dist/store').ApiState;
+type ApiState = import('@feedbax/api/dist/store').ApiStateDefault;
 
 const defaultElement = document.createElement('div');
 const scrollBarWidth = getScrollBarWidth();
-
-const demoElements = new Array<JSX.Element>(200).fill(<></>).map(
-  (_, i): JSX.Element => (
-    <div key={i} style={{ backgroundColor: '#fff' }}>
-      {i}
-    </div>
-  )
-);
-
-function Demo({ height }: { height: number }): JSX.Element {
-  return (
-    <div
-      style={{
-        transform: `translateY(${height}px)`,
-      }}
-    >
-      {demoElements}
-    </div>
-  );
-}
 
 const Event = (): JSX.Element => {
   const history = useHistory();
@@ -52,17 +38,14 @@ const Event = (): JSX.Element => {
 
   const [answerText, setAnswerText] = useState('');
   const [isTextScrollable, setTextScrollable] = useState(false);
-  const isEventLoaded = useSelector<ApiState, boolean>((_state) => _state.event.id !== '');
-
-  const [questionNumber, setQuestionNumber] = useState(0);
-  const [questionHeight, setQuestionHeight] = useState<number>(0);
+  const isEventLoaded = useSelector<ApiState, boolean>((_state) => _state.api.event.id !== '');
 
   useLocationEffect(`/e/${eventCode}`, () => {
-    console.log('Event', 'useLocationEffect');
-    console.log('Event', 'isEventLoaded?', isEventLoaded);
+    // console.log('Event', 'useLocationEffect');
+    // console.log('Event', 'isEventLoaded?', isEventLoaded);
 
     if (!isEventLoaded) {
-      console.log('Event', 'redirect to login');
+      // console.log('Event', 'redirect to login');
       history.push(`/${eventCode}`);
     }
   });
@@ -75,62 +58,62 @@ const Event = (): JSX.Element => {
     setTextScrollable(isScrollable);
   }, []);
 
-  const _onQuestionChange = useCallback((newQuestionNumber: number): void => {
-    setQuestionNumber(newQuestionNumber);
-  }, []);
-
-  const _onQuestionHeightChange = useCallback((newQuestionHeight: number): void => {
-    setQuestionHeight(newQuestionHeight);
-  }, []);
-
   const _logout = useCallback((): void => {
     history.push(`/login`, { eventCode });
   }, []); // eslint-disable-line
 
   const _share = useCallback((): void => {
-    console.log('share');
+    // console.log('share');
   }, []);
 
   return (
     <Container bgLandscape={bgLandscape} bgProtrait={bgProtrait}>
       <Content ref={questionsWrapperRef}>
-        <Button
-          onClick={_logout}
-          icon="log-out"
-          size={28}
-          apperance={{
-            backgroundColor: 'accent2',
-            position: 'absolute',
-            left: 20,
-            top: 20,
-          }}
-        />
+        <Header>
+          <Button
+            onClick={_logout}
+            icon="log-out"
+            size={28}
+            apperance={{
+              backgroundColor: 'accent2',
+              position: 'absolute',
+              left: 0,
+              top: 0,
+              padding: 20,
+            }}
+          />
 
-        <Button
-          onClick={_share}
-          icon="share"
-          size={28}
-          apperance={{
-            backgroundColor: 'accent2',
-            position: 'absolute',
-            right: 20,
-            top: 20,
-          }}
-        />
+          <Button
+            onClick={_share}
+            icon="share"
+            size={28}
+            apperance={{
+              backgroundColor: 'accent2',
+              position: 'absolute',
+              right: 0,
+              top: 0,
+              padding: 20,
+            }}
+          />
 
-        <Logo size={LogoSize.Small} padding="20px 0">
-          <Image image={logo} />
-          <Title>feedbax</Title>
-          <Description>by 365steps</Description>
-        </Logo>
+          <Logo size={LogoSize.Small} padding="20px 0">
+            <Image image={logo} />
+            <Title>feedbax</Title>
+            <Description>by 365steps</Description>
+          </Logo>
 
-        <Question
-          questionNumber={questionNumber}
-          onQuestionHeightChange={_onQuestionHeightChange}
-          onQuestionChange={_onQuestionChange}
-        />
+          <Pagination />
+          <Question />
+          <AnswerFilter />
+        </Header>
 
-        <Demo height={questionHeight} />
+        <Answers />
+
+        <Footer color="accent1">
+          <Divider />
+          <Text>{`© 2019-${new Date().getFullYear()} | feedb.ax by 365steps`}</Text>
+          <Link to="/legal/privacy-policy">{`Datenschutz & Impressum`}</Link>
+        </Footer>
       </Content>
       <WriteAnswer>
         <TextArea
@@ -149,6 +132,9 @@ const Event = (): JSX.Element => {
           apperance={{
             transform: `translate(-${isTextScrollable ? scrollBarWidth : 0}px, -50%)`,
             backgroundColor: 'accent1',
+            position: 'absolute',
+            top: [50, '%'],
+            right: 15,
           }}
         />
       </WriteAnswer>
