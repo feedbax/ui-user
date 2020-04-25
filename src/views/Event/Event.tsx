@@ -2,6 +2,10 @@ import React, { useRef, useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 
+import api from 'lib/api';
+import store from 'store';
+import { isEventLoadedSelector } from 'store/selectors';
+
 import Logo, { LogoSize, Title, Description, Image } from 'components/Logo';
 import Button from 'components/ButtonNeumorphism';
 import { Footer, Divider, Link, Text } from 'components/Footer';
@@ -22,8 +26,6 @@ import Answers from './components/Answers';
 import WriteAnswer, { TextArea } from './components/WriteAnswer';
 import Header from './components/Header';
 
-type ApiState = import('@feedbax/api/dist/store').ApiStateDefault;
-
 const defaultElement = document.createElement('div');
 const scrollBarWidth = getScrollBarWidth();
 
@@ -38,7 +40,7 @@ const Event = (): JSX.Element => {
 
   const [answerText, setAnswerText] = useState('');
   const [isTextScrollable, setTextScrollable] = useState(false);
-  const isEventLoaded = useSelector<ApiState, boolean>((_state) => _state.api.event.id !== '');
+  const isEventLoaded = useSelector(isEventLoadedSelector);
 
   useLocationEffect(`/e/${eventCode}`, () => {
     // console.log('Event', 'useLocationEffect');
@@ -65,6 +67,24 @@ const Event = (): JSX.Element => {
   const _share = useCallback((): void => {
     // console.log('share');
   }, []);
+
+  const _postAnswer = useCallback(async (): Promise<void> => {
+    const { app, api: _api } = store.getState();
+    const { currentQuestion } = app;
+
+    if (currentQuestion) {
+      const props = {
+        question: { id: currentQuestion?.id },
+        answer: { text: answerText },
+      };
+
+      console.log(_api.event.id);
+      console.log(props);
+
+      await api.postAnswer(props);
+      setAnswerText('');
+    }
+  }, [answerText]);
 
   return (
     <Container bgLandscape={bgLandscape} bgProtrait={bgProtrait}>
@@ -128,6 +148,7 @@ const Event = (): JSX.Element => {
         <Button
           icon="send"
           disabled={answerText.length === 0}
+          onClick={_postAnswer}
           size={35}
           apperance={{
             transform: `translate(-${isTextScrollable ? scrollBarWidth : 0}px, -50%)`,

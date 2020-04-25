@@ -20,7 +20,7 @@
     ">0.0%"
   ],
   "dependencies": {
-    "@feedbax/api": "1.0.21",
+    "@feedbax/api": "1.0.26",
     "autosize": "^4.0.2",
     "framer-motion": "^1.9.1",
     "react": "^16.13.0",

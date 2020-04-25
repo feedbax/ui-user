@@ -3,11 +3,12 @@ import { useSelector } from 'react-redux';
 
 import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
 
-import store, { RootState } from 'store';
+import store from 'store';
 import { answerFilters, AnswerFilter } from 'store/types';
 import { setAnswerFilter } from 'store/actions';
 
 import Button from 'components/ButtonNeumorphism';
+import { currentAnswerFilterSelector } from 'store/selectors';
 
 interface PaginationDotProps {
   active: boolean;
@@ -49,7 +50,7 @@ const getIcon = (filter: number, currentFilter: number): string => {
 };
 
 function SelectAnswerFilter(): JSX.Element {
-  const currentFilter = useSelector<RootState, AnswerFilter>((state) => state.app.answerFilter);
+  const currentFilter = useSelector(currentAnswerFilterSelector);
 
   return (
     <Wrapper>

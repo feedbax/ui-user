@@ -1,19 +1,8 @@
 import React from 'react';
 import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
-import { createSelector } from 'reselect';
 import { useSelector } from 'react-redux';
 
-import { NoneQuestion } from '@feedbax/api/dist/store/questions/types';
-import { RootState } from 'store';
-
-type ApiState = import('@feedbax/api/dist/store').ApiStateDefault;
-type QuestionState = import('@feedbax/api/dist/store/questions/types').QuestionState;
-type QuestionsState = import('@feedbax/api/dist/store/questions/types').QuestionsState;
-
-type Question = Omit<QuestionState, 'answers' | 'likes' | 'text' | 'type' | 'settings'>;
-
-type StripProps = ['answers', 'likes', 'text', 'type', 'settings'];
-const stripProps: StripProps = ['answers', 'likes', 'text', 'type', 'settings'];
+import { currentQuestionSelector, questionsSelector } from 'store/selectors';
 
 interface PaginationDotProps {
   active: boolean;
@@ -42,28 +31,9 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-const questionsSelector = createSelector<ApiState, QuestionsState, Question[]>(
-  (_state) => _state.api.questions,
-  (questions) =>
-    Object.values(questions)
-      .sort((a, b) => a.order - b.order)
-      .map<Question>((question) => {
-        const newQuestion = { ...question };
-
-        for (let i = 0; i < stripProps.length; i += 1) {
-          const stripProp = stripProps[i];
-          delete newQuestion[stripProp];
-        }
-
-        return newQuestion;
-      })
-);
-
 function Pagination(): JSX.Element {
-  const questions = useSelector<ApiState, Question[]>(questionsSelector);
-  const currentQuestion = useSelector<RootState, Question>(
-    (state) => state.app.currentQuestion || NoneQuestion
-  );
+  const questions = useSelector(questionsSelector);
+  const currentQuestion = useSelector(currentQuestionSelector);
 
   return (
     <Wrapper>

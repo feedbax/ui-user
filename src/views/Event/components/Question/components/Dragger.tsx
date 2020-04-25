@@ -1,16 +1,18 @@
-import React, { useState, useCallback, ReactNode } from 'react';
-
-import { motion, AnimatePresence, PanInfo, Variants } from 'framer-motion';
+import React, { useCallback, ReactNode } from 'react';
 import { useSelector } from 'react-redux';
 
-type ApiState = import('@feedbax/api/dist/store').ApiStateDefault;
+import { motion, AnimatePresence, PanInfo, Variants } from 'framer-motion';
+
+import { questionsLengthSelector } from 'store/selectors';
+import { QuestionChangeDir, cache } from '../Question';
+
 type QuestionState = import('@feedbax/api/dist/store/questions/types').QuestionState;
 type Question = Omit<QuestionState, 'answers' | 'likes'>;
 
 interface Props {
   children: ReactNode;
   question: Question;
-  onQuestionChange: (newQuestionNumber: number) => void;
+  onQuestionChange: (newQuestionNumber: number, direction: QuestionChangeDir) => void;
 }
 
 const variantsOverlay: Variants = {
@@ -25,9 +27,9 @@ const variantsOverlay: Variants = {
 };
 
 const variantsQuestion: Variants = {
-  outInitial: (dir) => ({ x: `${dir * -100}%` }),
+  outInitial: (getDir) => ({ x: `${getDir() * -100}%` }),
   in: { x: 0 },
-  outExit: (dir) => ({ x: `${dir * 100}%`, zIndex: 1 }),
+  outExit: (getDir) => ({ x: `${getDir() * 100}%`, zIndex: 1 }),
 };
 
 type OverlayProps = { _key: string };
@@ -51,16 +53,15 @@ const Overlay = ({ _key }: OverlayProps): JSX.Element => (
 );
 
 type OnDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => void;
-type QuestionProps = { _key: string; children: ReactNode; direction: number; onDragEnd: OnDragEnd };
-const Question = ({ _key, children, direction, onDragEnd }: QuestionProps): JSX.Element => (
+type QuestionProps = { children: ReactNode; onDragEnd: OnDragEnd };
+const Question = ({ children, onDragEnd }: QuestionProps): JSX.Element => (
   <motion.div
     drag="x"
     dragConstraints={{ left: 0, right: 0 }}
     dragElastic={0.2}
     onDragEnd={onDragEnd}
     variants={variantsQuestion}
-    custom={direction}
-    key={_key}
+    custom={(): number => cache.dir}
     initial="outInitial"
     animate="in"
     exit="outExit"
@@ -83,21 +84,18 @@ function Dragger(props: Props): JSX.Element {
   const { onQuestionChange } = props;
   const { children } = props;
 
-  const [direction, setDirection] = useState<number>(-1);
-  const questionsLength = useSelector<ApiState, number>(
-    (state) => state.api.event.questions.length
-  );
+  const questionsLength = useSelector(questionsLengthSelector);
 
   const _onDragEnd = useCallback(
     (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo): void => {
       if (info.point.x >= 10) {
-        setDirection(1);
-        onQuestionChange(Math.max(question.order - 1, 0));
+        const newQuestionNumber = Math.max(question.order - 1, 0);
+        onQuestionChange(newQuestionNumber, QuestionChangeDir.LEFT);
       }
 
       if (info.point.x <= -10) {
-        setDirection(-1);
-        onQuestionChange(Math.min(question.order + 1, questionsLength - 1));
+        const newQuestionNumber = Math.min(question.order + 1, questionsLength - 1);
+        onQuestionChange(newQuestionNumber, QuestionChangeDir.RIGHT);
       }
     },
     [onQuestionChange, question.order, questionsLength]
@@ -107,7 +105,7 @@ function Dragger(props: Props): JSX.Element {
     <>
       <Overlay _key={`overlay-${question?.id}`} />
       <AnimatePresence initial={false}>
-        <Question _key={question.id} direction={direction} onDragEnd={_onDragEnd}>
+        <Question key={question?.id} onDragEnd={_onDragEnd}>
           {children}
         </Question>
       </AnimatePresence>

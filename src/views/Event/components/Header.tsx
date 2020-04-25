@@ -7,7 +7,7 @@ interface Props {
 }
 
 const StyledContent = styled.div`
-  flex: 0 1 auto;
+  flex: 0 0 auto;
   position: relative;
   background-color: ${color('accent2')};
   display: flex;

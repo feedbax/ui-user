@@ -34,6 +34,8 @@ const StyledTextArea = styled.textarea<StyledProps>`
   color: ${color('primary')};
   padding-right: ${paddingRightProp};
 
+  user-select: auto;
+
   &::placeholder {
     color: ${color('primary')};
     opacity: 0.7;

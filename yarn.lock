@@ -1022,10 +1022,10 @@
   resolved "https://registry.yarnpkg.com/@emotion/unitless/-/unitless-0.7.5.tgz#77211291c1900a700b8a78cfafda3160d76949ed"
   integrity sha512-OWORNpfjMsSSUBVrRBVGECkhWcULOAJz9ZW8uK9qgxD+87M7jHRcvh/A96XXNhXTLmKcoYSQtBEX7lHMO7YRwg==
 
-"@feedbax/api@1.0.21":
-  version "1.0.21"
-  resolved "https://npm.pkg.github.com/download/@feedbax/api/1.0.21/1694ff04a762454044af9a91da168b7a32688a07a1240d962d889a1e6a862c32#c75a5c4f9cb09e50a4358f359ac0773d5025242e"
-  integrity sha512-f+eOg1E6DKdzxbGWCELeLfolwGSzt4zoqntS+qH8RL1nt2hpgB3Mg+CdsPfA59EQZ4cO+NnEO60p+e4/K6X5og==
+"@feedbax/api@1.0.26":
+  version "1.0.26"
+  resolved "https://npm.pkg.github.com/download/@feedbax/api/1.0.26/e53449d7046269cbda772b1645f1aabfe40604d6042fba9cd9fc538a546b7fc4#e488fae7fc9f4fa000aae3f97cf880f307ea863d"
+  integrity sha512-4H1CSeIQzneuRCfmD1XcVrHH68dCwsFJ3pvzeMHmXx6DYlcws7MTtvX0ncZwErc51PQfquAAldHQ6obabrRzyA==
   dependencies:
     js-cookie "^2.2.1"
     lodash.flattendeep "^4.4.0"

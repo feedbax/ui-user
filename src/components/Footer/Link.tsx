@@ -16,7 +16,9 @@ interface Props {
   className?: string;
 }
 
-const CustomLink = (props: Props): JSX.Element => <RouterLink {...props} />;
+const CustomLink = ({ textColor: _, ...props }: StyledProps): JSX.Element => (
+  <RouterLink {...props} />
+);
 
 const StyledLink = styled(CustomLink)<StyledProps>`
   font-family: ${fontFamily('secondaryAccent')};

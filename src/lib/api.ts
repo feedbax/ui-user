@@ -1,7 +1,7 @@
-import FBXAPI from '@feedbax/api';
+import FBXAPI, { FBXAPIUser } from '@feedbax/api';
 import store from 'store';
 
 FBXAPI.store = store;
 
-const api = new FBXAPI('http://157.230.29.66:3000', 'user');
+const api = FBXAPI.create(FBXAPIUser, 'http://157.230.29.66:3000');
 export default api;

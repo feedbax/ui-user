@@ -5,6 +5,7 @@ import { color, Color, ThemeProps } from 'assets/theme';
 type ButtonProps = Omit<JSX.IntrinsicElements['button'], 'ref'>;
 
 type Apperance = {
+  textColor?: Color;
   backgroundColor?: Color;
   position?: string;
   left?: number;
@@ -29,7 +30,6 @@ const StyledButtonIcon = styled.div<StyledProps>`
   padding: 0;
   position: relative;
   cursor: pointer;
-  color: #fff;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -70,7 +70,7 @@ const StyledButton = styled.button<StyledProps>`
     const { top, left, right } = apperance;
     const { transform } = apperance;
     const { position } = apperance;
-    const { backgroundColor } = apperance;
+    const { backgroundColor, textColor } = apperance;
     const { padding } = apperance;
 
     const _topProp = Array.isArray(top) ? `${top[0]}${top[1]}` : `${top}px`;
@@ -91,6 +91,13 @@ const StyledButton = styled.button<StyledProps>`
         backgroundColor &&
         css`
           background-color: ${color(backgroundColor)};
+        `
+      }
+
+      ${
+        textColor &&
+        css`
+          color: ${color(textColor)};
         `
       }
     `;

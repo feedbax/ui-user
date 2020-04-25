@@ -1,16 +1,21 @@
 import React, { useState, useMemo } from 'react';
 import { useSelector } from 'react-redux';
+
 import styled from 'styled-components';
 import { color } from 'assets/theme';
 
-import { Question, AnswerFilter } from 'store/types';
-import { RootState } from 'store';
-import { NoneQuestion } from '@feedbax/api/dist/store/questions/types';
-
 import { useLocationEffect } from 'lib/hooks';
+
+import {
+  currentAnswerFilterSelector,
+  currentQuestionSelector,
+  isEventLoadedSelector,
+  eventCodeSelector,
+} from 'store/selectors';
+
 import { answersSelector } from './selector';
 
-import Answer from './components/Answer';
+import AnswerFactory from './factory';
 import PlaceholderEmpty from './components/PlaceholderEmpty';
 import PlaceholderLoading from './components/PlaceholderLoading';
 
@@ -18,20 +23,12 @@ type ApiState = import('@feedbax/api/dist/store').ApiStateDefault;
 type AnswerState = import('@feedbax/api/dist/store/answers/types').AnswerState;
 
 const renderAnswer = (answer: AnswerState): JSX.Element => (
-  <Answer key={answer.id}>{answer.text}</Answer>
+  <AnswerFactory key={answer.id} answer={answer} />
 );
 
 const Wrapper = styled.div`
   background-color: #fff;
-  flex: 0 1 auto;
-
-  & ${Answer}:nth-of-type(2) {
-    margin-top: 0;
-  }
-
-  & ${Answer}:last-of-type {
-    margin-bottom: 0;
-  }
+  flex: 0 0 auto;
 `;
 
 const Underlay = styled.div`
@@ -43,16 +40,15 @@ const Underlay = styled.div`
 `;
 
 function Answers(): JSX.Element {
-  const answerFilter = useSelector<RootState, AnswerFilter>((state) => state.app.answerFilter);
-  const currentQuestion = useSelector<RootState, Question>(
-    (state) => state.app.currentQuestion || NoneQuestion
-  );
+  const answerFilter = useSelector(currentAnswerFilterSelector);
+  const currentQuestion = useSelector(currentQuestionSelector);
 
   const selector = answersSelector(currentQuestion.order, answerFilter);
   const answers = useSelector<ApiState, AnswerState[]>(selector);
 
-  const isEventLoaded = useSelector<ApiState, boolean>((_state) => _state.api.event.id !== '');
-  const eventCode = useSelector<ApiState, string>((_state) => _state.api.event.slug);
+  const isEventLoaded = useSelector(isEventLoadedSelector);
+  const eventCode = useSelector(eventCodeSelector);
+
   const [isReady, setReady] = useState(false);
 
   useLocationEffect(`/e/${eventCode}`, () => {

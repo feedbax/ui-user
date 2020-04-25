@@ -1,12 +1,15 @@
 import store from 'store';
 
-import {
-  SetCurrentQuestionAction,
-  SET_CURRENT_QUESTION,
-  AnswerFilter,
-  SetAnswerFilterAction,
-  SET_ANSWER_FILTER,
-} from './types';
+import * as types from './types';
+
+const { SET_CURRENT_QUESTION, SET_ANSWER_FILTER, SET_POINTER_TYPE } = types;
+
+type SetCurrentQuestionAction = import('./types').SetCurrentQuestionAction;
+type SetAnswerFilterAction = import('./types').SetAnswerFilterAction;
+type SetPointerTypeAction = import('./types').SetPointerTypeAction;
+
+type AnswerFilter = import('./types').AnswerFilter;
+type PointerType = import('./types').PointerType;
 
 export const setCurrentQuestion = (questionNumber: number): SetCurrentQuestionAction => {
   const { api } = store.getState();
@@ -24,4 +27,9 @@ export const setCurrentQuestion = (questionNumber: number): SetCurrentQuestionAc
 export const setAnswerFilter = (filter: AnswerFilter): SetAnswerFilterAction => ({
   type: SET_ANSWER_FILTER,
   payload: filter,
+});
+
+export const setPointerType = (pointer: PointerType): SetPointerTypeAction => ({
+  type: SET_POINTER_TYPE,
+  payload: pointer,
 });

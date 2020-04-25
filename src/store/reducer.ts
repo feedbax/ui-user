@@ -4,11 +4,14 @@ import {
   AppActionTypes,
   SET_CURRENT_QUESTION,
   SET_ANSWER_FILTER,
+  PointerType,
+  SET_POINTER_TYPE,
 } from './types';
 
 const initialState: AppState = {
   currentQuestion: undefined,
   answerFilter: AnswerFilter.RECENT,
+  pointerType: PointerType.TOUCH,
 };
 
 const appReducer = (state = initialState, action: AppActionTypes): AppState => {
@@ -23,6 +26,12 @@ const appReducer = (state = initialState, action: AppActionTypes): AppState => {
       return {
         ...state,
         answerFilter: action.payload,
+      };
+
+    case SET_POINTER_TYPE:
+      return {
+        ...state,
+        pointerType: action.payload,
       };
 
     default:
