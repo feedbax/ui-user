@@ -3,11 +3,12 @@ import 'react-app-polyfill/stable';
 import React from 'react';
 import ReactDom from 'react-dom';
 
+import detectIt from 'detect-it';
 import { disablePageScroll } from 'scroll-lock';
 
 import store from 'store';
 import { setPointerType } from 'store/actions';
-import { PointerType, SetPointerTypeAction } from 'store/types';
+import { PointerType } from 'store/types';
 
 import App from 'App';
 import rootElement from 'lib/rootElement';
@@ -15,10 +16,9 @@ import * as serviceWorker from 'serviceWorker';
 
 import 'assets/style.css';
 
-const changePointerType = (): SetPointerTypeAction =>
+if (detectIt.primaryInput === 'mouse') {
   store.dispatch(setPointerType(PointerType.MOUSE));
-
-rootElement.addEventListener('mouseover', changePointerType);
+}
 
 if (rootElement?.hasChildNodes()) {
   ReactDom.hydrate(<App />, rootElement);

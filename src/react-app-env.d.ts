@@ -8,3 +8,14 @@ declare module 'scroll-lock' {
   export function enablePageScroll(scrollableTarget?: Elements): void;
   export function getPageScrollBarWidth(onlyExists?: boolean): number;
 }
+
+declare module 'detect-it' {
+  type Input = 'mouse' | 'touch';
+
+  interface DetectIt {
+    primaryInput: Input;
+  }
+
+  const detectIt: DetectIt;
+  export default detectIt;
+}

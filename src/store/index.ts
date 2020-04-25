@@ -8,4 +8,4 @@ export type RootStore = typeof store;
 type RootReducer = CreateRootReducer<AppReducer>;
 export type RootState = ReturnType<RootReducer>;
 
-export default createStore<AppReducer>(appReducer);
+export default store;
