@@ -9,6 +9,7 @@ import { PointerType, Question, AnswerFilter } from './types';
 
 const pointerTypeSelector = (_state: RootState): PointerType => _state.app.pointerType;
 const currentAnswerFilterSelector = (_state: RootState): AnswerFilter => _state.app.answerFilter;
+const selectedAnswerSelector = (_state: RootState): string | null => _state.app.selectedAnswer;
 
 const currentQuestionSelector = (_state: RootState): Question =>
   _state.app.currentQuestion || NoneQuestion;
@@ -41,7 +42,19 @@ const questionsSelector = createSelector<RootState, QuestionsState, QuestionStri
 
 const questionsLengthSelector = (_state: RootState): number => _state.api.event.questions.length;
 
-const questionLikesSelector = createSelector<RootState, QuestionsState, Question, number>(
+const questionLikesSelector = createSelector<RootState, QuestionsState, Question, string[]>(
+  (state) => state.api.questions,
+  (state) => state.app.currentQuestion || NoneQuestion,
+  (questions, currentQuestion) => {
+    if (currentQuestion.type !== QuestionType.NONE) {
+      return questions[currentQuestion.id]?.likes || [];
+    }
+
+    return [];
+  }
+);
+
+const questionLikesLengthSelector = createSelector<RootState, QuestionsState, Question, number>(
   (state) => state.api.questions,
   (state) => state.app.currentQuestion || NoneQuestion,
   (questions, currentQuestion) => {
@@ -56,10 +69,12 @@ const questionLikesSelector = createSelector<RootState, QuestionsState, Question
 export {
   pointerTypeSelector,
   currentQuestionSelector,
+  selectedAnswerSelector,
   currentAnswerFilterSelector,
   isEventLoadedSelector,
   eventCodeSelector,
   questionsSelector,
   questionsLengthSelector,
   questionLikesSelector,
+  questionLikesLengthSelector,
 };

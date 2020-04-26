@@ -22,11 +22,13 @@ export interface AppState {
   currentQuestion?: Question;
   answerFilter: AnswerFilter;
   pointerType: PointerType;
+  selectedAnswer: string | null;
 }
 
 export const SET_CURRENT_QUESTION = 'SET_CURRENT_QUESTION';
 export const SET_ANSWER_FILTER = 'SET_ANSWER_FILTER';
 export const SET_POINTER_TYPE = 'SET_POINTER_TYPE';
+export const SET_SELECTED_ANSWER = 'SET_SELECTED_ANSWER';
 
 export interface SetCurrentQuestionAction {
   type: typeof SET_CURRENT_QUESTION;
@@ -43,8 +45,14 @@ export interface SetPointerTypeAction {
   payload: PointerType;
 }
 
+export interface SetSelectedAnswerAction {
+  type: typeof SET_SELECTED_ANSWER;
+  payload: string | null;
+}
+
 export type AppActionTypes =
   | SetCurrentQuestionAction
   | SetAnswerFilterAction
   | SetPointerTypeAction
+  | SetSelectedAnswerAction
   | ResetStateAction;

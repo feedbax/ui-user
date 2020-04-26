@@ -3,8 +3,14 @@ import { useSelector } from 'react-redux';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 
 import api from 'lib/api';
+
 import store from 'store';
-import { isEventLoadedSelector } from 'store/selectors';
+import { setSeletedAnswer } from 'store/actions';
+import {
+  isEventLoadedSelector,
+  currentQuestionSelector,
+  selectedAnswerSelector,
+} from 'store/selectors';
 
 import Logo, { LogoSize, Title, Description, Image } from 'components/Logo';
 import Button from 'components/ButtonNeumorphism';
@@ -25,6 +31,7 @@ import AnswerFilter from './components/AnswerFilter';
 import Answers from './components/Answers';
 import WriteAnswer, { TextArea } from './components/WriteAnswer';
 import Header from './components/Header';
+import VoteAnswer, { Button as VoteButton } from './components/VoteAnswer';
 
 const defaultElement = document.createElement('div');
 const scrollBarWidth = getScrollBarWidth();
@@ -40,7 +47,10 @@ const Event = (): JSX.Element => {
 
   const [answerText, setAnswerText] = useState('');
   const [isTextScrollable, setTextScrollable] = useState(false);
+
   const isEventLoaded = useSelector(isEventLoadedSelector);
+  const currentQuestion = useSelector(currentQuestionSelector);
+  const selectedAnswer = useSelector(selectedAnswerSelector);
 
   useLocationEffect(`/e/${eventCode}`, () => {
     // console.log('Event', 'useLocationEffect');
@@ -69,22 +79,29 @@ const Event = (): JSX.Element => {
   }, []);
 
   const _postAnswer = useCallback(async (): Promise<void> => {
-    const { app, api: _api } = store.getState();
-    const { currentQuestion } = app;
-
     if (currentQuestion) {
       const props = {
         question: { id: currentQuestion?.id },
         answer: { text: answerText },
       };
 
-      console.log(_api.event.id);
-      console.log(props);
-
       await api.postAnswer(props);
       setAnswerText('');
     }
-  }, [answerText]);
+  }, [answerText, currentQuestion]);
+
+  const _voteAnswer = useCallback(async (): Promise<void> => {
+    if (selectedAnswer) {
+      const props = {
+        answer: { id: selectedAnswer },
+      };
+
+      await api.toggleLike(props);
+
+      const action = setSeletedAnswer(null);
+      store.dispatchAll(action);
+    }
+  }, [selectedAnswer]);
 
   return (
     <Container bgLandscape={bgLandscape} bgProtrait={bgProtrait}>
@@ -135,6 +152,7 @@ const Event = (): JSX.Element => {
           <Link to="/legal/privacy-policy">{`Datenschutz & Impressum`}</Link>
         </Footer>
       </Content>
+
       <WriteAnswer>
         <TextArea
           rows={1}
@@ -159,6 +177,10 @@ const Event = (): JSX.Element => {
           }}
         />
       </WriteAnswer>
+
+      <VoteAnswer>
+        <VoteButton onClick={_voteAnswer}>Bestätigen</VoteButton>
+      </VoteAnswer>
     </Container>
   );
 };

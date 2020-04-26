@@ -63,6 +63,7 @@ const AnswerText = styled.span`
   display: flex;
   flex-direction: row;
   align-items: center;
+  white-space: break-spaces;
 `;
 
 const AnswerLikesStyled = styled.span`
@@ -88,14 +89,18 @@ const LikesCount = styled.div`
 interface AnswerLikesProps {
   likes: number;
   hasLiked: boolean;
+  answerId: string;
 }
 
 const AnswerLikes = (props: AnswerLikesProps): JSX.Element => {
+  const toggleData = { answer: { id: props.answerId } };
+
   return (
     <AnswerLikesStyled>
       <LikesCount>{props.likes}</LikesCount>
 
       <Button
+        onClick={(): Promise<void> => api.toggleLike(toggleData)}
         size={28}
         icon={props.hasLiked ? 'heart-filled' : 'heart'}
         apperance={{ backgroundColor: 'primary', textColor: 'accent1' }}
@@ -122,12 +127,11 @@ function useLiked(answerLikes: string[]): [number, boolean] {
 
 const _RealAnswer = ({ answer }: { answer: AnswerState }): JSX.Element => {
   const [likes, hasLiked] = useLiked(answer.likes);
-  const props = { answer: { id: answer.id } };
 
   return (
-    <AnswerStyled onClick={(): Promise<void> => api.toggleLike(props)}>
+    <AnswerStyled>
       <AnswerText>{answer.text}</AnswerText>
-      <AnswerLikes likes={likes} hasLiked={hasLiked} />
+      <AnswerLikes answerId={answer.id} likes={likes} hasLiked={hasLiked} />
     </AnswerStyled>
   );
 };

@@ -1,11 +1,17 @@
-import createStore, { CreateRootReducer } from '@feedbax/api/dist/store/index';
-import appReducer, { AppReducer } from './reducer';
+import { apiReducer, addDispatchAll } from '@feedbax/api/dist/store/index';
+import { createStore, combineReducers } from 'redux';
 
-const store = createStore<AppReducer>(appReducer);
+import appReducer from './reducer';
+
+const rootReducer = combineReducers({
+  api: apiReducer,
+  app: appReducer,
+});
+
+const _store = createStore(rootReducer);
+const store = addDispatchAll(_store);
 
 export type RootStore = typeof store;
-
-type RootReducer = CreateRootReducer<AppReducer>;
-export type RootState = ReturnType<RootReducer>;
+export type RootState = ReturnType<typeof rootReducer>;
 
 export default store;

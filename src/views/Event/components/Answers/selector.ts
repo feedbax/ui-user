@@ -1,6 +1,7 @@
 import { createSelector, OutputSelector } from 'reselect';
 import { AnswerFilter } from 'store/types';
 import api from 'lib/api';
+import { isFilterAble } from '@feedbax/api/dist/store/questions/types';
 
 type ApiState = import('@feedbax/api/dist/store').ApiStateDefault;
 type QuestionsState = import('@feedbax/api/dist/store/questions/types').QuestionsState;
@@ -23,7 +24,7 @@ const sortAnswers = (answers: AnswerState[], filter: AnswerFilter): AnswerState[
       return answers.sort((a, b) => b.likes.length - a.likes.length || b.time - a.time);
 
     case AnswerFilter.MINE:
-      return answers.filter((a) => a.author === api.uuid);
+      return answers.filter((a) => a.author === api.uuid).sort((a, b) => b.time - a.time);
 
     default:
       return answers;
@@ -59,7 +60,11 @@ const answersSelector = (questionNumber: number, filter: AnswerFilter): Output =
         _answers.push(answer);
       }
 
-      return sortAnswers(_answers, filter);
+      if (isFilterAble(currentQuestion)) {
+        return sortAnswers(_answers, filter);
+      }
+
+      return sortAnswers(_answers, AnswerFilter.RECENT);
     }
   );
 

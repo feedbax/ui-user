@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 
 import styled from 'styled-components';
@@ -6,9 +6,15 @@ import media from 'lib/media-queries';
 import { color, fontFamily } from 'assets/theme';
 
 import store from 'store';
-import { questionLikesSelector } from 'store/selectors';
+import { questionLikesSelector, selectedAnswerSelector } from 'store/selectors';
 
 import api from 'lib/api';
+import { setSeletedAnswer } from 'store/actions';
+
+import Button from 'components/ButtonNeumorphism';
+
+import { useSpring, animated, OpaqueInterpolation } from 'react-spring';
+import easing from './easing';
 
 type AnswerState = import('@feedbax/api/dist/store/answers/types').AnswerState;
 
@@ -20,7 +26,7 @@ interface Props {
 const mq = media('xs', 'sm', 'md');
 const AnswerStyled = styled.div`
   margin: 0 15px;
-  padding: 15px;
+  padding: 20px 15px;
   box-sizing: border-box;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
   z-index: 1;
@@ -29,6 +35,7 @@ const AnswerStyled = styled.div`
   font-family: ${fontFamily('secondaryAccent')};
 
   display: flex;
+  cursor: pointer;
 
   &:not(:last-of-type)::after {
     content: '';
@@ -47,7 +54,7 @@ const AnswerStyled = styled.div`
   `}
 `;
 
-function useLiked(answerLikes: string[]): [number, boolean] {
+function useHasLiked(answerLikes: string[]): boolean {
   const { api: apiStore } = store.getState();
   const { likes } = apiStore;
 
@@ -56,24 +63,134 @@ function useLiked(answerLikes: string[]): [number, boolean] {
     const like = likes[answerLike];
 
     if (like.author === api.uuid) {
-      return [answerLikes.length, true];
+      return true;
     }
   }
 
-  return [answerLikes.length, false];
+  return false;
 }
 
+interface AnswerTextProps {
+  hasLiked: boolean;
+}
+
+const AnswerText = styled.div<AnswerTextProps>`
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  transition: transform 0.3s ease;
+  white-space: break-spaces;
+
+  ${({ hasLiked }): string => `
+    transform: translateY(${hasLiked ? 5 : 0}px);
+  `}
+`;
+
+const AnswerLike = styled.div`
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: nowrap;
+  padding-left: 8px;
+  position: relative;
+  min-height: 28px;
+`;
+
+interface PercentageProps {
+  percent: OpaqueInterpolation<number>;
+  className?: string;
+  hasLiked: boolean;
+}
+
+const PercentageAnimated = ({ percent, className }: PercentageProps): JSX.Element => (
+  <animated.div className={className}>
+    {percent.interpolate((p) => `${p.toFixed(1)}%`)}
+  </animated.div>
+);
+
+const Percentage = styled(PercentageAnimated)<PercentageProps>`
+  font-size: 22px;
+  color: ${({ hasLiked }): any => color(hasLiked ? 'accent2' : 'accent1')};
+  font-weight: ${({ hasLiked }): any => (hasLiked ? 'bold' : 'normal')};
+`;
+
+const PercentageBarAnimated = ({ percent, className }: PercentageProps): JSX.Element => (
+  <div className={className}>
+    <animated.div
+      className="bar"
+      style={{ transform: percent.interpolate((p) => `translateX(${-100 + p}%)`) }}
+    />
+  </div>
+);
+
+const PercentageBar = styled(PercentageBarAnimated)<PercentageProps>`
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  height: 5px;
+  box-sizing: border-box;
+  overflow: hidden;
+  z-index: 0;
+
+  & .bar {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: ${({ hasLiked }): any => color(hasLiked ? 'accent2' : 'accent1')};
+  }
+`;
+
 const Answer = ({ children: answer, className }: Props): JSX.Element => {
+  const selectedAnswer = useSelector(selectedAnswerSelector);
   const likesQuestion = useSelector(questionLikesSelector);
 
-  const [likes, hasLiked] = useLiked(answer.likes);
-  const props = { answer: { id: answer.id } };
+  const hasLikedQuestion = useHasLiked(likesQuestion);
+  const hasLikedAnswer = useHasLiked(answer.likes);
 
-  console.log(likesQuestion, likes, hasLiked);
+  const isSelected = selectedAnswer === answer.id;
+
+  const _percent = (answer.likes.length / likesQuestion.length) * 100;
+  const { percent } = useSpring({
+    percent: hasLikedQuestion ? _percent : 0,
+    from: {
+      percent: 0,
+    },
+    config: {
+      easing,
+      duration: 2000,
+    },
+  });
+
+  const _selectAnswer = useCallback(() => {
+    if (!hasLikedQuestion) {
+      const action = setSeletedAnswer(answer.id);
+      store.dispatch(action);
+    }
+  }, [answer.id, hasLikedQuestion]);
 
   return (
-    <AnswerStyled className={className} onClick={(): Promise<void> => api.toggleLike(props)}>
-      {answer.text}
+    <AnswerStyled className={className} onClick={_selectAnswer}>
+      {hasLikedQuestion ? <PercentageBar hasLiked={hasLikedAnswer} percent={percent} /> : ''}
+
+      <AnswerText hasLiked={hasLikedQuestion}>{answer.text}</AnswerText>
+      <AnswerLike>
+        {hasLikedQuestion ? (
+          <Percentage hasLiked={hasLikedAnswer} percent={percent} />
+        ) : (
+          <Button
+            size={28}
+            icon={isSelected ? 'heart-filled' : 'heart'}
+            apperance={{
+              backgroundColor: 'primary',
+              textColor: 'accent1',
+            }}
+          />
+        )}
+      </AnswerLike>
     </AnswerStyled>
   );
 };

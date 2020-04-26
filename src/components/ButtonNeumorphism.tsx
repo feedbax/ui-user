@@ -13,6 +13,7 @@ type Apperance = {
   top?: number | [number, string];
   transform?: string;
   padding?: number;
+  opacity?: number;
 };
 
 type StyledProps = {
@@ -72,12 +73,15 @@ const StyledButton = styled.button<StyledProps>`
     const { position } = apperance;
     const { backgroundColor, textColor } = apperance;
     const { padding } = apperance;
+    const { opacity } = apperance;
 
     const _topProp = Array.isArray(top) ? `${top[0]}${top[1]}` : `${top}px`;
     const topProp = typeof top !== 'undefined' ? `top: ${_topProp};` : '';
 
     const leftProp = typeof left !== 'undefined' ? `left: ${left}px;` : '';
     const rightProp = typeof right !== 'undefined' ? `right: ${right}px;` : '';
+
+    const opacityProp = typeof opacity !== 'undefined' ? `opacity: ${opacity};` : '';
 
     return css`
       ${transform && `transform: ${transform};`}
@@ -86,6 +90,7 @@ const StyledButton = styled.button<StyledProps>`
       ${rightProp}
       ${position && `position: ${position};`}
       ${padding && `padding: ${padding}px;`}
+      ${opacityProp}
 
       ${
         backgroundColor &&

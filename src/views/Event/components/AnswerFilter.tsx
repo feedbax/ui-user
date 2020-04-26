@@ -6,16 +6,18 @@ import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
 import store from 'store';
 import { answerFilters, AnswerFilter } from 'store/types';
 import { setAnswerFilter } from 'store/actions';
+import { currentAnswerFilterSelector, currentQuestionSelector } from 'store/selectors';
+import { isFilterAble } from '@feedbax/api/dist/store/questions/types';
 
 import Button from 'components/ButtonNeumorphism';
-import { currentAnswerFilterSelector } from 'store/selectors';
 
-interface PaginationDotProps {
+interface FilterProps {
   active: boolean;
   children: ReactNode;
+  disabled: boolean;
 }
 
-const Filter = styled.div<PaginationDotProps>`
+const Filter = styled.div<FilterProps>`
   display: block;
   position: relative;
 
@@ -23,6 +25,7 @@ const Filter = styled.div<PaginationDotProps>`
 
   ${(props): FlattenSimpleInterpolation => css`
     transform: scale(${props.active ? 1 : 0.8});
+    opacity: ${props.disabled ? 0.5 : 1};
   `}
 `;
 
@@ -50,18 +53,23 @@ const getIcon = (filter: number, currentFilter: number): string => {
 };
 
 function SelectAnswerFilter(): JSX.Element {
+  const currentQuestion = useSelector(currentQuestionSelector);
   const currentFilter = useSelector(currentAnswerFilterSelector);
+
+  const isDisabled = !isFilterAble(currentQuestion);
 
   return (
     <Wrapper>
       {answerFilters.map((filter) => (
-        <Filter key={filter} active={filter === currentFilter}>
+        <Filter key={filter} disabled={isDisabled} active={filter === currentFilter}>
           <Button
             key={filter}
             icon={getIcon(filter, currentFilter)}
             onClick={(): void => {
-              const action = setAnswerFilter(filter);
-              store.dispatch(action);
+              if (!isDisabled) {
+                const action = setAnswerFilter(filter);
+                store.dispatch(action);
+              }
             }}
             size={28}
             apperance={{

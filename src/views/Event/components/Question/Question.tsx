@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { useLocationEffect } from 'lib/hooks';
 
 import store, { RootState } from 'store';
-import { setCurrentQuestion } from 'store/actions';
+import { setCurrentQuestion, setSeletedAnswer } from 'store/actions';
 import { PointerType } from 'store/types';
 
 import {
@@ -60,8 +60,8 @@ function Question(): JSX.Element {
   const _onQuestionChange = useCallback((newQuestion: number, dir: QuestionChangeDir): void => {
     cache.dir = dir;
 
-    const action = setCurrentQuestion(newQuestion);
-    store.dispatch(action);
+    const actions = [setCurrentQuestion(newQuestion), setSeletedAnswer(null)];
+    store.dispatchAll(...actions);
   }, []);
 
   const _getHeight = useCallback((questionElement: HTMLDivElement | null): void => {

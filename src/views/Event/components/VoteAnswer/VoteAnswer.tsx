@@ -2,11 +2,11 @@ import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 import { color } from 'assets/theme';
 import { useSelector } from 'react-redux';
-import { currentQuestionSelector } from 'store/selectors';
-import { isWriteAble } from '@feedbax/api/dist/store/questions/types';
+import { currentQuestionSelector, selectedAnswerSelector } from 'store/selectors';
+import { isVoteAble } from '@feedbax/api/dist/store/questions/types';
 
 interface Props {
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 const StyledBox = styled.div`
@@ -27,14 +27,17 @@ const StyledBox = styled.div`
   }
 `;
 
-const WriteAnswer = ({ children }: Props): JSX.Element => {
+const VoteAnswer = ({ children }: Props): JSX.Element => {
   const currentQuestion = useSelector(currentQuestionSelector);
+  const selectedAnswer = useSelector(selectedAnswerSelector);
 
-  if (isWriteAble(currentQuestion)) {
+  const answerSelected = selectedAnswer !== null;
+
+  if (isVoteAble(currentQuestion) && answerSelected) {
     return <StyledBox>{children}</StyledBox>;
   }
 
   return <></>;
 };
 
-export default WriteAnswer;
+export default VoteAnswer;

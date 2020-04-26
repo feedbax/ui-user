@@ -65,6 +65,15 @@ function TextArea(props: Props): JSX.Element {
     [isLoading, textareaRef]
   );
 
+  useEffect(
+    function onFontLoadingChanged() {
+      if (textareaRef.current) {
+        autosize.update(textareaRef.current);
+      }
+    },
+    [props.value]
+  );
+
   const _onChange = useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
       if (onChange) {

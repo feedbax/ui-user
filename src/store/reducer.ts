@@ -6,12 +6,14 @@ import {
   SET_ANSWER_FILTER,
   PointerType,
   SET_POINTER_TYPE,
+  SET_SELECTED_ANSWER,
 } from './types';
 
 const initialState: AppState = {
   currentQuestion: undefined,
   answerFilter: AnswerFilter.RECENT,
   pointerType: PointerType.TOUCH,
+  selectedAnswer: null,
 };
 
 const appReducer = (state = initialState, action: AppActionTypes): AppState => {
@@ -32,6 +34,12 @@ const appReducer = (state = initialState, action: AppActionTypes): AppState => {
       return {
         ...state,
         pointerType: action.payload,
+      };
+
+    case SET_SELECTED_ANSWER:
+      return {
+        ...state,
+        selectedAnswer: action.payload,
       };
 
     default:
