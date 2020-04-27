@@ -21,11 +21,12 @@
     ">0.0%"
   ],
   "dependencies": {
-    "@feedbax/api": "1.0.36",
+    "@feedbax/api": "1.0.37",
     "autosize": "^4.0.2",
     "bezier-easing": "^2.1.0",
     "detect-it": "^3.0.5",
     "framer-motion": "^1.9.1",
+    "history": "^4.10.1",
     "react": "^16.13.0",
     "react-app-polyfill": "^1.0.6",
     "react-dom": "^16.13.0",

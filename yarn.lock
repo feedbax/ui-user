@@ -1029,10 +1029,10 @@
   resolved "https://registry.yarnpkg.com/@emotion/unitless/-/unitless-0.7.5.tgz#77211291c1900a700b8a78cfafda3160d76949ed"
   integrity sha512-OWORNpfjMsSSUBVrRBVGECkhWcULOAJz9ZW8uK9qgxD+87M7jHRcvh/A96XXNhXTLmKcoYSQtBEX7lHMO7YRwg==
 
-"@feedbax/api@1.0.36":
-  version "1.0.36"
-  resolved "https://npm.pkg.github.com/download/@feedbax/api/1.0.36/2868ddf3fb86098feb77f262b49a795cfecc784d0e9fda3bb6533d2fa149fe2e#44887b65888de2d8e05f4383ca8eb1ad6d711c3a"
-  integrity sha512-grLTOKqW/Mt03rG6r+VzoCzLhl5k7DwrxwQfP8W3KyBBIEHjPc7Gv2d411CjnHJTZr3fd6WmqaZieuHao9BrEg==
+"@feedbax/api@1.0.37":
+  version "1.0.37"
+  resolved "https://npm.pkg.github.com/download/@feedbax/api/1.0.37/76ff33ea83bee110eeb8d747aa1e1fdc3d0472bf789dc75d51a3630d4decf04a#4aa60d1b3b560bfaba97a1aad159ded2c6730785"
+  integrity sha512-bPz6XnhI4HNdLOPY59EEmBY7BP/xkhih9KVPEGFo4gzwMGGfU6iJ4s6+Xl41saDXkjNkfumLhOB9VxcPWRWg4Q==
   dependencies:
     "@types/js-cookie" "^2.2.4"
     "@types/lodash.flattendeep" "^4.4.6"
@@ -5662,7 +5662,7 @@ highland@2.13.0:
   dependencies:
     util-deprecate "^1.0.2"
 
-history@^4.9.0:
+history@^4.10.1, history@^4.9.0:
   version "4.10.1"
   resolved "https://registry.yarnpkg.com/history/-/history-4.10.1.tgz#33371a65e3a83b267434e2b3f3b1b4c58aad4cf3"
   integrity sha512-36nwAD620w12kuzPAsyINPWJqlNbij+hpK1k9XRloDtym8mxzGYl2c17LnV6IAGB2Dmg4tEa7G7DlawS0+qjew==
