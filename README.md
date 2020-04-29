@@ -1,3 +1,10 @@
+```
+docker.pkg.github.com/feedbax/ui-user/serve:latest
+docker build -t docker.pkg.github.com/feedbax/ui-user/serve:latest .
+docker push docker.pkg.github.com/feedbax/ui-user/serve:latest .
+```
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

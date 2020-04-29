@@ -38,10 +38,6 @@ function Login(): JSX.Element {
   useLocationEffect(
     [`/${eventCode}`, '/login'],
     () => {
-      // console.log('Login', 'useLocationEffect');
-      // console.log('Login', 'eventCodeInitial?', eventCodeInitial);
-
-      console.log('LOGIN HOOK');
       api.logout();
 
       if (eventCodeInitial && eventCodeInitial !== '') {

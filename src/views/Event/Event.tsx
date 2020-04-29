@@ -53,12 +53,7 @@ const Event = (): JSX.Element => {
   const selectedAnswer = useSelector(selectedAnswerSelector);
 
   useLocationEffect(`/e/${eventCode}`, () => {
-    // console.log('Event', 'useLocationEffect');
-    // console.log('Event', 'isEventLoaded?', isEventLoaded);
-    console.log('EVENT HOOK');
-
     if (!isEventLoaded) {
-      // console.log('Event', 'redirect to login');
       history.push(`/${eventCode}`);
     }
   });
@@ -75,9 +70,9 @@ const Event = (): JSX.Element => {
     history.push(`/login`, { eventCode });
   }, []); // eslint-disable-line
 
-  const _share = useCallback((): void => {
-    // console.log('share');
-  }, []);
+  // const _share = useCallback((): void => {
+  //   // console.log('share');
+  // }, []);
 
   const _postAnswer = useCallback(async (): Promise<void> => {
     if (currentQuestion) {
@@ -121,7 +116,7 @@ const Event = (): JSX.Element => {
             }}
           />
 
-          <Button
+          {/* <Button
             onClick={_share}
             icon="share"
             size={28}
@@ -132,7 +127,7 @@ const Event = (): JSX.Element => {
               top: 0,
               padding: 20,
             }}
-          />
+          /> */}
 
           <Logo size={LogoSize.Small} padding="20px 0">
             <Image image={logo} />

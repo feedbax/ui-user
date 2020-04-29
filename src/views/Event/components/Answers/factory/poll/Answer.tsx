@@ -62,7 +62,7 @@ function useHasLiked(answerLikes: string[]): boolean {
     const answerLike = answerLikes[i];
     const like = likes[answerLike];
 
-    if (like.author === api.uuid) {
+    if (like && like.author === api.uuid) {
       return true;
     }
   }
@@ -148,14 +148,15 @@ const Answer = ({ children: answer, className }: Props): JSX.Element => {
   const selectedAnswer = useSelector(selectedAnswerSelector);
   const likesQuestion = useSelector(questionLikesSelector);
 
+  const __percent = (answer.likes.length / likesQuestion.length) * 100;
+
   const hasLikedQuestion = useHasLiked(likesQuestion);
   const hasLikedAnswer = useHasLiked(answer.likes);
 
   const isSelected = selectedAnswer === answer.id;
 
-  const _percent = (answer.likes.length / likesQuestion.length) * 100;
   const { percent } = useSpring({
-    percent: hasLikedQuestion ? _percent : 0,
+    percent: hasLikedQuestion ? __percent : 0,
     from: {
       percent: 0,
     },

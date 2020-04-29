@@ -18,7 +18,7 @@ function useLocationEffect(
         ? path.includes(locations.curr?.pathname || '')
         : locations.curr?.pathname === path;
 
-      if (isPage && locations.exitComplete === waitForExitComplete) {
+      if (isPage && (locations.exitComplete === waitForExitComplete || locations.isInitial)) {
         handler();
       }
     },

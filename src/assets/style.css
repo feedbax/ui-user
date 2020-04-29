@@ -36,6 +36,10 @@ html, body, #root {
   user-select: none;
 }
 
+input, textarea {
+  user-select: auto !important;
+}
+
 @font-face {
   font-family: "Klinic Slab";
   src: url("fonts/KlinicSlab-Bold.woff2") format("woff2"), url("fonts/KlinicSlab-Bold.woff") format("woff");

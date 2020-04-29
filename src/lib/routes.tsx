@@ -3,9 +3,10 @@ import { Switch, Route, RouteProps, useLocation } from 'react-router-dom';
 
 import { AnimatePresence, motion } from 'framer-motion';
 
-import Login from '../views/Login';
-import Event from '../views/Event';
-import Error404 from '../views/Error/404';
+import Login from 'views/Login';
+import Event from 'views/Event';
+import Error404 from 'views/Error/404';
+import PrivacyPolicy from 'views/legal/PrivacyPolicy';
 
 interface MyRouteProps extends RouteProps {
   key: string;
@@ -18,17 +19,19 @@ const routes: MyRouteProps[] = [
   { key: 'login', exact: true, path: '/login', component: Login },
   { key: 'login--inital', exact: true, path: '/:eventCode', component: Login },
   { key: 'event', exact: true, path: '/e/:eventCode', component: Event },
-  { key: 'legal--privacy-policy', exact: true, path: '/legal/privacy-policy', component: Login },
+  // prettier-ignore
+  { key: 'legal--privacy-policy', exact: true, path: '/legal/privacy-policy', component: PrivacyPolicy },
   { key: '404--catch-all', component: Error404 },
 ];
 
 type Location = ReturnType<typeof useLocation> | undefined;
-type Locations = { prev: Location; curr: Location; exitComplete: boolean };
+type Locations = { prev: Location; curr: Location; exitComplete: boolean; isInitial: boolean };
 
 export const LocationContext = React.createContext<Locations>({
   prev: undefined,
   curr: undefined,
-  exitComplete: false,
+  exitComplete: true,
+  isInitial: true,
 });
 
 const Routes = (): JSX.Element => {
@@ -37,20 +40,26 @@ const Routes = (): JSX.Element => {
   const [locations, setLocations] = useState<Locations>({
     prev: undefined,
     curr: undefined,
-    exitComplete: false,
+    exitComplete: true,
+    isInitial: true,
   });
 
   const currentLocation = useRef<typeof location>();
   const lastLocation = useRef<typeof location>();
+  const isInitial = useRef(true);
 
   useEffect(() => {
     lastLocation.current = currentLocation.current ? { ...currentLocation.current } : undefined;
     currentLocation.current = { ...location };
 
+    const _isInitial = isInitial.current;
+    isInitial.current = false;
+
     setLocations({
       prev: lastLocation.current,
       curr: currentLocation.current,
       exitComplete: false,
+      isInitial: _isInitial,
     });
   }, [location]);
 
@@ -59,6 +68,7 @@ const Routes = (): JSX.Element => {
       prev: lastLocation.current,
       curr: currentLocation.current,
       exitComplete: true,
+      isInitial: false,
     });
   };
 
