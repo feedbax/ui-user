@@ -6,11 +6,11 @@ import { color, fontFamily } from 'assets/theme';
 
 import store from 'store';
 import api from 'lib/api';
-import { isAnswer } from '@feedbax/api/dist/store/answers/types';
+import { isAnswer } from '@feedbax/api/store/answers/types';
 
 import Button from 'components/ButtonNeumorphism';
 
-type AnswerState = import('@feedbax/api/dist/store/answers/types').AnswerState;
+type AnswerState = import('@feedbax/api/store/answers/types').AnswerState;
 
 interface Props {
   className?: string;

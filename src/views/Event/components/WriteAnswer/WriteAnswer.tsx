@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { color } from 'assets/theme';
 import { useSelector } from 'react-redux';
 import { currentQuestionSelector } from 'store/selectors';
-import { isWriteAble } from '@feedbax/api/dist/store/questions/types';
+import { isWriteAble } from '@feedbax/api/store/questions/types';
 
 interface Props {
   children: ReactNode;

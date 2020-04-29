@@ -16,7 +16,7 @@ import Button from 'components/ButtonNeumorphism';
 import { useSpring, animated, OpaqueInterpolation } from 'react-spring';
 import easing from './easing';
 
-type AnswerState = import('@feedbax/api/dist/store/answers/types').AnswerState;
+type AnswerState = import('@feedbax/api/store/answers/types').AnswerState;
 
 interface Props {
   className?: string;

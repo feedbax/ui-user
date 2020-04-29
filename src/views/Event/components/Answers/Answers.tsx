@@ -19,8 +19,8 @@ import AnswerFactory from './factory';
 import PlaceholderEmpty from './components/PlaceholderEmpty';
 import PlaceholderLoading from './components/PlaceholderLoading';
 
-type ApiState = import('@feedbax/api/dist/store').ApiStateDefault;
-type AnswerState = import('@feedbax/api/dist/store/answers/types').AnswerState;
+type ApiState = import('@feedbax/api/store').ApiStateDefault;
+type AnswerState = import('@feedbax/api/store/answers/types').AnswerState;
 
 const renderAnswer = (answer: AnswerState): JSX.Element => (
   <AnswerFactory key={answer.id} answer={answer} />

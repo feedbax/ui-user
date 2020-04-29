@@ -7,7 +7,7 @@ import store from 'store';
 import { answerFilters, AnswerFilter } from 'store/types';
 import { setAnswerFilter } from 'store/actions';
 import { currentAnswerFilterSelector, currentQuestionSelector } from 'store/selectors';
-import { isFilterAble } from '@feedbax/api/dist/store/questions/types';
+import { isFilterAble } from '@feedbax/api/store/questions/types';
 
 import Button from 'components/ButtonNeumorphism';
 

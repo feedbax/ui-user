@@ -2,12 +2,12 @@ import { createSelector, OutputSelector } from 'reselect';
 
 import { RootState } from 'store';
 
-import { NoneQuestion, QuestionsState } from '@feedbax/api/dist/store/questions/types';
-import { QuestionType } from '@feedbax/api/dist/types/models/question';
+import { NoneQuestion, QuestionsState } from '@feedbax/api/store/questions/types';
+import { QuestionType } from '@feedbax/api/types/models/question';
 
 import { PointerType, CurrentQuestion, AnswerFilter } from './types';
 
-type QuestionState = import('@feedbax/api/dist/store/questions/types').QuestionState;
+type QuestionState = import('@feedbax/api/store/questions/types').QuestionState;
 type QuestionStrip<T extends string> = Omit<QuestionState, T> & { [key: string]: any };
 
 type Output<T extends string> = OutputSelector<

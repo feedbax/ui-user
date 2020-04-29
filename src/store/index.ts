@@ -1,4 +1,4 @@
-import { apiReducer, addDispatchAll } from '@feedbax/api/dist/store/index';
+import { apiReducer, addDispatchAll } from '@feedbax/api/store/index';
 import { createStore, combineReducers } from 'redux';
 
 import appReducer from './reducer';

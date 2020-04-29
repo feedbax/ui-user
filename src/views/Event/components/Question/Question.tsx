@@ -23,7 +23,7 @@ import StyledQuestionNumber from './components/StyledQuestionNumber';
 import StyledQuestionText from './components/StyledQuestionText';
 import MouseControl from './components/MouseControl';
 
-type QuestionState = import('@feedbax/api/dist/store/questions/types').QuestionState;
+type QuestionState = import('@feedbax/api/store/questions/types').QuestionState;
 type Question = Omit<QuestionState, 'answers' | 'likes'>;
 
 export enum QuestionChangeDir {

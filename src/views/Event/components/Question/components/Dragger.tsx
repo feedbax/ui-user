@@ -8,7 +8,7 @@ import { PointerType } from 'store/types';
 
 import { QuestionChangeDir, cache } from '../Question';
 
-type QuestionState = import('@feedbax/api/dist/store/questions/types').QuestionState;
+type QuestionState = import('@feedbax/api/store/questions/types').QuestionState;
 type Question = Omit<QuestionState, 'answers' | 'likes'>;
 
 interface Props {

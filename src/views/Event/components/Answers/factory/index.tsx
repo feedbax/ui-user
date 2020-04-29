@@ -3,13 +3,13 @@ import { useSelector } from 'react-redux';
 
 import { currentQuestionSelector } from 'store/selectors';
 
-import { QuestionType } from '@feedbax/api/dist/types/models/question';
+import { QuestionType } from '@feedbax/api/types/models/question';
 import PlaceholderLoading from '../components/PlaceholderLoading';
 
 import AnswerVote from './vote/Answer';
 import AnswerPoll from './poll/Answer';
 
-type AnswerState = import('@feedbax/api/dist/store/answers/types').AnswerState;
+type AnswerState = import('@feedbax/api/store/answers/types').AnswerState;
 
 interface Props {
   answer: AnswerState;
