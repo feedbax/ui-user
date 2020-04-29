@@ -13,7 +13,8 @@ api.onDisconnect(() => {
   const { event } = _api;
   const { slug } = event;
 
-  history.push(`/login`, { eventCode: slug });
+  api.logout();
+  history.push(`/${slug}`);
 });
 
 export default api;
