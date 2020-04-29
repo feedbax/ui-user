@@ -23,9 +23,13 @@ const routes: MyRouteProps[] = [
 ];
 
 type Location = ReturnType<typeof useLocation> | undefined;
-type Locations = { prev: Location; curr: Location };
+type Locations = { prev: Location; curr: Location; exitComplete: boolean };
 
-export const LocationContext = React.createContext<Locations>({ prev: undefined, curr: undefined });
+export const LocationContext = React.createContext<Locations>({
+  prev: undefined,
+  curr: undefined,
+  exitComplete: false,
+});
 
 const Routes = (): JSX.Element => {
   const location = useLocation();
@@ -33,24 +37,34 @@ const Routes = (): JSX.Element => {
   const [locations, setLocations] = useState<Locations>({
     prev: undefined,
     curr: undefined,
+    exitComplete: false,
   });
 
   const currentLocation = useRef<typeof location>();
   const lastLocation = useRef<typeof location>();
 
   useEffect(() => {
-    lastLocation.current = currentLocation.current;
-    currentLocation.current = location;
+    lastLocation.current = currentLocation.current ? { ...currentLocation.current } : undefined;
+    currentLocation.current = { ...location };
 
     setLocations({
       prev: lastLocation.current,
       curr: currentLocation.current,
+      exitComplete: false,
     });
   }, [location]);
 
+  const onExitComplete = (): void => {
+    setLocations({
+      prev: lastLocation.current,
+      curr: currentLocation.current,
+      exitComplete: true,
+    });
+  };
+
   return (
     <LocationContext.Provider value={locations}>
-      <AnimatePresence initial={false}>
+      <AnimatePresence initial={false} onExitComplete={onExitComplete}>
         <Switch location={location} key={location.pathname}>
           {routes.map(({ key, component: RouteChild, ...route }) => (
             <Route key={key} {...route}>

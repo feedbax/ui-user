@@ -1,5 +1,3 @@
-import store from 'store';
-
 import * as types from './types';
 
 const { SET_CURRENT_QUESTION, SET_ANSWER_FILTER, SET_POINTER_TYPE, SET_SELECTED_ANSWER } = types;
@@ -13,15 +11,9 @@ type AnswerFilter = import('./types').AnswerFilter;
 type PointerType = import('./types').PointerType;
 
 export const setCurrentQuestion = (questionNumber: number): SetCurrentQuestionAction => {
-  const { api } = store.getState();
-  const { questions } = api;
-
-  const ordered = Object.values(questions).sort((a, b) => a.order - b.order);
-  const question = ordered[questionNumber];
-
   return {
     type: SET_CURRENT_QUESTION,
-    payload: question,
+    payload: questionNumber,
   };
 };
 

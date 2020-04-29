@@ -1,9 +1,15 @@
 import { useContext, useEffect } from 'react';
 import { LocationContext } from './routes';
 
-function useLocationEffect(path: string[], handler: () => void): void;
-function useLocationEffect(path: string, handler: () => void): void;
-function useLocationEffect(path: string | string[], handler: () => void): void {
+// prettier-ignore
+function useLocationEffect(path: string[], handler: () => void, waitForExitComplete?: boolean): void;
+function useLocationEffect(path: string, handler: () => void, waitForExitComplete?: boolean): void;
+
+function useLocationEffect(
+  path: string | string[],
+  handler: () => void,
+  waitForExitComplete = false
+): void {
   const locations = useContext(LocationContext);
 
   useEffect(
@@ -12,11 +18,11 @@ function useLocationEffect(path: string | string[], handler: () => void): void {
         ? path.includes(locations.curr?.pathname || '')
         : locations.curr?.pathname === path;
 
-      if (isPage) {
+      if (isPage && locations.exitComplete === waitForExitComplete) {
         handler();
       }
     },
-    [locations.curr] // eslint-disable-line react-hooks/exhaustive-deps
+    [locations.curr, locations.exitComplete] // eslint-disable-line react-hooks/exhaustive-deps
   );
 }
 

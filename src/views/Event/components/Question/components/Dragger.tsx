@@ -3,7 +3,9 @@ import { useSelector } from 'react-redux';
 
 import { motion, AnimatePresence, PanInfo, Variants } from 'framer-motion';
 
-import { questionsLengthSelector } from 'store/selectors';
+import { questionsLengthSelector, pointerTypeSelector } from 'store/selectors';
+import { PointerType } from 'store/types';
+
 import { QuestionChangeDir, cache } from '../Question';
 
 type QuestionState = import('@feedbax/api/dist/store/questions/types').QuestionState;
@@ -53,10 +55,10 @@ const Overlay = ({ _key }: OverlayProps): JSX.Element => (
 );
 
 type OnDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => void;
-type QuestionProps = { children: ReactNode; onDragEnd: OnDragEnd };
-const Question = ({ children, onDragEnd }: QuestionProps): JSX.Element => (
+type QuestionProps = { children: ReactNode; onDragEnd: OnDragEnd; pointerType: PointerType };
+const Question = ({ children, onDragEnd, pointerType }: QuestionProps): JSX.Element => (
   <motion.div
-    drag="x"
+    drag={pointerType === PointerType.TOUCH ? 'x' : undefined}
     dragConstraints={{ left: 0, right: 0 }}
     dragElastic={0.2}
     onDragEnd={onDragEnd}
@@ -84,6 +86,7 @@ function Dragger(props: Props): JSX.Element {
   const { onQuestionChange } = props;
   const { children } = props;
 
+  const pointerType = useSelector(pointerTypeSelector);
   const questionsLength = useSelector(questionsLengthSelector);
 
   const _onDragEnd = useCallback(
@@ -105,7 +108,7 @@ function Dragger(props: Props): JSX.Element {
     <>
       <Overlay _key={`overlay-${question?.id}`} />
       <AnimatePresence initial={false}>
-        <Question key={question?.id} onDragEnd={_onDragEnd}>
+        <Question key={question?.id} pointerType={pointerType} onDragEnd={_onDragEnd}>
           {children}
         </Question>
       </AnimatePresence>

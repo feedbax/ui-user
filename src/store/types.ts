@@ -1,7 +1,7 @@
 type ResetStateAction = import('@feedbax/api/dist/store/types').ResetStateAction;
 type QuestionState = import('@feedbax/api/dist/store/questions/types').QuestionState;
 
-export type Question = Omit<QuestionState, 'answers' | 'likes'>;
+export type CurrentQuestion = Omit<QuestionState, 'answers' | 'likes'>;
 
 export enum AnswerFilter {
   POPULAR,
@@ -19,7 +19,7 @@ export const answerFilters = Object.values(AnswerFilter).filter(
 ) as number[];
 
 export interface AppState {
-  currentQuestion?: Question;
+  currentQuestionNumber?: number;
   answerFilter: AnswerFilter;
   pointerType: PointerType;
   selectedAnswer: string | null;
@@ -32,7 +32,7 @@ export const SET_SELECTED_ANSWER = 'SET_SELECTED_ANSWER';
 
 export interface SetCurrentQuestionAction {
   type: typeof SET_CURRENT_QUESTION;
-  payload: Question;
+  payload: number;
 }
 
 export interface SetAnswerFilterAction {

@@ -10,7 +10,7 @@ import {
 } from './types';
 
 const initialState: AppState = {
-  currentQuestion: undefined,
+  currentQuestionNumber: 0,
   answerFilter: AnswerFilter.RECENT,
   pointerType: PointerType.TOUCH,
   selectedAnswer: null,
@@ -21,7 +21,7 @@ const appReducer = (state = initialState, action: AppActionTypes): AppState => {
     case SET_CURRENT_QUESTION:
       return {
         ...state,
-        currentQuestion: action.payload,
+        currentQuestionNumber: action.payload,
       };
 
     case SET_ANSWER_FILTER:

@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
 import { useSelector } from 'react-redux';
 
-import { currentQuestionSelector, questionsSelector } from 'store/selectors';
+import { currentQuestionSelector, createQuestionsSelector } from 'store/selectors';
 
 interface PaginationDotProps {
   active: boolean;
@@ -30,6 +30,8 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+const questionsSelector = createQuestionsSelector('answers', 'likes', 'text', 'type', 'settings');
 
 function Pagination(): JSX.Element {
   const questions = useSelector(questionsSelector);

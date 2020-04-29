@@ -35,16 +35,21 @@ function Login(): JSX.Element {
 
   const [isLoading, isLoggedIn, doLogin] = useApiLogin(eventCode);
 
-  useLocationEffect([`/${eventCode}`, '/login'], () => {
-    // console.log('Login', 'useLocationEffect');
-    // console.log('Login', 'eventCodeInitial?', eventCodeInitial);
+  useLocationEffect(
+    [`/${eventCode}`, '/login'],
+    () => {
+      // console.log('Login', 'useLocationEffect');
+      // console.log('Login', 'eventCodeInitial?', eventCodeInitial);
 
-    api.logout();
+      console.log('LOGIN HOOK');
+      api.logout();
 
-    if (eventCodeInitial && eventCodeInitial !== '') {
-      doLogin();
-    }
-  });
+      if (eventCodeInitial && eventCodeInitial !== '') {
+        doLogin();
+      }
+    },
+    true
+  );
 
   useEffect(
     function onLogin() {

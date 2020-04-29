@@ -1029,10 +1029,10 @@
   resolved "https://registry.yarnpkg.com/@emotion/unitless/-/unitless-0.7.5.tgz#77211291c1900a700b8a78cfafda3160d76949ed"
   integrity sha512-OWORNpfjMsSSUBVrRBVGECkhWcULOAJz9ZW8uK9qgxD+87M7jHRcvh/A96XXNhXTLmKcoYSQtBEX7lHMO7YRwg==
 
-"@feedbax/api@1.0.42":
-  version "1.0.42"
-  resolved "https://npm.pkg.github.com/download/@feedbax/api/1.0.42/746384a970a287346563736e63b3cd4d934c79a46420b6f408a39bcad3e69f36#d621d4cb7f122180f5125d717722d3a2dfbd211f"
-  integrity sha512-gm8azN80FuV2X7YXl0AL/vNoPbSGiTxaQ/srWpbdzp87iF+uzyGvkboRyli5j+pkhT7bi5gz+b4nkveHh0FJUw==
+"@feedbax/api@1.0.54":
+  version "1.0.54"
+  resolved "https://npm.pkg.github.com/download/@feedbax/api/1.0.54/83bbc35c068e0f729e3bb17aca031cd7595f5ce7804ce0a63ffce5a27869bb1d#7859dd9d97bf104700623a9f64b4dbe6f3fdf07d"
+  integrity sha512-D0tuAqh5PFkwBzOK/lYj8C+08aZk9A7nEP4CkLYXGd9ue+FWc2SUmqt4o1JM+bk/oxClJKEqWnDY2xLDRjhqgw==
   dependencies:
     "@types/js-cookie" "^2.2.4"
     "@types/lodash.flattendeep" "^4.4.6"

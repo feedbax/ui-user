@@ -55,9 +55,7 @@ const answersSelector = (questionNumber: number, filter: AnswerFilter): Output =
         const answerId = answerIds[i];
         const answer = answers[answerId];
 
-        if (!answer) return [];
-
-        _answers.push(answer);
+        if (answer) _answers.push(answer);
       }
 
       if (isFilterAble(currentQuestion)) {

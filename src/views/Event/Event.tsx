@@ -55,6 +55,7 @@ const Event = (): JSX.Element => {
   useLocationEffect(`/e/${eventCode}`, () => {
     // console.log('Event', 'useLocationEffect');
     // console.log('Event', 'isEventLoaded?', isEventLoaded);
+    console.log('EVENT HOOK');
 
     if (!isEventLoaded) {
       // console.log('Event', 'redirect to login');
