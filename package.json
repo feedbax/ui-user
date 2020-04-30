@@ -4,8 +4,8 @@
   "private": false,
   "license": "GPL-3.0-only",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
     "_postbuild": "react-snap",
     "lint": "eslint 'src/**/*.{ts,tsx}' --fix",
     "serve": "serve build/"
@@ -63,6 +63,7 @@
     "eslint-plugin-react": "^7.18.3",
     "eslint-plugin-react-hooks": "^1.7.0",
     "prettier": "2.0.2",
+    "react-app-rewired": "^2.1.5",
     "react-snap": "^1.23.0",
     "serve": "^11.3.0",
     "typescript": "^3.8.3"

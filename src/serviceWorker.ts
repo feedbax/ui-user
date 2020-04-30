@@ -101,6 +101,19 @@ type Config = {
 };
 
 export function register(config?: Config): undefined {
+  const buildHash = localStorage.getItem('BUILD_HASH') || '';
+
+  if (buildHash !== process.env.HASH) {
+    console.log('invalid build hash, clear sw-cache now.');
+    localStorage.setItem('BUILD_HASH', process.env.HASH || '');
+
+    caches.keys().then((cacheNames) => {
+      cacheNames.forEach((cacheName) => {
+        caches.delete(cacheName);
+      });
+    });
+  }
+
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
