@@ -1,6 +1,16 @@
 import { useContext, useEffect } from 'react';
 import { LocationContext } from './routes';
 
+function lower(value: string): string;
+function lower(value: string[]): string[];
+function lower(value: string | string[]): string | string[] {
+  if (Array.isArray(value)) {
+    return value.map((v) => v.toLocaleLowerCase());
+  }
+
+  return value.toLowerCase();
+}
+
 // prettier-ignore
 function useLocationEffect(path: string[], handler: () => void, waitForExitComplete?: boolean): void;
 function useLocationEffect(path: string, handler: () => void, waitForExitComplete?: boolean): void;
@@ -15,8 +25,8 @@ function useLocationEffect(
   useEffect(
     function locationChanged() {
       const isPage = Array.isArray(path)
-        ? path.includes(locations.curr?.pathname || '')
-        : locations.curr?.pathname === path;
+        ? lower(path).includes(lower(locations.curr?.pathname || ''))
+        : lower(locations.curr?.pathname || '') === lower(path);
 
       if (isPage && (locations.exitComplete === waitForExitComplete || locations.isInitial)) {
         handler();

@@ -1,14 +1,15 @@
 /* eslint-disable no-console */
+import React, { useState, useEffect } from 'react';
+import { useRouteMatch, useHistory, useLocation } from 'react-router-dom';
 
 import api from 'lib/api';
 import { useLocationEffect } from 'lib/hooks';
 
-import React, { useState, useEffect } from 'react';
-import { useRouteMatch, useHistory, useLocation } from 'react-router-dom';
-
 import logo from 'assets/images/logo_128c.png';
 import bgProtrait from 'assets/images/background_vertical.jpg';
 import bgLandscape from 'assets/images/background_horizontal.jpg';
+
+import Helmet from 'react-helmet';
 
 import Logo, { Image, Title, Description } from 'components/Logo';
 import { Footer, Divider, Text, Link } from 'components/Footer';
@@ -57,31 +58,37 @@ function Login(): JSX.Element {
   );
 
   return (
-    <Container bgLandscape={bgLandscape} bgProtrait={bgProtrait}>
-      <Logo margin={['0 0 30px 0', '0 0 40px 0', '0 0 50px 0']}>
-        <Image image={logo} />
-        <Title>feedbax</Title>
-        <Description>by 365steps</Description>
-      </Logo>
+    <>
+      <Helmet>
+        <title>feedbax | Login</title>
+      </Helmet>
 
-      <Greeting>Hallo!</Greeting>
+      <Container bgLandscape={bgLandscape} bgProtrait={bgProtrait}>
+        <Logo margin={['0 0 30px 0', '0 0 40px 0', '0 0 50px 0']}>
+          <Image image={logo} />
+          <Title>feedbax</Title>
+          <Description>by 365steps</Description>
+        </Logo>
 
-      <Form>
-        <Input value={eventCode} onChange={(e): void => setEventCode(e.currentTarget.value)}>
-          EVENT-CODE
-        </Input>
+        <Greeting>Hallo!</Greeting>
 
-        <Button height={[47, 59, 72]} disabled={isLoading} loading={isLoading} onClick={doLogin}>
-          Los geht&apos;s
-        </Button>
-      </Form>
+        <Form>
+          <Input value={eventCode} onChange={(e): void => setEventCode(e.currentTarget.value)}>
+            EVENT-CODE
+          </Input>
 
-      <Footer color="primary">
-        <Divider />
-        <Text>{`© 2019-${new Date().getFullYear()} | feedb.ax by 365steps`}</Text>
-        <Link to="/legal/privacy-policy">{`Datenschutz & Impressum`}</Link>
-      </Footer>
-    </Container>
+          <Button height={[47, 59, 72]} disabled={isLoading} loading={isLoading} onClick={doLogin}>
+            Los geht&apos;s
+          </Button>
+        </Form>
+
+        <Footer color="primary">
+          <Divider />
+          <Text>{`© 2019-${new Date().getFullYear()} | feedb.ax by 365steps`}</Text>
+          <Link to="/legal/privacy-policy">{`Datenschutz & Impressum`}</Link>
+        </Footer>
+      </Container>
+    </>
   );
 }
 

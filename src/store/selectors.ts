@@ -1,11 +1,12 @@
 import { createSelector, OutputSelector } from 'reselect';
 
-import { RootState } from 'store';
+import store, { RootState } from 'store';
 
 import { NoneQuestion, QuestionsState } from '@feedbax/api/store/questions/types';
 import { QuestionType } from '@feedbax/api/types/models/question';
 
 import { PointerType, CurrentQuestion, AnswerFilter } from './types';
+import { setCurrentQuestion } from './actions';
 
 type QuestionState = import('@feedbax/api/store/questions/types').QuestionState;
 type QuestionStrip<T extends string> = Omit<QuestionState, T> & { [key: string]: any };
@@ -58,6 +59,13 @@ const currentQuestionSelector = createSelector<RootState, QuestionsState, number
     const questionsOrdered = Object.values(questions).sort((a, b) => a.order - b.order);
 
     if (questionsOrdered.length === 0) {
+      return NoneQuestion;
+    }
+
+    if (!questionsOrdered[currentQuestion]) {
+      const action = setCurrentQuestion(0);
+      store.dispatch(action);
+
       return NoneQuestion;
     }
 

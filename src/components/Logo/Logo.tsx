@@ -3,6 +3,7 @@ import React, { ReactNode } from 'react';
 import styled, { FlattenInterpolation } from 'styled-components';
 import media from 'lib/media-queries';
 import { ThemeProps } from 'assets/theme';
+import { Link } from 'react-router-dom';
 
 export enum LogoSize {
   Small,
@@ -12,6 +13,7 @@ export enum LogoSize {
 interface Props extends StyledProps {
   children?: ReactNode;
   size?: LogoSize;
+  link?: string;
 }
 
 const parentProps: Props = { size: LogoSize.Regular };
@@ -53,9 +55,32 @@ const StyledContainer = styled.div<StyledProps>`
   `}
 `;
 
-const Logo = ({ children, size = LogoSize.Regular, ...rest }: Props): JSX.Element => (
+interface CustomLinkProps {
+  className?: string;
+  children: ReactNode;
+  to: string;
+}
+
+const CustomLink = ({ className, children, to }: CustomLinkProps): JSX.Element => (
+  <Link className={className} to={to}>
+    {children}
+  </Link>
+);
+
+const StyledLink = styled(CustomLink)<CustomLinkProps>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: inherit;
+  text-decoration: none;
+`;
+
+const Logo = ({ children, link, size = LogoSize.Regular, ...rest }: Props): JSX.Element => (
   <StyledContainer {...rest}>
-    <LogoProps.Provider value={{ size }}>{children}</LogoProps.Provider>
+    <LogoProps.Provider value={{ size }}>
+      {link ? <StyledLink to={link}>{children}</StyledLink> : children}
+    </LogoProps.Provider>
   </StyledContainer>
 );
 

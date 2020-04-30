@@ -1,6 +1,6 @@
 {
   "name": "ui-user",
-  "version": "0.0.9",
+  "version": "0.0.12",
   "private": false,
   "license": "GPL-3.0-only",
   "scripts": {
@@ -21,7 +21,7 @@
     ">0.0%"
   ],
   "dependencies": {
-    "@feedbax/api": "1.0.61",
+    "@feedbax/api": "1.0.66",
     "autosize": "^4.0.2",
     "bezier-easing": "^2.1.0",
     "detect-it": "^3.0.5",
