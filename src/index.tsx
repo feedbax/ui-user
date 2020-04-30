@@ -11,7 +11,7 @@ import { setPointerType } from 'store/actions';
 import { PointerType } from 'store/types';
 
 import App from 'App';
-import rootElement from 'lib/rootElement';
+import { rootElement } from 'lib/helper';
 import * as serviceWorker from 'serviceWorker';
 
 import 'assets/style.css';

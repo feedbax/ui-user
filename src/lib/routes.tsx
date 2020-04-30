@@ -3,14 +3,26 @@ import { Switch, Route, RouteProps, useLocation } from 'react-router-dom';
 
 import { AnimatePresence, motion } from 'framer-motion';
 
+import { FlattenInterpolation } from 'styled-components';
+import { ThemeProps } from 'assets/theme';
+
 import Login from 'views/Login';
-import Event from 'views/Event';
+import * as Event from 'views/Event';
 import Error404 from 'views/Error/404';
 import PrivacyPolicy from 'views/legal/PrivacyPolicy';
 
+import Container from 'components/Container';
+
+import bgProtrait from 'assets/images/background_vertical.jpg';
+import bgLandscape from 'assets/images/background_horizontal.jpg';
+
 interface MyRouteProps extends RouteProps {
   key: string;
-  component: typeof Login | typeof Event | typeof Error404;
+  component: typeof Login | typeof Event.component | typeof Error404;
+  styles?: {
+    wrapper?: FlattenInterpolation<ThemeProps>;
+    content?: FlattenInterpolation<ThemeProps>;
+  };
 }
 
 const routes: MyRouteProps[] = [
@@ -18,7 +30,7 @@ const routes: MyRouteProps[] = [
   { key: 'home', exact: true, path: '/', component: Login },
   { key: 'login', exact: true, path: '/login', component: Login },
   { key: 'login--inital', exact: true, path: '/:eventCode', component: Login },
-  { key: 'event', exact: true, path: '/e/:eventCode', component: Event },
+  { key: 'event', exact: true, path: '/e/:eventCode', ...Event },
   // prettier-ignore
   { key: 'legal--privacy-policy', exact: true, path: '/legal/privacy-policy', component: PrivacyPolicy },
   { key: '404--catch-all', component: Error404 },
@@ -76,7 +88,7 @@ const Routes = (): JSX.Element => {
     <LocationContext.Provider value={locations}>
       <AnimatePresence initial={false} onExitComplete={onExitComplete}>
         <Switch location={location} key={location.pathname}>
-          {routes.map(({ key, component: RouteChild, ...route }) => (
+          {routes.map(({ key, component: RouteChild, styles, ...route }) => (
             <Route key={key} {...route}>
               <motion.div
                 key={key}
@@ -86,7 +98,9 @@ const Routes = (): JSX.Element => {
                 exit={{ zIndex: 1, opacity: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <RouteChild />
+                <Container bgLandscape={bgLandscape} bgProtrait={bgProtrait} styles={styles}>
+                  <RouteChild />
+                </Container>
               </motion.div>
             </Route>
           ))}

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 
 import api from 'lib/api';
-import getScrollBarWidth from 'lib/get-scrollbar-width';
+import { getScrollbarWidth } from 'lib/helper';
 import { useLocationEffect } from 'lib/hooks';
 
 import store from 'store';
@@ -22,10 +22,7 @@ import Button from 'components/ButtonNeumorphism';
 import { Footer, Divider, Link, Text } from 'components/Footer';
 
 import logo from 'assets/images/logo_128c.png';
-import bgProtrait from 'assets/images/background_vertical.jpg';
-import bgLandscape from 'assets/images/background_horizontal.jpg';
 
-import Container from './components/Container';
 import Content from './components/Content';
 import Pagination from './components/Pagination';
 import Question from './components/Question';
@@ -36,7 +33,7 @@ import Header from './components/Header';
 import VoteAnswer, { Button as VoteButton } from './components/VoteAnswer';
 
 const defaultElement = document.createElement('div');
-const scrollBarWidth = getScrollBarWidth();
+const scrollBarWidth = getScrollbarWidth();
 
 const Event = (): JSX.Element => {
   const history = useHistory();
@@ -107,23 +104,22 @@ const Event = (): JSX.Element => {
         <title>feedbax | {eventCode}</title>
       </Helmet>
 
-      <Container bgLandscape={bgLandscape} bgProtrait={bgProtrait}>
-        <Content ref={questionsWrapperRef}>
-          <Header>
-            <Button
-              onClick={_logout}
-              icon="log-out"
-              size={28}
-              apperance={{
-                backgroundColor: 'accent2',
-                position: 'absolute',
-                left: 0,
-                top: 0,
-                padding: 20,
-              }}
-            />
+      <Content ref={questionsWrapperRef}>
+        <Header>
+          <Button
+            onClick={_logout}
+            icon="log-out"
+            size={28}
+            apperance={{
+              backgroundColor: 'accent2',
+              position: 'absolute',
+              left: 0,
+              top: 0,
+              padding: 20,
+            }}
+          />
 
-            {/* <Button
+          {/* <Button
             onClick={_share}
             icon="share"
             size={28}
@@ -136,55 +132,54 @@ const Event = (): JSX.Element => {
             }}
           /> */}
 
-            <Logo size={LogoSize.Small} padding="20px 0">
-              <Image image={logo} />
-              <Title>feedbax</Title>
-              <Description>by 365steps</Description>
-            </Logo>
+          <Logo size={LogoSize.Small} padding="20px 0">
+            <Image image={logo} />
+            <Title>feedbax</Title>
+            <Description>by 365steps</Description>
+          </Logo>
 
-            <Pagination />
-            <Question />
-            <AnswerFilter />
-          </Header>
+          <Pagination />
+          <Question />
+          <AnswerFilter />
+        </Header>
 
-          <Answers />
+        <Answers />
 
-          <Footer color="accent1">
-            <Divider />
-            <Text>{`© 2019-${new Date().getFullYear()} | feedb.ax by 365steps`}</Text>
-            <Link to="/legal/privacy-policy">{`Datenschutz & Impressum`}</Link>
-          </Footer>
-        </Content>
+        <Footer color="accent1">
+          <Divider />
+          <Text>{`© 2019-${new Date().getFullYear()} | feedb.ax by 365steps`}</Text>
+          <Link to="/legal/privacy-policy">{`Datenschutz & Impressum`}</Link>
+        </Footer>
+      </Content>
 
-        <WriteAnswer>
-          <TextArea
-            rows={1}
-            placeholder={`Deine Nachricht..`}
-            value={answerText}
-            maxLength={500}
-            onChange={_onChange}
-            onScrollable={_onScrollable}
-          />
+      <WriteAnswer>
+        <TextArea
+          rows={1}
+          placeholder={`Deine Nachricht..`}
+          value={answerText}
+          maxLength={500}
+          onChange={_onChange}
+          onScrollable={_onScrollable}
+        />
 
-          <Button
-            icon="send"
-            disabled={answerText.length === 0}
-            onClick={_postAnswer}
-            size={35}
-            apperance={{
-              transform: `translate(-${isTextScrollable ? scrollBarWidth : 0}px, -50%)`,
-              backgroundColor: 'accent1',
-              position: 'absolute',
-              top: [50, '%'],
-              right: 15,
-            }}
-          />
-        </WriteAnswer>
+        <Button
+          icon="send"
+          disabled={answerText.length === 0}
+          onClick={_postAnswer}
+          size={35}
+          apperance={{
+            transform: `translate(-${isTextScrollable ? scrollBarWidth : 0}px, -50%)`,
+            backgroundColor: 'accent1',
+            position: 'absolute',
+            top: [50, '%'],
+            right: 15,
+          }}
+        />
+      </WriteAnswer>
 
-        <VoteAnswer>
-          <VoteButton onClick={_voteAnswer}>Bestätigen</VoteButton>
-        </VoteAnswer>
-      </Container>
+      <VoteAnswer>
+        <VoteButton onClick={_voteAnswer}>Bestätigen</VoteButton>
+      </VoteAnswer>
     </>
   );
 };

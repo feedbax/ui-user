@@ -29,6 +29,7 @@ const renderAnswer = (answer: AnswerState): JSX.Element => (
 const Wrapper = styled.div`
   background-color: #fff;
   flex: 0 0 auto;
+  color: ${color('accent1')};
 `;
 
 const Underlay = styled.div`

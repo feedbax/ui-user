@@ -6,10 +6,7 @@ import { fontFamily } from 'assets/theme';
 
 import errorImage from 'assets/images/undraw_access_denied.svg';
 import logo from 'assets/images/logo_128c.png';
-import bgProtrait from 'assets/images/background_vertical.jpg';
-import bgLandscape from 'assets/images/background_horizontal.jpg';
 
-import Container from 'components/Container';
 import Logo, { Image, Title, Description } from 'components/Logo';
 import { Footer, Divider, Link, Text } from 'components/Footer';
 
@@ -34,22 +31,20 @@ const Error = (): JSX.Element => (
       <title>feedbax | Ups.. Diese Seite existiert nicht!</title>
     </Helmet>
 
-    <Container bgLandscape={bgLandscape} bgProtrait={bgProtrait}>
-      <Logo link="/" margin={['0 0 50px 0', '0 0 60px 0', '0 0 70px 0']}>
-        <Image image={logo} />
-        <Title>feedbax</Title>
-        <Description>by 365steps</Description>
-      </Logo>
+    <Logo link="/" margin={['0 0 50px 0', '0 0 60px 0', '0 0 70px 0']}>
+      <Image image={logo} />
+      <Title>feedbax</Title>
+      <Description>by 365steps</Description>
+    </Logo>
 
-      <ErrorImage src={errorImage} alt="error" />
-      <ErrorText>Hier ist wohl was schief gelaufen.. Diese Seite existiert nicht.</ErrorText>
+    <ErrorImage src={errorImage} alt="error" />
+    <ErrorText>Hier ist wohl was schief gelaufen.. Diese Seite existiert nicht.</ErrorText>
 
-      <Footer color="primary">
-        <Divider />
-        <Text>{`© 2019-${new Date().getFullYear()} | feedb.ax by 365steps`}</Text>
-        <Link to="/legal/privacy-policy">{`Datenschutz & Impressum`}</Link>
-      </Footer>
-    </Container>
+    <Footer color="primary">
+      <Divider />
+      <Text>{`© 2019-${new Date().getFullYear()} | feedb.ax by 365steps`}</Text>
+      <Link to="/legal/privacy-policy">{`Datenschutz & Impressum`}</Link>
+    </Footer>
   </>
 );
 

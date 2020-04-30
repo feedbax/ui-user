@@ -21,9 +21,9 @@ const CustomLink = ({ textColor: _, ...props }: StyledProps): JSX.Element => (
 );
 
 const StyledLink = styled(CustomLink)<StyledProps>`
-  font-family: ${fontFamily('secondaryAccent')};
+  font-family: ${fontFamily('secondaryAccent')} !important;
   font-size: 16px;
-  color: ${({ textColor }): ColorFn => color(textColor)};
+  color: ${({ textColor }): ColorFn => color(textColor)} !important;
 `;
 
 const Link = ({ children, to }: Props): JSX.Element => {

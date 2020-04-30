@@ -6,15 +6,12 @@ import api from 'lib/api';
 import { useLocationEffect } from 'lib/hooks';
 
 import logo from 'assets/images/logo_128c.png';
-import bgProtrait from 'assets/images/background_vertical.jpg';
-import bgLandscape from 'assets/images/background_horizontal.jpg';
 
 import Helmet from 'react-helmet';
 
 import Logo, { Image, Title, Description } from 'components/Logo';
 import { Footer, Divider, Text, Link } from 'components/Footer';
 
-import Container from './components/Container';
 import Greeting from './components/Greeting';
 import { Form, Input, Button } from './components/Form';
 
@@ -63,31 +60,29 @@ function Login(): JSX.Element {
         <title>feedbax | Login</title>
       </Helmet>
 
-      <Container bgLandscape={bgLandscape} bgProtrait={bgProtrait}>
-        <Logo margin={['0 0 30px 0', '0 0 40px 0', '0 0 50px 0']}>
-          <Image image={logo} />
-          <Title>feedbax</Title>
-          <Description>by 365steps</Description>
-        </Logo>
+      <Logo margin={['0 0 30px 0', '0 0 40px 0', '0 0 50px 0']}>
+        <Image image={logo} />
+        <Title>feedbax</Title>
+        <Description>by 365steps</Description>
+      </Logo>
 
-        <Greeting>Hallo!</Greeting>
+      <Greeting>Hallo!</Greeting>
 
-        <Form>
-          <Input value={eventCode} onChange={(e): void => setEventCode(e.currentTarget.value)}>
-            EVENT-CODE
-          </Input>
+      <Form>
+        <Input value={eventCode} onChange={(e): void => setEventCode(e.currentTarget.value)}>
+          EVENT-CODE
+        </Input>
 
-          <Button height={[47, 59, 72]} disabled={isLoading} loading={isLoading} onClick={doLogin}>
-            Los geht&apos;s
-          </Button>
-        </Form>
+        <Button height={[47, 59, 72]} disabled={isLoading} loading={isLoading} onClick={doLogin}>
+          Los geht&apos;s
+        </Button>
+      </Form>
 
-        <Footer color="primary">
-          <Divider />
-          <Text>{`© 2019-${new Date().getFullYear()} | feedb.ax by 365steps`}</Text>
-          <Link to="/legal/privacy-policy">{`Datenschutz & Impressum`}</Link>
-        </Footer>
-      </Container>
+      <Footer color="primary">
+        <Divider />
+        <Text>{`© 2019-${new Date().getFullYear()} | feedb.ax by 365steps`}</Text>
+        <Link to="/legal/privacy-policy">{`Datenschutz & Impressum`}</Link>
+      </Footer>
     </>
   );
 }

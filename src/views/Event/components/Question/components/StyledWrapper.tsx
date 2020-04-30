@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styled from 'styled-components';
-import { fontFamily } from 'assets/theme';
+import { fontFamily, color } from 'assets/theme';
 
 type StyledProps = {
   questionHeight: number;
@@ -12,10 +12,12 @@ const StyledWrapper = styled.div<StyledProps>`
   overflow: hidden;
   background-size: cover;
   background-position: center;
-  font-family: ${fontFamily('secondary')};
   cursor: pointer;
   user-select: none;
   position: relative;
+
+  font-family: ${fontFamily('secondary')};
+  color: ${color('accent1')};
 
   flex: 0 0 ${(props): number => props.questionHeight}px;
 `;

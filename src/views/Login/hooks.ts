@@ -1,6 +1,7 @@
 import { useState } from 'react';
+
 import api from 'lib/api';
-import sleep from 'lib/sleep';
+import { sleep } from 'lib/helper';
 
 function useApiLogin(eventCode: string): [boolean, boolean, () => Promise<void>] {
   const [isLoggedIn, setLoggedIn] = useState(false);

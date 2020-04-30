@@ -1,4 +1,4 @@
-export default (): number => {
+export const getScrollbarWidth = (): number => {
   const inner = document.createElement('div');
   inner.style.width = '100%';
   inner.style.height = '150px';
@@ -23,4 +23,10 @@ export default (): number => {
 
   document.body.removeChild(outer);
   return w1 - w2;
+};
+
+export const rootElement = document.getElementById('root') as HTMLElement;
+
+export const sleep = (duration: number): Promise<void> => {
+  return new Promise((resolve) => setTimeout(resolve, duration));
 };
