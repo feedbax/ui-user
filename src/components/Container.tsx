@@ -84,7 +84,12 @@ const StyledContent = styled.div<Styles>`
 `;
 
 const Container = ({ children, bgProtrait, bgLandscape, styles }: Props): JSX.Element => (
-  <StyledWrapper bgProtrait={bgProtrait} bgLandscape={bgLandscape} styles={styles?.wrapper}>
+  <StyledWrapper
+    bgProtrait={bgProtrait}
+    bgLandscape={bgLandscape}
+    styles={styles?.wrapper}
+    data-scroll-lock-scrollable
+  >
     <StyledContent styles={styles?.content}>{children}</StyledContent>
   </StyledWrapper>
 );
