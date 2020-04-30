@@ -12,6 +12,10 @@ RUN yarn install
 
 COPY ./src ./src
 COPY ./public ./public
+
+ARG API_SERVER
+ENV REACT_APP_WS_SERVER_URL=$API_SERVER
+
 RUN yarn build
 
 

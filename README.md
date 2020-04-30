@@ -1,7 +1,7 @@
 ```
 docker.pkg.github.com/feedbax/ui-user/serve:latest
-docker build -t docker.pkg.github.com/feedbax/ui-user/serve:latest .
-docker push docker.pkg.github.com/feedbax/ui-user/serve:latest .
+docker build --build-arg API_SERVER=wss://feedb.ax:8080 -t docker.pkg.github.com/feedbax/ui-user/serve:latest .
+docker push docker.pkg.github.com/feedbax/ui-user/serve:latest 
 ```
 
 
