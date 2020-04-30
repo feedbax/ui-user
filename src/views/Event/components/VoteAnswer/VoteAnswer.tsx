@@ -14,6 +14,7 @@ const StyledBox = styled.div`
   background-color: ${color('accent1')};
   box-sizing: border-box;
   min-width: 0px;
+  width: 100%;
   margin: 0px;
   padding: 0px;
   flex: 0 1 auto;

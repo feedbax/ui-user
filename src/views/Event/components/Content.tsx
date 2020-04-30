@@ -13,6 +13,7 @@ const StyledContent = styled.div`
   background-color: ${color('primary')};
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 
 const Content = ({ children }: Props, ref: Ref<HTMLDivElement>): JSX.Element => (
