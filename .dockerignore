@@ -3,3 +3,10 @@
 
 # Allow build
 !/build/**
+!package.json
+!tsconfig.json
+!yarn.lock
+!.npmrc
+!.yarnrc
+!src
+!public

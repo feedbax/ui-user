@@ -2,11 +2,12 @@ import FBXAPI, { FBXAPIUser, FBXAPIAdmin } from '@feedbax/api';
 import store from 'store';
 import history from './history';
 
-const adminApi = FBXAPI.create(FBXAPIAdmin, 'https://feedb.ax:8080');
+const apiUrl = process.env.REACT_APP_WS_SERVER_URL || '';
+const adminApi = FBXAPI.create(FBXAPIAdmin, apiUrl);
 (window as any).adminApi = adminApi;
 
 FBXAPI.store = store;
-const api = FBXAPI.create(FBXAPIUser, 'https://feedb.ax:8080');
+const api = FBXAPI.create(FBXAPIUser, apiUrl);
 
 api.onDisconnect(() => {
   const { api: _api } = store.getState();
