@@ -5,6 +5,7 @@ export const component = Event;
 export const styles = {
   content: css`
     padding: 0;
+    height: 100%;
 
     @media (min-width: 540px) {
       max-height: 800px;
