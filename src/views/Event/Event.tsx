@@ -15,7 +15,7 @@ import {
   selectedAnswerSelector,
 } from 'store/selectors';
 
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 
 import Logo, { LogoSize, Title, Description, Image } from 'components/Logo';
 import Button from 'components/ButtonNeumorphism';

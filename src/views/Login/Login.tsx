@@ -7,7 +7,7 @@ import { useLocationEffect } from 'lib/hooks';
 
 import logo from 'assets/images/logo_128c.png';
 
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 
 import Logo, { Image, Title, Description } from 'components/Logo';
 import { Footer, Divider, Text, Link } from 'components/Footer';

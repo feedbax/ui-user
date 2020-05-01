@@ -13,8 +13,6 @@
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://bit.ly/CRA-PWA
 
-declare const self: ServiceWorkerGlobalScope;
-
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
     // [::1] is the IPv6 localhost address.
@@ -37,8 +35,6 @@ function registerValidSW(swUrl: string, config?: Config): void {
         installingWorker.onstatechange = (): void => {
           if (installingWorker.state === 'installed') {
             if (navigator.serviceWorker.controller) {
-              self.skipWaiting();
-
               // At this point, the updated precached content has been fetched,
               // but the previous service worker will still serve the older
               // content until all client tabs are closed.
@@ -106,15 +102,6 @@ type Config = {
 
 export function register(config?: Config): undefined {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
-    let refreshing = false;
-
-    navigator.serviceWorker.addEventListener('controllerchange', () => {
-      if (refreshing) return;
-
-      window.location.reload();
-      refreshing = true;
-    });
-
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
     if (publicUrl.origin !== window.location.origin) {
