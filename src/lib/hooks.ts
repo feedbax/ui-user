@@ -1,4 +1,6 @@
 import { useContext, useEffect } from 'react';
+import twemoji from 'twemoji';
+
 import { LocationContext } from './routes';
 
 function lower(value: string): string;
@@ -36,5 +38,23 @@ function useLocationEffect(
   );
 }
 
+const useEmojis = <T extends HTMLElement>(el: T | null): void => {
+  if (el) {
+    twemoji.parse(el);
+  }
+};
+
+const resizeQuestion = <T extends HTMLElement>(el: T | null): void => {
+  if (el) {
+    const lineHeightString = window.getComputedStyle(el).lineHeight;
+    const lineHeight = parseInt(lineHeightString, 10);
+
+    if (el.clientHeight <= lineHeight + 1) {
+      // eslint-disable-next-line no-param-reassign
+      el.style.maxWidth = `${0.8 * el.clientWidth}px`;
+    }
+  }
+};
+
 // eslint-disable-next-line import/prefer-default-export
-export { useLocationEffect };
+export { useLocationEffect, useEmojis, resizeQuestion };

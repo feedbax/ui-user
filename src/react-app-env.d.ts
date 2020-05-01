@@ -19,3 +19,5 @@ declare module 'detect-it' {
   const detectIt: DetectIt;
   export default detectIt;
 }
+
+declare module 'react-twemoji';

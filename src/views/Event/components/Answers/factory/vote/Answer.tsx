@@ -4,11 +4,13 @@ import styled from 'styled-components';
 import media from 'lib/media-queries';
 import { color, fontFamily } from 'assets/theme';
 
-import store from 'store';
 import api from 'lib/api';
 import { isAnswer } from '@feedbax/api/store/answers/types';
 
 import Button from 'components/ButtonNeumorphism';
+
+import { useEmojis } from 'lib/hooks';
+import { useLiked } from '../../hooks';
 
 type AnswerState = import('@feedbax/api/store/answers/types').AnswerState;
 
@@ -58,12 +60,26 @@ const AnswerStyled = styled.div`
   }
 `;
 
-const AnswerText = styled.span`
+interface AnswerTextProps {
+  ref?: typeof useEmojis;
+}
+
+const AnswerText = styled.span<AnswerTextProps>`
   flex: 1 1 auto;
   display: flex;
   flex-direction: row;
   align-items: center;
   white-space: break-spaces;
+
+  & img.emoji {
+    display: inline-block;
+    margin: 0 1px;
+
+    ${mq`
+      width: ${[18, 19, 20]}px;
+      height: ${[18, 19, 20]}px;
+    `}
+  }
 `;
 
 const AnswerLikesStyled = styled.span`
@@ -109,28 +125,12 @@ const AnswerLikes = (props: AnswerLikesProps): JSX.Element => {
   );
 };
 
-function useLiked(answerLikes: string[]): [number, boolean] {
-  const { api: apiStore } = store.getState();
-  const { likes } = apiStore;
-
-  for (let i = 0; i < answerLikes.length; i += 1) {
-    const answerLike = answerLikes[i];
-    const like = likes[answerLike];
-
-    if (like.author === api.uuid) {
-      return [answerLikes.length, true];
-    }
-  }
-
-  return [answerLikes.length, false];
-}
-
 const _RealAnswer = ({ answer }: { answer: AnswerState }): JSX.Element => {
   const [likes, hasLiked] = useLiked(answer.likes);
 
   return (
     <AnswerStyled>
-      <AnswerText>{answer.text}</AnswerText>
+      <AnswerText ref={useEmojis}>{answer.text}</AnswerText>
       <AnswerLikes answerId={answer.id} likes={likes} hasLiked={hasLiked} />
     </AnswerStyled>
   );

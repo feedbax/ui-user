@@ -9,7 +9,8 @@ COPY ./tsconfig.json ./tsconfig.json
 COPY ./.npmrc ./.npmrc
 COPY ./.yarnrc ./.yarnrc
 
-COPY ./node_modules ./node_modules
+RUN yarn install
+
 COPY ./src ./src
 COPY ./public ./public
 

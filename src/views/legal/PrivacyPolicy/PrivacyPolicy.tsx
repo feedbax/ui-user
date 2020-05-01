@@ -17,6 +17,30 @@ const PrivacyPolicy = (): JSX.Element => (
       <Description>by 365steps</Description>
     </Logo>
 
+    <p>
+      Wir freuen uns sehr, dass du Feedbax, powered by 365 STEPS, nutzt. Feedbax ist ein
+      Umfragetool, das im Rahmen des STEPS-Projekts der Christlichen Jugendpflege e. V.
+      konzeptioniert und realisiert wurde. Als Team ist es uns wichtig, dass der Schutz und die
+      Sicherheit Deiner persönlichen Daten gewahrt werden.
+    </p>
+
+    <h1>Open-Source Lizenzen</h1>
+
+    <ul>
+      <li>
+        Twemoji - <a href="https://twemoji.twitter.com/">https://twemoji.twitter.com/</a> <br />
+        <small>
+          Copyright 2020 Twitter, Inc and other contributors <br />
+          Code licensed under the MIT License:{' '}
+          <a href="http://opensource.org/licenses/MIT">http://opensource.org/licenses/MIT</a> <br />
+          Graphics licensed under CC-BY 4.0:{' '}
+          <a href="https://creativecommons.org/licenses/by/4.0/">
+            https://creativecommons.org/licenses/by/4.0/
+          </a>
+        </small>
+      </li>
+    </ul>
+
     <h1>Datenschutz</h1>
 
     <p>

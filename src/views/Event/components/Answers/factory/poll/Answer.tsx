@@ -3,17 +3,19 @@ import { useSelector } from 'react-redux';
 
 import styled from 'styled-components';
 import media from 'lib/media-queries';
-import { color, fontFamily } from 'assets/theme';
+import { color, fontFamily, ColorFn } from 'assets/theme';
 
 import store from 'store';
 import { questionLikesSelector, selectedAnswerSelector } from 'store/selectors';
-
-import api from 'lib/api';
 import { setSeletedAnswer } from 'store/actions';
 
 import Button from 'components/ButtonNeumorphism';
 
 import { useSpring, animated, OpaqueInterpolation } from 'react-spring';
+
+import { useEmojis } from 'lib/hooks';
+import { useHasLiked } from '../../hooks';
+
 import easing from './easing';
 
 type AnswerState = import('@feedbax/api/store/answers/types').AnswerState;
@@ -54,24 +56,9 @@ const AnswerStyled = styled.div`
   `}
 `;
 
-function useHasLiked(answerLikes: string[]): boolean {
-  const { api: apiStore } = store.getState();
-  const { likes } = apiStore;
-
-  for (let i = 0; i < answerLikes.length; i += 1) {
-    const answerLike = answerLikes[i];
-    const like = likes[answerLike];
-
-    if (like && like.author === api.uuid) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
 interface AnswerTextProps {
   hasLiked: boolean;
+  ref?: typeof useEmojis;
 }
 
 const AnswerText = styled.div<AnswerTextProps>`
@@ -85,6 +72,16 @@ const AnswerText = styled.div<AnswerTextProps>`
   ${({ hasLiked }): string => `
     transform: translateY(${hasLiked ? 5 : 0}px);
   `}
+
+  & img.emoji {
+    display: inline-block;
+    margin: 0 1px;
+
+    ${mq`
+      width: ${[18, 19, 20]}px;
+      height: ${[18, 19, 20]}px;
+    `}
+  }
 `;
 
 const AnswerLike = styled.div`
@@ -113,8 +110,8 @@ const PercentageAnimated = ({ percent, className }: PercentageProps): JSX.Elemen
 
 const Percentage = styled(PercentageAnimated)<PercentageProps>`
   font-size: 22px;
-  color: ${({ hasLiked }): any => color(hasLiked ? 'accent2' : 'accent1')};
-  font-weight: ${({ hasLiked }): any => (hasLiked ? 'bold' : 'normal')};
+  color: ${({ hasLiked }): ColorFn => color(hasLiked ? 'accent2' : 'accent1')};
+  font-weight: ${({ hasLiked }): string => (hasLiked ? 'bold' : 'normal')};
 `;
 
 const PercentageBarAnimated = ({ percent, className }: PercentageProps): JSX.Element => (
@@ -140,7 +137,7 @@ const PercentageBar = styled(PercentageBarAnimated)<PercentageProps>`
     width: 100%;
     height: 100%;
     position: absolute;
-    background-color: ${({ hasLiked }): any => color(hasLiked ? 'accent2' : 'accent1')};
+    background-color: ${({ hasLiked }): ColorFn => color(hasLiked ? 'accent2' : 'accent1')};
   }
 `;
 
@@ -177,7 +174,10 @@ const Answer = ({ children: answer, className }: Props): JSX.Element => {
     <AnswerStyled className={className} onClick={_selectAnswer}>
       {hasLikedQuestion ? <PercentageBar hasLiked={hasLikedAnswer} percent={percent} /> : ''}
 
-      <AnswerText hasLiked={hasLikedQuestion}>{answer.text}</AnswerText>
+      <AnswerText ref={useEmojis} hasLiked={hasLikedQuestion}>
+        {answer.text}
+      </AnswerText>
+
       <AnswerLike>
         {hasLikedQuestion ? (
           <Percentage hasLiked={hasLikedAnswer} percent={percent} />

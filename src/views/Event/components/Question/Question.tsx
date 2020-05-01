@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 
 import { useSelector } from 'react-redux';
-import { useLocationEffect } from 'lib/hooks';
+import { useLocationEffect, useEmojis as _useEmojis, resizeQuestion } from 'lib/hooks';
 
 import store, { RootState } from 'store';
 import { setCurrentQuestion, setSeletedAnswer } from 'store/actions';
@@ -33,6 +33,11 @@ export enum QuestionChangeDir {
 
 export const cache = {
   dir: QuestionChangeDir.RIGHT,
+};
+
+const refEffect = (el: HTMLElement): void => {
+  _useEmojis(el);
+  resizeQuestion(el);
 };
 
 function Question(): JSX.Element {
@@ -86,7 +91,7 @@ function Question(): JSX.Element {
             <StyledQuestionNumber>
               {`${(currentQuestion?.order || 0) + 1}`.padStart(2, '0')}
             </StyledQuestionNumber>
-            <StyledQuestionText>{currentQuestion?.text || ''}</StyledQuestionText>
+            <StyledQuestionText ref={refEffect}>{currentQuestion?.text || ''}</StyledQuestionText>
           </StyledQuestionWrapper>
         </Dragger>
       ) : (

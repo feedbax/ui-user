@@ -2,7 +2,6 @@
 **
 
 # Allow build
-!node_modules/**
 !package.json
 !tsconfig.json
 !yarn.lock
