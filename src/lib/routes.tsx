@@ -6,10 +6,10 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { FlattenInterpolation } from 'styled-components';
 import { ThemeProps } from 'assets/theme';
 
-import Login from 'views/Login';
+import * as Login from 'views/Login';
 import * as Event from 'views/Event';
-import Error404 from 'views/Error/404';
-import PrivacyPolicy from 'views/legal/PrivacyPolicy';
+import * as Error404 from 'views/Error';
+import * as PrivacyPolicy from 'views/legal/PrivacyPolicy';
 
 import Container from 'components/Container';
 
@@ -18,7 +18,7 @@ import bgLandscape from 'assets/images/background_horizontal.jpg';
 
 interface MyRouteProps extends RouteProps {
   key: string;
-  component: typeof Login | typeof Event.component | typeof Error404;
+  component: React.MemoExoticComponent<() => JSX.Element> | (() => JSX.Element);
   styles?: {
     wrapper?: FlattenInterpolation<ThemeProps>;
     content?: FlattenInterpolation<ThemeProps>;
@@ -26,14 +26,14 @@ interface MyRouteProps extends RouteProps {
 }
 
 const routes: MyRouteProps[] = [
-  { key: '404-html', exact: true, path: '/404.html', component: Error404 },
-  { key: 'home', exact: true, path: '/', component: Login },
-  { key: 'login', exact: true, path: '/login', component: Login },
-  { key: 'login--inital', exact: true, path: '/:eventCode', component: Login },
+  { key: '404-html', exact: true, path: '/404.html', ...Error404 },
+  { key: 'home', exact: true, path: '/', ...Login },
+  { key: 'login', exact: true, path: '/login', ...Login },
+  { key: 'login--inital', exact: true, path: '/:eventCode', ...Login },
   { key: 'event', exact: true, path: '/e/:eventCode', ...Event },
   // prettier-ignore
-  { key: 'legal--privacy-policy', exact: true, path: '/legal/privacy-policy', component: PrivacyPolicy },
-  { key: '404--catch-all', component: Error404 },
+  { key: 'legal--privacy-policy', exact: true, path: '/legal/privacy-policy', ...PrivacyPolicy },
+  { key: '404--catch-all', ...Error404 },
 ];
 
 type Location = ReturnType<typeof useLocation> | undefined;

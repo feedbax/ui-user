@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react';
 import styled, { css, FlattenInterpolation } from 'styled-components';
 import { color, fontFamily, ThemeProps } from 'assets/theme';
-import media from 'lib/media-queries';
 
 type Style = FlattenInterpolation<ThemeProps>;
 
@@ -51,7 +50,6 @@ const StyledWrapper = styled.div<StyledProps & Styles>`
   ${(props): Style | string => (props.styles ? props.styles : '')}
 `;
 
-const mq = media('xs', 'sm', 'md');
 const StyledContent = styled.div<Styles>`
   position: relative;
 
@@ -75,10 +73,6 @@ const StyledContent = styled.div<Styles>`
   a {
     color: ${color('primary')};
   }
-
-  ${mq`
-    max-width: ${[380, 440, 500]}px;
-  `}
 
   ${(props): Style | string => (props.styles ? props.styles : '')}
 `;

@@ -6,6 +6,7 @@ export const styles = {
   content: css`
     padding: 0;
     height: 100%;
+    max-width: 540px;
 
     @media (min-width: 540px) {
       max-height: 800px;

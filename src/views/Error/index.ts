@@ -1,9 +1,9 @@
 import { css } from 'styled-components';
 import media from 'lib/media-queries';
 
-import PrivacyPolicy from './PrivacyPolicy';
+import Error404 from './404';
 
-export const component = PrivacyPolicy;
+export const component = Error404;
 
 const mq = media('xs', 'sm', 'md');
 export const styles = {
