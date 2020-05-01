@@ -21,6 +21,11 @@ const Filter = styled.div<FilterProps>`
   display: block;
   position: relative;
 
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   transition: transform 0.3s ease, opacity 0.3s ease;
 
   ${(props): FlattenSimpleInterpolation => css`
@@ -32,7 +37,7 @@ const Filter = styled.div<FilterProps>`
 const Wrapper = styled.div`
   flex: 0 0 auto;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
 `;
 
