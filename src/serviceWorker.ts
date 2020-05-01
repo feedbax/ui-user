@@ -25,6 +25,12 @@ function registerValidSW(swUrl: string, config?: Config): void {
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
+      if (registration.waiting) {
+        if (config && config.onWaiting) {
+          config.onWaiting(registration);
+        }
+      }
+
       registration.onupdatefound = (): undefined => {
         const installingWorker = registration.installing;
 
@@ -98,6 +104,7 @@ function checkValidServiceWorker(swUrl: string, config?: Config): void {
 type Config = {
   onSuccess?: (registration: ServiceWorkerRegistration) => void;
   onUpdate?: (registration: ServiceWorkerRegistration) => void;
+  onWaiting?: (registration: ServiceWorkerRegistration) => void;
 };
 
 export function register(config?: Config): undefined {

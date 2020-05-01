@@ -26,20 +26,24 @@ if (rootElement?.hasChildNodes()) {
   ReactDom.render(<App />, rootElement);
 }
 
+function updateApp(reg: ServiceWorkerRegistration): void {
+  const waitingServiceWorker = reg.waiting;
+
+  if (waitingServiceWorker) {
+    waitingServiceWorker.addEventListener('statechange', (event) => {
+      if ((event?.target as ServiceWorker | null)?.state === 'activated') {
+        window.location.reload();
+      }
+    });
+
+    waitingServiceWorker.postMessage({ type: 'SKIP_WAITING' });
+  }
+}
+
 serviceWorker.register({
-  onUpdate: (registration) => {
-    const waitingServiceWorker = registration.waiting;
-
-    if (waitingServiceWorker) {
-      waitingServiceWorker.addEventListener('statechange', (event) => {
-        if ((event?.target as ServiceWorker | null)?.state === 'activated') {
-          window.location.reload();
-        }
-      });
-
-      waitingServiceWorker.postMessage({ type: 'SKIP_WAITING' });
-    }
-  },
+  onUpdate: updateApp,
+  onSuccess: updateApp,
+  onWaiting: updateApp,
 });
 
 disablePageScroll();

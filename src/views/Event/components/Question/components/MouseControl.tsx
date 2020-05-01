@@ -66,6 +66,8 @@ function MouseControl(props: MouseControlProps): JSX.Element {
   const { pointerType } = props;
 
   const isMouse = pointerType === PointerType.MOUSE;
+  const isFirstQuestion = questionNumber === 0;
+  const isLastQuestion = questionNumber === questionsLength - 1;
 
   const _changeQuestion = (newQuestionNumber: number, dir: QuestionChangeDir): void => {
     const _min = Math.min(newQuestionNumber, questionsLength - 1);
@@ -76,15 +78,19 @@ function MouseControl(props: MouseControlProps): JSX.Element {
 
   return isMouse ? (
     <>
-      <Control
-        onClick={(): void => _changeQuestion(questionNumber - 1, QuestionChangeDir.LEFT)}
-        type="left"
-      />
+      {!isFirstQuestion && (
+        <Control
+          onClick={(): void => _changeQuestion(questionNumber - 1, QuestionChangeDir.LEFT)}
+          type="left"
+        />
+      )}
 
-      <Control
-        onClick={(): void => _changeQuestion(questionNumber + 1, QuestionChangeDir.RIGHT)}
-        type="right"
-      />
+      {!isLastQuestion && (
+        <Control
+          onClick={(): void => _changeQuestion(questionNumber + 1, QuestionChangeDir.RIGHT)}
+          type="right"
+        />
+      )}
     </>
   ) : (
     <></>
