@@ -8,8 +8,8 @@ COPY ./yarn.lock ./yarn.lock
 COPY ./tsconfig.json ./tsconfig.json
 COPY ./.npmrc ./.npmrc
 COPY ./.yarnrc ./.yarnrc
-RUN yarn install
 
+COPY ./node_modules ./node_modules
 COPY ./src ./src
 COPY ./public ./public
 
