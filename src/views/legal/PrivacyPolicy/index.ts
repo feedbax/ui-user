@@ -11,5 +11,12 @@ export const styles = {
     ${mq`
       max-width: ${[380, 440, 500]}px;
     `}
+
+    & > * {
+      max-width: 100%;
+      display: inline-block;
+      box-sizing: border-box;
+      flex: 1 0 auto;
+    }
   `,
 };

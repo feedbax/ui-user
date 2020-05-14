@@ -28,9 +28,9 @@ const StyledWrapper = styled.div<StyledProps & Styles>`
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  /* justify-content: center;
+  align-items: center; */
   overflow: auto;
   background-size: cover;
   background-position: center;
@@ -63,7 +63,6 @@ const StyledContent = styled.div<Styles>`
   margin: auto;
 
   flex: 1 1 auto;
-  margin: auto;
   padding: 15px;
   box-sizing: border-box;
 

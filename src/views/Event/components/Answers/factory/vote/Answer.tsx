@@ -5,14 +5,14 @@ import media from 'lib/media-queries';
 import { color, fontFamily } from 'assets/theme';
 
 import api from 'lib/api';
-import { isAnswer } from '@feedbax/api/store/answers/types';
+import { isAnswer } from '@feedbax/backend-api/store/modules/answers/types';
 
 import Button from 'components/ButtonNeumorphism';
 
 import { useEmojis } from 'lib/hooks';
 import { useLiked } from '../../hooks';
 
-type AnswerState = import('@feedbax/api/store/answers/types').AnswerState;
+type AnswerState = import('@feedbax/backend-api/store/modules/answers/types').AnswerState;
 
 interface Props {
   className?: string;
@@ -116,7 +116,7 @@ const AnswerLikes = (props: AnswerLikesProps): JSX.Element => {
       <LikesCount>{props.likes}</LikesCount>
 
       <Button
-        onClick={(): Promise<void> => api.toggleLike(toggleData)}
+        onClick={(): Promise<void> => api.like.toggle(toggleData)}
         size={28}
         icon={props.hasLiked ? 'heart-filled' : 'heart'}
         apperance={{ backgroundColor: 'primary', textColor: 'accent1' }}

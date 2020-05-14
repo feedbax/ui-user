@@ -1,5 +1,5 @@
 import React from 'react';
-import FBXAPI from '@feedbax/api';
+import store from 'store';
 
 import { Provider as StoreProvider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
@@ -12,7 +12,7 @@ import history from 'lib/history';
 function App(): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
-      <StoreProvider store={FBXAPI.store}>
+      <StoreProvider store={store}>
         <Router history={history}>
           <Routes />
         </Router>

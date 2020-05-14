@@ -1,4 +1,6 @@
 import { css } from 'styled-components';
+import { color } from 'assets/theme';
+
 import Event from './Event';
 
 export const component = Event;
@@ -7,6 +9,7 @@ export const styles = {
     padding: 0;
     height: 100%;
     max-width: 540px;
+    background-color: ${color('accent1')};
 
     @media (min-width: 540px) {
       max-height: 800px;

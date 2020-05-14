@@ -18,7 +18,7 @@ import { useHasLiked } from '../../hooks';
 
 import easing from './easing';
 
-type AnswerState = import('@feedbax/api/store/answers/types').AnswerState;
+type AnswerState = import('@feedbax/backend-api/store/modules/answers/types').AnswerState;
 
 interface Props {
   className?: string;

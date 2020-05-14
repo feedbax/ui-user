@@ -1,15 +1,15 @@
-import FBXAPI, { FBXAPIUser, FBXAPIAdmin } from '@feedbax/api';
+import { create, FBXAPI } from '@feedbax/backend-api';
 import store from 'store';
 import history from './history';
 
 const apiUrl = process.env.REACT_APP_WS_SERVER_URL || '';
-const adminApi = FBXAPI.create(FBXAPIAdmin, apiUrl);
+const adminApi = create(apiUrl, 'admin');
 (window as any).adminApi = adminApi;
 
 FBXAPI.store = store;
-const api = FBXAPI.create(FBXAPIUser, apiUrl);
+const api = create(apiUrl, 'user');
 
-api.onDisconnect(() => {
+api.on('disconnect', () => {
   const { api: _api } = store.getState();
   const { event } = _api;
   const { slug } = event;

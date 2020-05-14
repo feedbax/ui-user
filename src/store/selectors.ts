@@ -2,26 +2,30 @@ import { createSelector, OutputSelector } from 'reselect';
 
 import store, { RootState } from 'store';
 
-import { NoneQuestion, QuestionsState } from '@feedbax/api/store/questions/types';
-import { QuestionType } from '@feedbax/api/types/models/question';
+import { NoneQuestion } from '@feedbax/backend-api/store/modules/questions/types';
+import { QuestionType } from '@feedbax/backend-api/shared/models/question';
 
 import { PointerType, CurrentQuestion, AnswerFilter } from './types';
 import { setCurrentQuestion } from './actions';
 
-type QuestionState = import('@feedbax/api/store/questions/types').QuestionState;
+type QuestionsState = import('@feedbax/backend-api/store/modules/questions/types').QuestionsState;
+type QuestionState = import('@feedbax/backend-api/store/modules/questions/types').QuestionState;
 type QuestionStrip<T extends string> = Omit<QuestionState, T> & { [key: string]: any };
 
-type Output<T extends string> = OutputSelector<
+type QuestionsOutput<T extends string> = OutputSelector<
   RootState,
   QuestionStrip<T>[],
   (res1: QuestionsState) => QuestionStrip<T>[]
 >;
 
 const selectorCache = new Map<string, any>();
-const createQuestionsSelector = <T extends string>(...stripProps: T[]): Output<T> => {
+
+export const createQuestionsSelector = <T extends string>(
+  ...stripProps: T[]
+): QuestionsOutput<T> => {
   const sortedStripProps = stripProps.sort();
-  const cacheKey = sortedStripProps.join('.');
-  const cachedSelector: Output<T> | undefined = selectorCache.get(`${cacheKey}`);
+  const cacheKey = `questions-${sortedStripProps.join('.')}`;
+  const cachedSelector: QuestionsOutput<T> | undefined = selectorCache.get(`${cacheKey}`);
 
   if (cachedSelector) {
     return cachedSelector;
@@ -48,13 +52,66 @@ const createQuestionsSelector = <T extends string>(...stripProps: T[]): Output<T
   return selector;
 };
 
-const pointerTypeSelector = (_state: RootState): PointerType => _state.app.pointerType;
-const currentAnswerFilterSelector = (_state: RootState): AnswerFilter => _state.app.answerFilter;
-const selectedAnswerSelector = (_state: RootState): string | null => _state.app.selectedAnswer;
+type AnswersState = import('@feedbax/backend-api/store/modules/answers/types').AnswersState;
+type AnswerState = import('@feedbax/backend-api/store/modules/answers/types').AnswerState;
+type AnswerStrip<T extends string> = Omit<AnswerState, T> & { [key: string]: any };
 
-const currentQuestionSelector = createSelector<RootState, QuestionsState, number, CurrentQuestion>(
+type AnswersOutput<T extends string> = OutputSelector<
+  RootState,
+  AnswerStrip<T>[],
+  (res1: CurrentQuestion, res2: AnswersState) => AnswerStrip<T>[]
+>;
+
+export const createCurrentAnswersSelector = <T extends string>(
+  ...stripProps: T[]
+): AnswersOutput<T> => {
+  const sortedStripProps = stripProps.sort();
+  const cacheKey = `answers-${sortedStripProps.join('.')}`;
+  const cachedSelector: AnswersOutput<T> | undefined = selectorCache.get(`${cacheKey}`);
+
+  if (cachedSelector) {
+    return cachedSelector;
+  }
+
+  const selector = createSelector<RootState, CurrentQuestion, AnswersState, AnswerStrip<T>[]>(
+    currentQuestionSelector,
+    (_state) => _state.api.answers,
+    (question, answers) =>
+      Object.values(answers)
+        .filter((a) => a.questionId === question.id)
+        .map<AnswerStrip<T>>((answer) => {
+          const newAnswer: AnswerStrip<T> = { ...answer };
+
+          for (let i = 0; i < stripProps.length; i += 1) {
+            const stripProp = stripProps[i];
+            delete newAnswer[stripProp];
+          }
+
+          return newAnswer;
+        })
+  );
+
+  selectorCache.set(`${cacheKey}`, selector);
+  return selector;
+};
+
+export const pointerTypeSelector = (_state: RootState): PointerType => _state.app.pointerType;
+export const currentAnswerFilterSelector = (_state: RootState): AnswerFilter =>
+  _state.app.answerFilter;
+export const selectedAnswerSelector = (_state: RootState): string | null =>
+  _state.app.selectedAnswer;
+
+export const currentQuestionSelector = createSelector<
+  RootState,
+  QuestionsState,
+  number,
+  CurrentQuestion
+>(
   (state) => state.api.questions,
-  (state) => state.app.currentQuestionNumber || 0,
+  (state) => {
+    console.log(state);
+    return state.app.currentQuestionNumber || 0;
+  },
   (questions, currentQuestion) => {
     const questionsOrdered = Object.values(questions).sort((a, b) => a.order - b.order);
 
@@ -73,16 +130,22 @@ const currentQuestionSelector = createSelector<RootState, QuestionsState, number
   }
 );
 
-const isEventLoadedSelector = (_state: RootState): boolean => _state.api.event.id !== '';
-const eventCodeSelector = (_state: RootState): string => _state.api.event.slug;
+export const isEventLoadedSelector = (_state: RootState): boolean => _state.api.event.id !== '';
+export const eventCodeSelector = (_state: RootState): string => _state.api.event.slug;
 
 const stripPropsOrderAndLikes = ['answers', 'id', 'eventId', 'text', 'type', 'settings'];
 const questionsOrderAndLikes = createQuestionsSelector(...stripPropsOrderAndLikes);
 type QuestionsOrderAndLikes = ReturnType<typeof questionsOrderAndLikes>;
 
-const questionsLengthSelector = (_state: RootState): number => _state.api.event.questions.length;
+export const questionsLengthSelector = (_state: RootState): number =>
+  _state.api.event.questions.length;
 
-const questionLikesSelector = createSelector<RootState, QuestionsOrderAndLikes, number, string[]>(
+export const questionLikesSelector = createSelector<
+  RootState,
+  QuestionsOrderAndLikes,
+  number,
+  string[]
+>(
   questionsOrderAndLikes,
   (state) => state.app.currentQuestionNumber || 0,
   (questions, currentQuestion) => {
@@ -94,7 +157,7 @@ const questionLikesSelector = createSelector<RootState, QuestionsOrderAndLikes, 
   }
 );
 
-const questionLikesLengthSelector = createSelector<
+export const questionLikesLengthSelector = createSelector<
   RootState,
   QuestionsState,
   CurrentQuestion,
@@ -110,16 +173,3 @@ const questionLikesLengthSelector = createSelector<
     return 0;
   }
 );
-
-export {
-  pointerTypeSelector,
-  currentQuestionSelector,
-  selectedAnswerSelector,
-  currentAnswerFilterSelector,
-  isEventLoadedSelector,
-  eventCodeSelector,
-  createQuestionsSelector,
-  questionsLengthSelector,
-  questionLikesSelector,
-  questionLikesLengthSelector,
-};

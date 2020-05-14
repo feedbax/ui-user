@@ -1,5 +1,5 @@
-type ResetStateAction = import('@feedbax/api/store/types').ResetStateAction;
-type QuestionState = import('@feedbax/api/store/questions/types').QuestionState;
+type ResetStateAction = import('@feedbax/backend-api/store/types').ResetStateAction;
+type QuestionState = import('@feedbax/backend-api/store/modules/questions/types').QuestionState;
 
 export type CurrentQuestion = Omit<QuestionState, 'answers' | 'likes'>;
 

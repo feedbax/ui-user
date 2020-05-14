@@ -1,13 +1,13 @@
 import { createSelector, OutputSelector } from 'reselect';
 import { AnswerFilter } from 'store/types';
 import api from 'lib/api';
-import { isFilterAble } from '@feedbax/api/store/questions/types';
+import { isFilterAble } from '@feedbax/backend-api/store/modules/questions/types';
 
-type ApiState = import('@feedbax/api/store').ApiStateDefault;
-type QuestionsState = import('@feedbax/api/store/questions/types').QuestionsState;
-type AnswersState = import('@feedbax/api/store/answers/types').AnswersState;
+type ApiState = import('@feedbax/backend-api/store').ApiStateDefault;
+type QuestionsState = import('@feedbax/backend-api/store/modules/questions/types').QuestionsState;
+type AnswersState = import('@feedbax/backend-api/store/modules/answers/types').AnswersState;
 
-type AnswerState = import('@feedbax/api/store/answers/types').AnswerState;
+type AnswerState = import('@feedbax/backend-api/store/modules/answers/types').AnswerState;
 
 type Output = OutputSelector<
   ApiState,

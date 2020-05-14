@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback } from 'react';
+import React, { useRef, useState, useCallback, useLayoutEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 
@@ -13,6 +13,7 @@ import {
   isEventLoadedSelector,
   currentQuestionSelector,
   selectedAnswerSelector,
+  createCurrentAnswersSelector,
 } from 'store/selectors';
 
 import { Helmet } from 'react-helmet';
@@ -35,6 +36,15 @@ import VoteAnswer, { Button as VoteButton } from './components/VoteAnswer';
 const defaultElement = document.createElement('div');
 const scrollBarWidth = getScrollbarWidth();
 
+const answersSelector = createCurrentAnswersSelector(
+  'likes',
+  'text',
+  'author',
+  'eventId',
+  'questionId',
+  'time'
+);
+
 const Event = (): JSX.Element => {
   const history = useHistory();
   const match = useRouteMatch<{ eventCode: string }>();
@@ -50,6 +60,11 @@ const Event = (): JSX.Element => {
   const isEventLoaded = useSelector(isEventLoadedSelector);
   const currentQuestion = useSelector(currentQuestionSelector);
   const selectedAnswer = useSelector(selectedAnswerSelector);
+  const answers = useSelector(answersSelector);
+
+  useLayoutEffect(() => {
+    console.log(answers);
+  }, [answers]);
 
   useLocationEffect(`/e/${eventCode}`, () => {
     if (!isEventLoaded) {
@@ -80,7 +95,7 @@ const Event = (): JSX.Element => {
         answer: { text: answerText },
       };
 
-      await api.postAnswer(props);
+      await api.answer.create(props);
       setAnswerText('');
     }
   }, [answerText, currentQuestion]);
@@ -91,7 +106,7 @@ const Event = (): JSX.Element => {
         answer: { id: selectedAnswer },
       };
 
-      await api.toggleLike(props);
+      await api.like.toggle(props);
 
       const action = setSeletedAnswer(null);
       store.dispatchAll(action);

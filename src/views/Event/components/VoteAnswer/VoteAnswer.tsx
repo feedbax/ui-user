@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { color } from 'assets/theme';
 import { useSelector } from 'react-redux';
 import { currentQuestionSelector, selectedAnswerSelector } from 'store/selectors';
-import { isVoteAble } from '@feedbax/api/store/questions/types';
+import { isVoteAble } from '@feedbax/backend-api/store/modules/questions/types';
 
 interface Props {
   children?: ReactNode;

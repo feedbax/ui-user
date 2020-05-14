@@ -1,27 +1,19 @@
 {
   "name": "ui-user",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "private": false,
   "license": "GPL-3.0-only",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "_postbuild": "react-snap",
     "lint": "eslint 'src/**/*.{ts,tsx}' --fix",
     "serve": "serve build/"
-  },
-  "reactSnap": {
-    "include": [
-      "/",
-      "/login",
-      "/404.html"
-    ]
   },
   "browserslist": [
     ">0.0%"
   ],
   "dependencies": {
-    "@feedbax/api": "1.0.66",
+    "@feedbax/backend-api": "1.1.0",
     "autosize": "^4.0.2",
     "bezier-easing": "^2.1.0",
     "detect-it": "^3.0.5",
@@ -33,7 +25,6 @@
     "react-helmet": "^6.0.0",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.0",
     "react-spring": "^8.0.27",
     "redux": "^4.0.5",
     "reselect": "^4.0.0",
@@ -65,7 +56,7 @@
     "eslint-plugin-react": "^7.18.3",
     "eslint-plugin-react-hooks": "^1.7.0",
     "prettier": "2.0.2",
-    "react-snap": "^1.23.0",
+    "react-scripts": "3.4.0",
     "serve": "^11.3.0",
     "typescript": "^3.8.3"
   }
