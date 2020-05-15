@@ -1,29 +1,9 @@
-import React, { ReactNode } from 'react';
-import styled, { css, FlattenInterpolation } from 'styled-components';
-import { color, fontFamily, ThemeProps } from 'assets/theme';
+import { css } from 'styled-components';
+import { color, fontFamily } from 'assets/theme';
 
-type Style = FlattenInterpolation<ThemeProps>;
+import type { Styles, Style, StyledProps } from './types';
 
-interface Styles {
-  styles?: Style;
-}
-
-interface StyledProps {
-  bgProtrait: string;
-  bgLandscape: string;
-}
-
-interface Props {
-  children: ReactNode;
-  bgProtrait: string;
-  bgLandscape: string;
-  styles?: {
-    wrapper?: Style;
-    content?: Style;
-  };
-}
-
-const StyledWrapper = styled.div<StyledProps & Styles>`
+export const wrapperStyles = css<StyledProps & Styles>`
   position: absolute;
   width: 100%;
   height: 100%;
@@ -50,7 +30,7 @@ const StyledWrapper = styled.div<StyledProps & Styles>`
   ${(props): Style | string => (props.styles ? props.styles : '')}
 `;
 
-const StyledContent = styled.div<Styles>`
+export const contentStyles = css<Styles>`
   position: relative;
 
   width: 100%;
@@ -75,16 +55,3 @@ const StyledContent = styled.div<Styles>`
 
   ${(props): Style | string => (props.styles ? props.styles : '')}
 `;
-
-const Container = ({ children, bgProtrait, bgLandscape, styles }: Props): JSX.Element => (
-  <StyledWrapper
-    bgProtrait={bgProtrait}
-    bgLandscape={bgLandscape}
-    styles={styles?.wrapper}
-    data-scroll-lock-scrollable
-  >
-    <StyledContent styles={styles?.content}>{children}</StyledContent>
-  </StyledWrapper>
-);
-
-export default React.memo(Container);

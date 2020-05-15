@@ -22,11 +22,7 @@ if (detectIt.primaryInput === 'mouse') {
   store.dispatch(setPointerType(PointerType.MOUSE));
 }
 
-if (rootElement?.hasChildNodes()) {
-  ReactDom.hydrate(<App />, rootElement);
-} else {
-  ReactDom.render(<App />, rootElement);
-}
+ReactDom.render(<App />, rootElement);
 
 function updateApp(reg: ServiceWorkerRegistration): void {
   const waitingServiceWorker = reg.waiting;

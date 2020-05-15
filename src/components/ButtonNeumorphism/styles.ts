@@ -1,8 +1,8 @@
-import React from 'react';
-import styled, { css, FlattenInterpolation } from 'styled-components';
-import { color, Color, ThemeProps } from 'assets/theme';
+import { css } from 'styled-components';
+import { color } from 'assets/theme';
 
-type ButtonProps = Omit<JSX.IntrinsicElements['button'], 'ref'>;
+import type { FlattenInterpolation } from 'styled-components';
+import type { Color, ThemeProps } from 'assets/theme';
 
 type Apperance = {
   textColor?: Color;
@@ -21,13 +21,7 @@ type StyledProps = {
   apperance?: Apperance;
 };
 
-interface Props extends ButtonProps {
-  icon?: string;
-  size?: number;
-  apperance?: Apperance;
-}
-
-const StyledButtonIcon = styled.div<StyledProps>`
+export const buttonIconStyles = css<StyledProps>`
   padding: 0;
   position: relative;
   cursor: pointer;
@@ -46,13 +40,13 @@ const StyledButtonIcon = styled.div<StyledProps>`
       font-size: ${fontSize}px;
       width: ${size}px;
       height: ${size}px;
-      box-shadow: ${shadowXY}px ${shadowXY}px ${shadowBlur}px rgba(0, 0, 0, 0.1), 
-                  -${shadowXY}px -${shadowXY}px ${shadowBlur}px rgba(255, 255, 255, 0.1);
+      box-shadow: ${shadowXY}px ${shadowXY}px ${shadowBlur}px rgba(0, 0, 0, 0.1),
+        -${shadowXY}px -${shadowXY}px ${shadowBlur}px rgba(255, 255, 255, 0.1);
     `;
   }}
 `;
 
-const StyledButton = styled.button<StyledProps>`
+export const buttonStyles = css<StyledProps>`
   padding: 0;
   position: relative;
   flex: 0 0 auto;
@@ -62,10 +56,6 @@ const StyledButton = styled.button<StyledProps>`
   transition: transform 0.3s ease;
   cursor: pointer;
   color: #fff;
-
-  &:disabled ${StyledButtonIcon} {
-    opacity: 0.5;
-  }
 
   ${({ apperance = {} }): FlattenInterpolation<ThemeProps> => {
     const { top, left, right } = apperance;
@@ -92,29 +82,13 @@ const StyledButton = styled.button<StyledProps>`
       ${padding && `padding: ${padding}px;`}
       ${opacityProp}
 
-      ${
-        backgroundColor &&
-        css`
-          background-color: ${color(backgroundColor)};
-        `
-      }
+      ${backgroundColor && css`
+        background-color: ${color(backgroundColor)};
+      `}
 
-      ${
-        textColor &&
-        css`
-          color: ${color(textColor)};
-        `
-      }
+      ${textColor && css`
+        color: ${color(textColor)};
+      `}
     `;
   }}
 `;
-
-function Button({ apperance, size = 20, disabled = false, icon, ...props }: Props): JSX.Element {
-  return (
-    <StyledButton apperance={apperance} size={size} disabled={disabled} {...props}>
-      <StyledButtonIcon size={size} className={`feedbax-icon icon-${icon}`} />
-    </StyledButton>
-  );
-}
-
-export default React.memo(Button);

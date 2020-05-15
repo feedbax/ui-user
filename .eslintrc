@@ -5,15 +5,16 @@
     "plugin:react/recommended",
     "eslint:recommended",
     "airbnb/base",
-    "prettier",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
   ],
   "plugins": [
-    "prettier",
     "@typescript-eslint"
   ],
   "rules": {
+    "import/no-cycle": "error",
+    "import/order": "off",
+  
     "import/prefer-default-export": "off",
     "no-underscore-dangle": "off",
     "no-unused-vars": [
@@ -28,9 +29,7 @@
     "@typescript-eslint/camelcase": [
       "error", { "allow": ["^_.*"] }
     ],
-    "prettier/prettier": [
-      "error"
-    ],
+
     "lines-between-class-members": [
       "error",
       "always",
