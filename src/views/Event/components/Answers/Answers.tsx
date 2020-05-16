@@ -58,7 +58,7 @@ function Answers(): JSX.Element {
 
   const _answersRenderer = useMemo(
     () => (answers.length === 0 ? PlaceholderEmpty : answers.map(renderAnswer)),
-    [answers]
+    [answers],
   );
 
   return (

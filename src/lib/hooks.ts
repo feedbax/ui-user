@@ -13,30 +13,30 @@ function lower(value: string | string[]): string | string[] {
   return value.toLowerCase();
 }
 
-// prettier-ignore
-function useLocationEffect(path: string[], handler: () => void, waitForExitComplete?: boolean): void;
-function useLocationEffect(path: string, handler: () => void, waitForExitComplete?: boolean): void;
 
-function useLocationEffect(
-  path: string | string[],
-  handler: () => void,
-  waitForExitComplete = false
-): void {
-  const locations = useContext(LocationContext);
+type UseLocationEffect = {
+  (path: string[], handler: () => void, waitForExitComplete?: boolean): void;
+  (path: string, handler: () => void, waitForExitComplete?: boolean): void;
+};
 
-  useEffect(
-    function locationChanged() {
-      const isPage = Array.isArray(path)
-        ? lower(path).includes(lower(locations.curr?.pathname || ''))
-        : lower(locations.curr?.pathname || '') === lower(path);
+const useLocationEffect: UseLocationEffect = (
+  (path: string | string[], handler: () => void, waitForExitComplete = false): void => {
+    const locations = useContext(LocationContext);
 
-      if (isPage && (locations.exitComplete === waitForExitComplete || locations.isInitial)) {
-        handler();
-      }
-    },
-    [locations.curr, locations.exitComplete] // eslint-disable-line react-hooks/exhaustive-deps
-  );
-}
+    useEffect(
+      () => {
+        const isPage = Array.isArray(path)
+          ? lower(path).includes(lower(locations.curr?.pathname || ''))
+          : lower(locations.curr?.pathname || '') === lower(path);
+
+        if (isPage && (locations.exitComplete === waitForExitComplete || locations.isInitial)) {
+          handler();
+        }
+      },
+      [locations.curr, locations.exitComplete], // eslint-disable-line react-hooks/exhaustive-deps
+    );
+  }
+);
 
 const useEmojis = <T extends HTMLElement>(el: T | null): void => {
   if (el) {

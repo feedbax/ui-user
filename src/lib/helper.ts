@@ -27,6 +27,8 @@ export const getScrollbarWidth = (): number => {
 
 export const rootElement = document.getElementById('root') as HTMLElement;
 
-export const sleep = (duration: number): Promise<void> => {
-  return new Promise((resolve) => setTimeout(resolve, duration));
-};
+export const sleep = (
+  (duration: number): Promise<void> => (
+    new Promise((resolve) => setTimeout(resolve, duration))
+  )
+);

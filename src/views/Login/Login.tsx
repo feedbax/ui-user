@@ -42,16 +42,16 @@ function Login(): JSX.Element {
         doLogin();
       }
     },
-    true
+    true,
   );
 
   useEffect(
-    function onLogin() {
+    () => {
       if (isLoggedIn && !isLoading) {
         history.push(`/e/${eventCode}`);
       }
     },
-    [isLoggedIn, eventCode, history, isLoading]
+    [isLoggedIn, eventCode, history, isLoading],
   );
 
   return (
@@ -81,7 +81,7 @@ function Login(): JSX.Element {
       <Footer color="primary">
         <Divider />
         <Text>{`© 2019-${new Date().getFullYear()} | feedb.ax by 365steps`}</Text>
-        <Link to="/legal/privacy-policy">{`Datenschutz & Impressum`}</Link>
+        <Link to="/legal/privacy-policy">{'Datenschutz & Impressum'}</Link>
       </Footer>
     </>
   );

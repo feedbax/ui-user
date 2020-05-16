@@ -48,28 +48,28 @@ function TextArea(props: Props): JSX.Element {
   const isLoading = useFontLoader(['Klinic Slab Book']);
 
   useEffect(
-    function onScrollablechanged() {
+    () => {
       onScrollable(isScrollable);
     },
-    [isScrollable, onScrollable]
+    [isScrollable, onScrollable],
   );
 
   useEffect(
-    function onFontLoadingChanged() {
+    () => {
       if (!isLoading && textareaRef.current) {
         autosize(textareaRef.current);
       }
     },
-    [isLoading, textareaRef]
+    [isLoading, textareaRef],
   );
 
   useEffect(
-    function onFontLoadingChanged() {
+    () => {
       if (textareaRef.current) {
         autosize.update(textareaRef.current);
       }
     },
-    [props.value]
+    [props.value],
   );
 
   const _onChange = useCallback(
@@ -86,7 +86,7 @@ function TextArea(props: Props): JSX.Element {
         setScrollable(_isScrollable);
       }
     },
-    [isScrollable, onChange]
+    [isScrollable, onChange],
   );
 
   return (

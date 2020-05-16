@@ -43,7 +43,7 @@ const Error = (): JSX.Element => (
     <Footer color="primary">
       <Divider />
       <Text>{`© 2019-${new Date().getFullYear()} | feedb.ax by 365steps`}</Text>
-      <Link to="/legal/privacy-policy">{`Datenschutz & Impressum`}</Link>
+      <Link to="/legal/privacy-policy">{'Datenschutz & Impressum'}</Link>
     </Footer>
   </>
 );

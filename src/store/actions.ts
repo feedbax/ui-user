@@ -10,12 +10,10 @@ type SetSelectedAnswerAction = import('./types').SetSelectedAnswerAction;
 type AnswerFilter = import('./types').AnswerFilter;
 type PointerType = import('./types').PointerType;
 
-export const setCurrentQuestion = (questionNumber: number): SetCurrentQuestionAction => {
-  return {
-    type: SET_CURRENT_QUESTION,
-    payload: questionNumber,
-  };
-};
+export const setCurrentQuestion = (questionNumber: number): SetCurrentQuestionAction => ({
+  type: SET_CURRENT_QUESTION,
+  payload: questionNumber,
+});
 
 export const setAnswerFilter = (filter: AnswerFilter): SetAnswerFilterAction => ({
   type: SET_ANSWER_FILTER,

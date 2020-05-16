@@ -15,7 +15,7 @@ export enum PointerType {
 }
 
 export const answerFilters = Object.values(AnswerFilter).filter(
-  (filter) => typeof filter === 'number'
+  (filter) => typeof filter === 'number',
 ) as number[];
 
 export interface AppState {

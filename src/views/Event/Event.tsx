@@ -19,8 +19,9 @@ import {
 import { Helmet } from 'react-helmet';
 
 import Logo, { LogoSize, Title, Description, Image } from 'components/Logo';
+
 import Button from 'components/ButtonNeumorphism';
-import { Footer, Divider, Link, Text } from 'components/Footer';
+import Footer, { Divider, Link, Text } from 'components/Footer';
 
 import logo from 'assets/images/logo_128c.png';
 
@@ -42,7 +43,7 @@ const answersSelector = createCurrentAnswersSelector(
   'author',
   'eventId',
   'questionId',
-  'time'
+  'time',
 );
 
 const Event = (): JSX.Element => {
@@ -81,7 +82,7 @@ const Event = (): JSX.Element => {
   }, []);
 
   const _logout = useCallback((): void => {
-    history.push(`/login`, { eventCode });
+    history.push('/login', { eventCode });
   }, []); // eslint-disable-line
 
   // const _share = useCallback((): void => {
@@ -160,17 +161,17 @@ const Event = (): JSX.Element => {
 
         <Answers />
 
-        <Footer color="accent1">
+        <Footer $color="accent1">
           <Divider />
           <Text>{`© 2019-${new Date().getFullYear()} | feedb.ax by 365steps`}</Text>
-          <Link to="/legal/privacy-policy">{`Datenschutz & Impressum`}</Link>
+          <Link to="/legal/privacy-policy">{'Datenschutz & Impressum'}</Link>
         </Footer>
       </Content>
 
       <WriteAnswer>
         <TextArea
           rows={1}
-          placeholder={`Deine Nachricht..`}
+          placeholder={'Deine Nachricht..'}
           value={answerText}
           maxLength={500}
           onChange={_onChange}

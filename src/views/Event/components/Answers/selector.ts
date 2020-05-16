@@ -63,7 +63,7 @@ const answersSelector = (questionNumber: number, filter: AnswerFilter): Output =
       }
 
       return sortAnswers(_answers, AnswerFilter.RECENT);
-    }
+    },
   );
 
   selectorCache.set(`${questionNumber}-${filter}`, selector);

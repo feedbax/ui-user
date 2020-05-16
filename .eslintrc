@@ -14,6 +14,11 @@
   "rules": {
     "import/no-cycle": "error",
     "import/order": "off",
+
+    "object-curly-newline": ["error", {
+      "ImportDeclaration": { "multiline": true, "minProperties": 5 },
+      "ExportDeclaration": { "multiline": true, "minProperties": 5 }
+    }],
   
     "import/prefer-default-export": "off",
     "no-underscore-dangle": "off",

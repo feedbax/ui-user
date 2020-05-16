@@ -33,19 +33,18 @@ export const createQuestionsSelector = <T extends string>(
 
   const selector = createSelector<RootState, QuestionsState, QuestionStrip<T>[]>(
     (_state) => _state.api.questions,
-    (questions) =>
-      Object.values(questions)
-        .sort((a, b) => a.order - b.order)
-        .map<QuestionStrip<T>>((question) => {
-          const newQuestion: QuestionStrip<T> = { ...question };
+    (questions) => Object.values(questions)
+      .sort((a, b) => a.order - b.order)
+      .map<QuestionStrip<T>>((question) => {
+        const newQuestion: QuestionStrip<T> = { ...question };
 
-          for (let i = 0; i < stripProps.length; i += 1) {
-            const stripProp = stripProps[i];
-            delete newQuestion[stripProp];
-          }
+        for (let i = 0; i < stripProps.length; i += 1) {
+          const stripProp = stripProps[i];
+          delete newQuestion[stripProp];
+        }
 
-          return newQuestion;
-        })
+        return newQuestion;
+      }),
   );
 
   selectorCache.set(`${cacheKey}`, selector);
@@ -76,19 +75,18 @@ export const createCurrentAnswersSelector = <T extends string>(
   const selector = createSelector<RootState, CurrentQuestion, AnswersState, AnswerStrip<T>[]>(
     currentQuestionSelector,
     (_state) => _state.api.answers,
-    (question, answers) =>
-      Object.values(answers)
-        .filter((a) => a.questionId === question.id)
-        .map<AnswerStrip<T>>((answer) => {
-          const newAnswer: AnswerStrip<T> = { ...answer };
+    (question, answers) => Object.values(answers)
+      .filter((a) => a.questionId === question.id)
+      .map<AnswerStrip<T>>((answer) => {
+        const newAnswer: AnswerStrip<T> = { ...answer };
 
-          for (let i = 0; i < stripProps.length; i += 1) {
-            const stripProp = stripProps[i];
-            delete newAnswer[stripProp];
-          }
+        for (let i = 0; i < stripProps.length; i += 1) {
+          const stripProp = stripProps[i];
+          delete newAnswer[stripProp];
+        }
 
-          return newAnswer;
-        })
+        return newAnswer;
+      }),
   );
 
   selectorCache.set(`${cacheKey}`, selector);
@@ -96,10 +94,14 @@ export const createCurrentAnswersSelector = <T extends string>(
 };
 
 export const pointerTypeSelector = (_state: RootState): PointerType => _state.app.pointerType;
-export const currentAnswerFilterSelector = (_state: RootState): AnswerFilter =>
-  _state.app.answerFilter;
-export const selectedAnswerSelector = (_state: RootState): string | null =>
-  _state.app.selectedAnswer;
+
+export const currentAnswerFilterSelector = (
+  (_state: RootState): AnswerFilter => _state.app.answerFilter
+);
+
+export const selectedAnswerSelector = (
+  (_state: RootState): string | null => _state.app.selectedAnswer
+);
 
 export const currentQuestionSelector = createSelector<
   RootState,
@@ -127,7 +129,7 @@ export const currentQuestionSelector = createSelector<
     }
 
     return questionsOrdered[currentQuestion];
-  }
+  },
 );
 
 export const isEventLoadedSelector = (_state: RootState): boolean => _state.api.event.id !== '';
@@ -137,8 +139,9 @@ const stripPropsOrderAndLikes = ['answers', 'id', 'eventId', 'text', 'type', 'se
 const questionsOrderAndLikes = createQuestionsSelector(...stripPropsOrderAndLikes);
 type QuestionsOrderAndLikes = ReturnType<typeof questionsOrderAndLikes>;
 
-export const questionsLengthSelector = (_state: RootState): number =>
-  _state.api.event.questions.length;
+export const questionsLengthSelector = (
+  (_state: RootState): number => _state.api.event.questions.length
+);
 
 export const questionLikesSelector = createSelector<
   RootState,
@@ -154,7 +157,7 @@ export const questionLikesSelector = createSelector<
     }
 
     return [];
-  }
+  },
 );
 
 export const questionLikesLengthSelector = createSelector<
@@ -171,5 +174,5 @@ export const questionLikesLengthSelector = createSelector<
     }
 
     return 0;
-  }
+  },
 );

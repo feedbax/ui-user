@@ -101,7 +101,7 @@ function Dragger(props: Props): JSX.Element {
         onQuestionChange(newQuestionNumber, QuestionChangeDir.RIGHT);
       }
     },
-    [onQuestionChange, question.order, questionsLength]
+    [onQuestionChange, question.order, questionsLength],
   );
 
   return (
