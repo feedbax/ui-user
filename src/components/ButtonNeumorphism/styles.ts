@@ -2,24 +2,8 @@ import { css } from 'styled-components';
 import { color } from 'assets/theme';
 
 import type { FlattenInterpolation } from 'styled-components';
-import type { Color, ThemeProps } from 'assets/theme';
-
-type Apperance = {
-  textColor?: Color;
-  backgroundColor?: Color;
-  position?: string;
-  left?: number;
-  right?: number;
-  top?: number | [number, string];
-  transform?: string;
-  padding?: number;
-  opacity?: number;
-};
-
-type StyledProps = {
-  size: number;
-  apperance?: Apperance;
-};
+import type { ThemeProps } from 'assets/theme';
+import type { StyledProps } from './types';
 
 export const buttonIconStyles = css<StyledProps>`
   padding: 0;
@@ -74,13 +58,22 @@ export const buttonStyles = css<StyledProps>`
     const opacityProp = typeof opacity !== 'undefined' ? `opacity: ${opacity};` : '';
 
     return css`
-      ${transform && `transform: ${transform};`}
       ${topProp}
       ${leftProp}
       ${rightProp}
-      ${position && `position: ${position};`}
-      ${padding && `padding: ${padding}px;`}
       ${opacityProp}
+
+      ${position && `
+        position: ${position};
+      `}
+
+      ${padding && `
+        padding: ${padding}px;
+      `}
+
+      ${transform && `
+        transform: ${transform};
+      `}
 
       ${backgroundColor && css`
         background-color: ${color(backgroundColor)};
