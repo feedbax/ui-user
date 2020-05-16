@@ -10,7 +10,7 @@ import logo from 'assets/images/logo_128c.png';
 import { Helmet } from 'react-helmet';
 
 import Logo, { Image, Title, Description } from 'components/Logo';
-import { Footer, Divider, Text, Link } from 'components/Footer';
+import Footer, { Divider, Text, Link } from 'components/Footer';
 
 import Greeting from './components/Greeting';
 import { Form, Input, Button } from './components/Form';
@@ -78,7 +78,7 @@ function Login(): JSX.Element {
         </Button>
       </Form>
 
-      <Footer color="primary">
+      <Footer $color="primary">
         <Divider />
         <Text>{`© 2019-${new Date().getFullYear()} | feedb.ax by 365steps`}</Text>
         <Link to="/legal/privacy-policy">{'Datenschutz & Impressum'}</Link>

@@ -18,5 +18,7 @@ export const styles = {
       box-sizing: border-box;
       flex: 1 0 auto;
     }
+
+    align-items: flex-start;
   `,
 };
