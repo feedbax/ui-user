@@ -1,33 +1,9 @@
 import React, { useContext } from 'react';
-import styled, { FlattenInterpolation } from 'styled-components';
-import media from 'lib/media-queries';
-import { ThemeProps } from 'assets/theme';
 
 import { LogoProps, LogoSize } from '../Logo';
+import { StyledImage } from './styled';
 
-type StyledPropsApperance = {
-  width: number[];
-  height: number[];
-  marginBottom: number[];
-};
-
-interface StyledProps {
-  apperance: StyledPropsApperance;
-}
-
-interface Props {
-  image: string;
-}
-
-const mq = media('xs', 'sm', 'md');
-
-const StyledImage = styled.img<StyledProps>`
-  ${(props): FlattenInterpolation<ThemeProps> => mq`
-    width: ${props.apperance.width}px;
-    height: ${props.apperance.height}px;
-    marginBottom: ${props.apperance.marginBottom}px;
-  `}
-`;
+import type { StyledPropsApperance, Props } from './types';
 
 const Image = ({ image }: Props): JSX.Element => {
   const { size } = useContext(LogoProps);

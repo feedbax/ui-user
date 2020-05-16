@@ -1,34 +1,9 @@
-import React, { useContext, ReactNode } from 'react';
-
-import media from 'lib/media-queries';
-import styled, { FlattenInterpolation } from 'styled-components';
-import { fontFamily, color, ThemeProps } from 'assets/theme';
+import React, { useContext } from 'react';
 
 import { LogoProps, LogoSize } from '../Logo';
+import { StyledText } from './styled';
 
-interface Props {
-  children: ReactNode;
-}
-
-type StyledPropsApperance = {
-  fontSize: number[];
-};
-
-interface StyledProps {
-  apperance: StyledPropsApperance;
-}
-
-const mq = media('xs', 'sm', 'md');
-
-const StyledText = styled.div<StyledProps>`
-  font-family: ${fontFamily('secondary')};
-  color: ${color('primary')};
-  font-weight: bold;
-
-  ${(props): FlattenInterpolation<ThemeProps> => mq`
-    font-size: ${props.apperance.fontSize}px;
-  `}
-`;
+import type { Props, StyledPropsApperance } from './types';
 
 const Title = ({ children }: Props): JSX.Element => {
   const { size } = useContext(LogoProps);
