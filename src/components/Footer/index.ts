@@ -1,6 +1,11 @@
-import Footer from './Footer';
-import Divider from './Divider';
-import Text from './Text';
-import Link from './Link';
+import Footer from './components/Footer';
+import Divider from './components/Divider';
+import Text from './components/Text';
+import Link from './components/Link';
 
-export { Footer, Divider, Text, Link };
+export {
+  Footer,
+  Divider,
+  Text,
+  Link,
+};
