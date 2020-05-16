@@ -9,6 +9,6 @@ const CustomLink = ({ textColor: _, ...props }: StyledProps): JSX.Element => (
   <RouterLink {...props} />
 );
 
-export const StyledLink = styled(CustomLink)<StyledProps>`
+export const StyledLink = styled(CustomLink)`
   ${linkStyles}
 `;
