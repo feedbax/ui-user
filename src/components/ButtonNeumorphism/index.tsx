@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StyledButton, StyledButtonIcon } from './components';
+import { StyledButton, StyledButtonIcon } from './styled';
 import type { Props } from './types';
 
 function Button(props: Props): JSX.Element {
@@ -16,6 +16,6 @@ function Button(props: Props): JSX.Element {
 
 export default React.memo(Button);
 
-export * from './components';
+export * from './styled';
 export * from './styles';
 export * from './types';

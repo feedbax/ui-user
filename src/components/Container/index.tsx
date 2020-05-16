@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StyledContent, StyledWrapper } from './components';
+import { StyledContent, StyledWrapper } from './styled';
 import type { Props } from './types';
 
 const Container = (props: Props): JSX.Element => {
