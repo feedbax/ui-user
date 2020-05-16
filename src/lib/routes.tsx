@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, Suspense } from 'react';
 import { Switch, Route, RouteProps, useLocation } from 'react-router-dom';
 
 import { AnimatePresence, motion } from 'framer-motion';
@@ -12,13 +12,19 @@ import * as Error404 from 'views/Error';
 import * as PrivacyPolicy from 'views/legal/PrivacyPolicy';
 
 import Container from 'components/Container';
+import Loading from 'components/Loading';
 
 import bgProtrait from 'assets/images/background_vertical.jpg';
 import bgLandscape from 'assets/images/background_horizontal.jpg';
 
+type Comp = () => JSX.Element;
+type MemoComp = React.MemoExoticComponent<Comp>;
+type LazyComp = React.LazyExoticComponent<Comp>;
+type LazyMemoComp = React.LazyExoticComponent<MemoComp>;
+
 interface MyRouteProps extends RouteProps {
   key: string;
-  component: React.MemoExoticComponent<() => JSX.Element> | (() => JSX.Element);
+  component: Comp | MemoComp | LazyComp | LazyMemoComp;
   styles?: {
     wrapper?: FlattenInterpolation<ThemeProps>;
     content?: FlattenInterpolation<ThemeProps>;
@@ -45,6 +51,15 @@ export const LocationContext = React.createContext<Locations>({
   exitComplete: true,
   isInitial: true,
 });
+
+const backgrounds = {
+  bgLandscape,
+  bgProtrait,
+};
+
+const fallback = (
+  <Loading {...backgrounds} />
+);
 
 const Routes = (): JSX.Element => {
   const location = useLocation();
@@ -98,9 +113,11 @@ const Routes = (): JSX.Element => {
                 exit={{ zIndex: 1, opacity: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <Container bgLandscape={bgLandscape} bgProtrait={bgProtrait} styles={styles}>
-                  <RouteChild />
-                </Container>
+                <Suspense fallback={fallback}>
+                  <Container styles={styles} {...backgrounds}>
+                      <RouteChild />
+                  </Container>
+                </Suspense>
               </motion.div>
             </Route>
           ))}

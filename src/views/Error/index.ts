@@ -1,9 +1,8 @@
+import { lazy } from 'react';
 import { css } from 'styled-components';
 import media from 'lib/media-queries';
 
-import Error404 from './404';
-
-export const component = Error404;
+export const component = lazy(() => import('./404'));
 
 const mq = media('xs', 'sm', 'md');
 export const styles = {

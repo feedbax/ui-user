@@ -4,6 +4,7 @@ import { color } from 'assets/theme';
 import Event from './Event';
 
 export const component = Event;
+
 export const styles = {
   content: css`
     padding: 0;

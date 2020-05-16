@@ -1,9 +1,8 @@
+import { lazy } from 'react';
 import { css } from 'styled-components';
 import media from 'lib/media-queries';
 
-import PrivacyPolicy from './PrivacyPolicy';
-
-export const component = PrivacyPolicy;
+export const component = lazy(() => import('./PrivacyPolicy'));
 
 const mq = media('xs', 'sm', 'md');
 export const styles = {
