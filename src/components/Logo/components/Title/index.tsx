@@ -4,7 +4,7 @@ import media from 'lib/media-queries';
 import styled, { FlattenInterpolation } from 'styled-components';
 import { fontFamily, color, ThemeProps } from 'assets/theme';
 
-import { LogoProps, LogoSize } from './Logo';
+import { LogoProps, LogoSize } from '../Logo';
 
 interface Props {
   children: ReactNode;

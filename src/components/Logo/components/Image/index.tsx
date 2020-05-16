@@ -3,7 +3,7 @@ import styled, { FlattenInterpolation } from 'styled-components';
 import media from 'lib/media-queries';
 import { ThemeProps } from 'assets/theme';
 
-import { LogoProps, LogoSize } from './Logo';
+import { LogoProps, LogoSize } from '../Logo';
 
 type StyledPropsApperance = {
   width: number[];

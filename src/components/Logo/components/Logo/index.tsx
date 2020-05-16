@@ -76,12 +76,17 @@ const StyledLink = styled(CustomLink)<CustomLinkProps>`
   text-decoration: none;
 `;
 
-const Logo = ({ children, link, size = LogoSize.Regular, ...rest }: Props): JSX.Element => (
-  <StyledContainer {...rest}>
-    <LogoProps.Provider value={{ size }}>
-      {link ? <StyledLink to={link}>{children}</StyledLink> : children}
-    </LogoProps.Provider>
-  </StyledContainer>
-);
+const Logo = (props: Props): JSX.Element => {
+  const { children, ...$props1 } = props;
+  const { link, size = LogoSize.Regular, ...$props2 } = $props1;
+
+  return (
+    <StyledContainer {...$props2}>
+      <LogoProps.Provider value={{ size }}>
+        {link ? <StyledLink to={link}>{children}</StyledLink> : children}
+      </LogoProps.Provider>
+    </StyledContainer>
+  );
+};
 
 export default Logo;
