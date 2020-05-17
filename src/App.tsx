@@ -7,8 +7,8 @@ import { Normalize } from 'styled-normalize';
 import { Router } from 'react-router-dom';
 
 import theme from 'assets/theme';
-import Routes from 'lib/routes';
-import history from 'lib/history';
+import Routes from 'routes';
+import history from 'routes/history';
 
 function App(): JSX.Element {
   return (

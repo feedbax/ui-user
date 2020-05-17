@@ -1,6 +1,6 @@
 import { create, FBXAPI } from '@feedbax/backend-api';
 import store from 'store';
-import history from './history';
+import history from '../routes/history';
 
 const apiUrl = process.env.REACT_APP_WS_SERVER_URL || '';
 const adminApi = create(apiUrl, 'admin');

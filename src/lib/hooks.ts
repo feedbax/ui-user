@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 import twemoji from 'twemoji';
 
-import { LocationContext } from './routes';
+import { LocationContext } from 'routes';
 
 function lower(value: string): string;
 function lower(value: string[]): string[];
