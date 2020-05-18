@@ -2,6 +2,8 @@ import React, { useRef, useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 
+import { Helmet } from 'react-helmet';
+
 import api from 'lib/api';
 import { getScrollbarWidth } from 'lib/helper';
 import { useLocationEffect } from 'lib/hooks';
@@ -15,8 +17,6 @@ import {
   selectedAnswerSelector,
 } from 'store/selectors';
 
-import { Helmet } from 'react-helmet';
-
 import { LogoSize, FBXLogo } from 'components/Logo';
 import Button from 'components/ButtonNeumorphism';
 import { FBXFooter } from 'components/Footer';
@@ -29,10 +29,11 @@ import Answers from './components/Answers';
 import WriteAnswer, { TextArea } from './components/WriteAnswer';
 import Header from './components/Header';
 import VoteAnswer, { Button as VoteButton } from './components/VoteAnswer';
+import LogoutButton from './components/LogoutButton';
+import ShareButton from './components/ShareButton';
 
 const defaultElement = document.createElement('div');
 const scrollBarWidth = getScrollbarWidth();
-
 
 const Event = (): JSX.Element => {
   const history = useHistory();
@@ -56,23 +57,23 @@ const Event = (): JSX.Element => {
     }
   });
 
-  const _onChange = useCallback((event: React.ChangeEvent<HTMLTextAreaElement>): void => {
+  const $onChange = useCallback((event: React.ChangeEvent<HTMLTextAreaElement>): void => {
     setAnswerText(event.target.value);
   }, []);
 
-  const _onScrollable = useCallback((isScrollable: boolean): void => {
+  const $onScrollable = useCallback((isScrollable: boolean): void => {
     setTextScrollable(isScrollable);
   }, []);
 
-  const _logout = useCallback((): void => {
+  const $logout = useCallback((): void => {
     history.push('/login', { eventCode });
   }, []); // eslint-disable-line
 
-  // const _share = useCallback((): void => {
-  //   // console.log('share');
-  // }, []);
+  const $share = useCallback((): void => {
+    // console.log('share');
+  }, []);
 
-  const _postAnswer = useCallback(async (): Promise<void> => {
+  const $postAnswer = useCallback(async (): Promise<void> => {
     if (currentQuestion) {
       const props = {
         question: { id: currentQuestion?.id },
@@ -84,7 +85,7 @@ const Event = (): JSX.Element => {
     }
   }, [answerText, currentQuestion]);
 
-  const _voteAnswer = useCallback(async (): Promise<void> => {
+  const $likeAnswer = useCallback(async (): Promise<void> => {
     if (selectedAnswer) {
       const props = {
         answer: { id: selectedAnswer },
@@ -105,31 +106,8 @@ const Event = (): JSX.Element => {
 
       <Content ref={questionsWrapperRef}>
         <Header>
-          <Button
-            onClick={_logout}
-            icon="log-out"
-            size={28}
-            apperance={{
-              backgroundColor: 'accent2',
-              position: 'absolute',
-              left: 0,
-              top: 0,
-              padding: 20,
-            }}
-          />
-
-          {/* <Button
-            onClick={_share}
-            icon="share"
-            size={28}
-            apperance={{
-              backgroundColor: 'accent2',
-              position: 'absolute',
-              right: 0,
-              top: 0,
-              padding: 20,
-            }}
-          /> */}
+          <LogoutButton onClick={$logout} />
+          <ShareButton onClick={$share} hide />
 
           <FBXLogo size={LogoSize.Small} padding="20px 0" />
 
@@ -146,17 +124,18 @@ const Event = (): JSX.Element => {
       <WriteAnswer>
         <TextArea
           rows={1}
-          placeholder={'Deine Nachricht..'}
-          value={answerText}
+          placeholder="Deine Nachricht.."
           maxLength={500}
-          onChange={_onChange}
-          onScrollable={_onScrollable}
+
+          value={answerText}
+          onChange={$onChange}
+          onScrollable={$onScrollable}
         />
 
         <Button
           icon="send"
           disabled={answerText.length === 0}
-          onClick={_postAnswer}
+          onClick={$postAnswer}
           size={35}
           apperance={{
             transform: `translate(-${isTextScrollable ? scrollBarWidth : 0}px, -50%)`,
@@ -169,7 +148,9 @@ const Event = (): JSX.Element => {
       </WriteAnswer>
 
       <VoteAnswer>
-        <VoteButton onClick={_voteAnswer}>Bestätigen</VoteButton>
+        <VoteButton onClick={$likeAnswer}>
+          Bestätigen
+        </VoteButton>
       </VoteAnswer>
     </>
   );

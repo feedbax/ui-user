@@ -28,11 +28,17 @@
     "no-underscore-dangle": "off",
   
     "no-unused-vars": [
-      "error", { "argsIgnorePattern": "^_.*$" }
+      "error", {
+        "argsIgnorePattern": "^_.*$",
+        "varsIgnorePattern": "^_.*$"
+      }
     ],
 
     "@typescript-eslint/no-unused-vars": [
-      "error", { "argsIgnorePattern": "^_.*$" }
+      "error", {
+        "argsIgnorePattern": "^_.*$",
+        "varsIgnorePattern": "^_.*$"
+      }
     ],
 
     "camelcase": [

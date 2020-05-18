@@ -38,7 +38,7 @@ const VoteAnswer = ({ children }: Props): JSX.Element => {
     return <StyledBox>{children}</StyledBox>;
   }
 
-  return <></>;
+  return <React.Fragment />;
 };
 
 export default VoteAnswer;

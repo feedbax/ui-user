@@ -8,7 +8,7 @@ export type Apperance = {
   position?: string;
   left?: number;
   right?: number;
-  top?: number | [number, string];
+  readonly top?: number | [number, '%' | 'px'];
   transform?: string;
   padding?: number;
   opacity?: number;
@@ -23,4 +23,5 @@ export interface Props extends ButtonProps {
   icon?: string;
   size?: number;
   apperance?: Apperance;
+  hide?: boolean;
 }

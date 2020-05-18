@@ -93,7 +93,7 @@ function MouseControl(props: MouseControlProps): JSX.Element {
       )}
     </>
   ) : (
-    <></>
+    <React.Fragment />
   );
 }
 
