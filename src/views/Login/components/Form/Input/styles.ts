@@ -1,17 +1,13 @@
-import React from 'react';
-import styled from 'styled-components';
+import { css } from 'styled-components';
 import { color, fontFamily } from 'assets/styles/theme';
 import media from 'assets/styles/media-queries';
 
-type InputProps = Omit<JSX.IntrinsicElements['input'], 'ref' | 'children'>;
+import type { InputProps } from './types';
 
-interface Props extends InputProps {
-  children: string;
-}
 
 const mq = media('xs', 'sm', 'md');
 
-const StyledInput = styled.input<InputProps>`
+export const inputStyles = css<InputProps>`
   flex: 1 1 100%;
   width: 100%;
   outline: 0;
@@ -44,9 +40,3 @@ const StyledInput = styled.input<InputProps>`
     }
   `}
 `;
-
-const Input = ({ children: placeholder, ...props }: Props): JSX.Element => (
-  <StyledInput {...props} placeholder={placeholder} />
-);
-
-export default React.memo(Input);

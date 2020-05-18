@@ -1,3 +1,5 @@
+import type { FlattenInterpolation } from 'styled-components';
+
 const preset = {
   colors: {
     primary: '#fff',
@@ -23,5 +25,6 @@ export const fontFamily = (f: FontFamily) => ({ theme: t }: ThemeProps): string 
 export const color = (c: Color) => ({ theme: t }: ThemeProps): string => t.colors[c];
 
 export type ColorFn = ReturnType<typeof color>;
+export type Style = FlattenInterpolation<ThemeProps>;
 
 export default theme;

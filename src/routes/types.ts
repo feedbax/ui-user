@@ -1,6 +1,5 @@
 import type { useLocation, RouteProps } from 'react-router-dom';
-import type { FlattenInterpolation } from 'styled-components';
-import type { ThemeProps } from 'assets/styles/theme';
+import type { Style } from 'assets/styles/theme';
 
 type Comp = () => JSX.Element;
 type MemoComp = React.MemoExoticComponent<Comp>;
@@ -11,8 +10,8 @@ export interface Routes extends RouteProps {
   key: string;
   component: Comp | MemoComp | LazyComp | LazyMemoComp;
   styles?: {
-    wrapper?: FlattenInterpolation<ThemeProps>;
-    content?: FlattenInterpolation<ThemeProps>;
+    wrapper?: Style;
+    content?: Style;
   };
 }
 

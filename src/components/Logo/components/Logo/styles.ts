@@ -1,8 +1,7 @@
 import { css } from 'styled-components';
 import media from 'assets/styles/media-queries';
 
-import type { FlattenInterpolation } from 'styled-components';
-import type { ThemeProps } from 'assets/styles/theme';
+import type { Style } from 'assets/styles/theme';
 import type { StyledProps } from './types';
 
 const mq = media('xs', 'sm', 'md');
@@ -31,7 +30,7 @@ export const containerStyles = css`
   justify-content: center;
   align-items: center;
 
-  ${(props: StyledProps): FlattenInterpolation<ThemeProps> => mq`
+  ${(props: StyledProps): Style => mq`
     margin: ${props.margin || 0}${autoSuffix(props.margin || 0)};
     padding: ${props.padding || 0}${autoSuffix(props.padding || 0)};
   `}

@@ -1,8 +1,7 @@
 import { css } from 'styled-components';
 import { color } from 'assets/styles/theme';
 
-import type { FlattenInterpolation } from 'styled-components';
-import type { ThemeProps } from 'assets/styles/theme';
+import type { Style } from 'assets/styles/theme';
 import type { StyledProps } from './types';
 
 export const buttonIconStyles = css<StyledProps>`
@@ -41,7 +40,7 @@ export const buttonStyles = css<StyledProps>`
   cursor: pointer;
   color: #fff;
 
-  ${({ apperance = {} }): FlattenInterpolation<ThemeProps> => {
+  ${({ apperance = {} }): Style => {
     const { top, left, right } = apperance;
     const { transform } = apperance;
     const { position } = apperance;

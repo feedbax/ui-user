@@ -1,5 +1,5 @@
-import { css, FlattenInterpolation } from 'styled-components';
-import { ThemeProps } from 'assets/styles/theme';
+import { css } from 'styled-components';
+import type { Style } from 'assets/styles/theme';
 
 type Fn = (props: unknown) => string;
 type Prop = string[] | number[] | string | number | Fn;
@@ -58,7 +58,7 @@ const createTemplate: CreateTemplate = (_sizes) => {
   return (_template as unknown) as TemplateStringsArray;
 };
 
-type Substitutions = (number | FlattenInterpolation<ThemeProps>)[];
+type Substitutions = (number | Style)[];
 
 type CreateSubstitutions = (
   sizes: Size[],
