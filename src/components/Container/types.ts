@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import type { FlattenInterpolation } from 'styled-components';
-import type { ThemeProps } from 'assets/theme';
+import type { ThemeProps } from 'assets/styles/theme';
 
 export type Style = FlattenInterpolation<ThemeProps>;
 

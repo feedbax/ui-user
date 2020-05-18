@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import styled from 'styled-components';
-import { color } from 'assets/theme';
+import { color } from 'assets/styles/theme';
 
 import { useLocationEffect } from 'lib/hooks';
 

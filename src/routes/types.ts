@@ -1,6 +1,6 @@
 import type { useLocation, RouteProps } from 'react-router-dom';
 import type { FlattenInterpolation } from 'styled-components';
-import type { ThemeProps } from 'assets/theme';
+import type { ThemeProps } from 'assets/styles/theme';
 
 type Comp = () => JSX.Element;
 type MemoComp = React.MemoExoticComponent<Comp>;

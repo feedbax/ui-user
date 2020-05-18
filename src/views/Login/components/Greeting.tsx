@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
-import media from 'lib/media-queries';
-import { color, fontFamily } from 'assets/theme';
+import media from 'assets/styles/media-queries';
+import { color, fontFamily } from 'assets/styles/theme';
 
 interface Props {
   children: ReactNode;

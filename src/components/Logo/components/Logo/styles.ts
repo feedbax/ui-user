@@ -1,8 +1,8 @@
 import { css } from 'styled-components';
-import media from 'lib/media-queries';
+import media from 'assets/styles/media-queries';
 
 import type { FlattenInterpolation } from 'styled-components';
-import type { ThemeProps } from 'assets/theme';
+import type { ThemeProps } from 'assets/styles/theme';
 import type { StyledProps } from './types';
 
 const mq = media('xs', 'sm', 'md');

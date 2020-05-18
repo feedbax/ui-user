@@ -2,6 +2,7 @@ import * as Login from 'views/Login';
 import * as Event from 'views/Event';
 import * as Error404 from 'views/Error';
 import * as PrivacyPolicy from 'views/legal/PrivacyPolicy';
+import * as Disclaimer from 'views/legal/Disclaimer';
 
 import type { Routes } from './types';
 
@@ -46,6 +47,13 @@ const routes: Routes[] = [
     path: '/legal/privacy-policy',
     exact: true,
     ...PrivacyPolicy,
+  },
+
+  {
+    key: 'legal--disclaimer',
+    path: '/legal/disclaimer',
+    exact: true,
+    ...Disclaimer,
   },
 
   {

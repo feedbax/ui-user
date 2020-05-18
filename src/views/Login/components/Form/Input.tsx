@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { color, fontFamily } from 'assets/theme';
-import media from 'lib/media-queries';
+import { color, fontFamily } from 'assets/styles/theme';
+import media from 'assets/styles/media-queries';
 
 type InputProps = Omit<JSX.IntrinsicElements['input'], 'ref' | 'children'>;
 

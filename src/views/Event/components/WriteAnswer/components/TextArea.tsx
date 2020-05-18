@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 
 import styled from 'styled-components';
-import { color, fontFamily } from 'assets/theme';
+import { color, fontFamily } from 'assets/styles/theme';
 import autosize from 'autosize';
 
 import { useFontLoader } from './hooks';

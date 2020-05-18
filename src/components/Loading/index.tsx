@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { keyframes, FlattenSimpleInterpolation, css } from 'styled-components';
-import { color } from 'assets/theme';
+import { color } from 'assets/styles/theme';
 
 const LoadingWrapper = styled.div`
   position: absolute;

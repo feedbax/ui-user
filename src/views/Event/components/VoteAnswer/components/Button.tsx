@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
-import { color, fontFamily } from 'assets/theme';
+import { color, fontFamily } from 'assets/styles/theme';
 
 interface Props {
   children?: ReactNode;

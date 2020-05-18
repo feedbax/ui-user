@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
-import { color } from 'assets/theme';
+import { color } from 'assets/styles/theme';
 import { useSelector } from 'react-redux';
 import { currentQuestionSelector } from 'store/selectors';
 import { isWriteAble } from '@feedbax/backend-api/store/modules/questions/types';

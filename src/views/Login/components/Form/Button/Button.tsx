@@ -1,10 +1,10 @@
 import React from 'react';
 
 import styled, { FlattenInterpolation } from 'styled-components';
-import media from 'lib/media-queries';
+import media from 'assets/styles/media-queries';
 import { AnimatePresence } from 'framer-motion';
 
-import { ThemeProps, fontFamily, color } from 'assets/theme';
+import { ThemeProps, fontFamily, color } from 'assets/styles/theme';
 
 import MotionLabel from './components/MotionLabel';
 import MotionDots from './components/MotionDots';

@@ -1,12 +1,12 @@
 import React from 'react';
 
 import styled from 'styled-components';
-import media from 'lib/media-queries';
+import media from 'assets/styles/media-queries';
 
-import { useEmojis } from 'lib/hooks';
+import { replaceEmojis } from 'lib/helper';
 
 interface Props {
-  ref: typeof useEmojis;
+  ref: typeof replaceEmojis;
 }
 
 const mq = media('xs', 'sm', 'md');

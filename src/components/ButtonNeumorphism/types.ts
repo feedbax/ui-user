@@ -1,4 +1,4 @@
-import type { Color } from 'assets/theme';
+import type { Color } from 'assets/styles/theme';
 
 export type ButtonProps = Omit<JSX.IntrinsicElements['button'], 'ref'>;
 

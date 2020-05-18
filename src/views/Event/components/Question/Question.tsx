@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from 'react';
 
 import { useSelector } from 'react-redux';
-import { useLocationEffect, useEmojis as _useEmojis, resizeQuestion } from 'lib/hooks';
+import { useLocationEffect } from 'lib/hooks';
+import { replaceEmojis, forceLineBreak } from 'lib/helper';
 
 import store, { RootState } from 'store';
 import { setCurrentQuestion, setSeletedAnswer } from 'store/actions';
@@ -36,8 +37,8 @@ export const cache = {
 };
 
 const refEffect = (el: HTMLElement): void => {
-  _useEmojis(el);
-  resizeQuestion(el);
+  replaceEmojis(el);
+  forceLineBreak(el);
 };
 
 function Question(): JSX.Element {

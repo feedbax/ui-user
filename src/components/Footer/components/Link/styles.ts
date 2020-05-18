@@ -1,7 +1,7 @@
 import { css } from 'styled-components';
-import { fontFamily, color } from 'assets/theme';
+import { fontFamily, color } from 'assets/styles/theme';
 
-import type { ColorFn } from 'assets/theme';
+import type { ColorFn } from 'assets/styles/theme';
 import type { StyledProps } from './types';
 
 export const linkStyles = css<StyledProps>`

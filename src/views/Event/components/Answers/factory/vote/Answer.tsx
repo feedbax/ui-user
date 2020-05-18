@@ -1,15 +1,16 @@
 import React, { ReactNode } from 'react';
 
 import styled from 'styled-components';
-import media from 'lib/media-queries';
-import { color, fontFamily } from 'assets/theme';
+import media from 'assets/styles/media-queries';
+import { color, fontFamily } from 'assets/styles/theme';
 
 import api from 'lib/api';
+import { replaceEmojis } from 'lib/helper';
+
 import { isAnswer } from '@feedbax/backend-api/store/modules/answers/types';
 
 import Button from 'components/ButtonNeumorphism';
 
-import { useEmojis } from 'lib/hooks';
 import { useLiked } from '../../hooks';
 
 type AnswerState = import('@feedbax/backend-api/store/modules/answers/types').AnswerState;
@@ -61,7 +62,7 @@ const AnswerStyled = styled.div`
 `;
 
 interface AnswerTextProps {
-  ref?: typeof useEmojis;
+  ref?: typeof replaceEmojis;
 }
 
 const AnswerText = styled.span<AnswerTextProps>`
@@ -130,7 +131,7 @@ const _RealAnswer = ({ answer }: { answer: AnswerState }): JSX.Element => {
 
   return (
     <AnswerStyled>
-      <AnswerText ref={useEmojis}>{answer.text}</AnswerText>
+      <AnswerText ref={replaceEmojis}>{answer.text}</AnswerText>
       <AnswerLikes answerId={answer.id} likes={likes} hasLiked={hasLiked} />
     </AnswerStyled>
   );

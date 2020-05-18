@@ -1,8 +1,8 @@
 import React, { Ref } from 'react';
 
 import styled from 'styled-components';
-import { fontFamily } from 'assets/theme';
-import media from 'lib/media-queries';
+import { fontFamily } from 'assets/styles/theme';
+import media from 'assets/styles/media-queries';
 
 const mq = media('xs', 'sm', 'md');
 

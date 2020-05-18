@@ -6,6 +6,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "postbuild": "yarn ~~gen-disclaimer && yarn ~~cp-disclaimer",
+    "~~gen-disclaimer": "yarn licenses generate-disclaimer --production=true > DISCLAIMER.md",
+    "~~cp-disclaimer": "cp -f DISCLAIMER.md ./public/DISCLAIMER.md",
     "lint": "eslint 'src/**/*.{ts,tsx}' --fix",
     "serve": "serve build/"
   },
@@ -23,6 +26,7 @@
     "react-app-polyfill": "^1.0.6",
     "react-dom": "^16.13.0",
     "react-helmet": "^6.0.0",
+    "react-markdown": "^4.3.1",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "react-spring": "^8.0.27",

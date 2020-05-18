@@ -1,5 +1,5 @@
 import { css, FlattenInterpolation } from 'styled-components';
-import { ThemeProps } from 'assets/theme';
+import { ThemeProps } from 'assets/styles/theme';
 
 type Fn = (props: unknown) => string;
 type Prop = string[] | number[] | string | number | Fn;

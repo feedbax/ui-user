@@ -1,8 +1,8 @@
 import { css } from 'styled-components';
-import { color } from 'assets/theme';
+import { color } from 'assets/styles/theme';
 
 import type { FlattenInterpolation } from 'styled-components';
-import type { ThemeProps } from 'assets/theme';
+import type { ThemeProps } from 'assets/styles/theme';
 import type { StyledProps } from './types';
 
 export const buttonIconStyles = css<StyledProps>`

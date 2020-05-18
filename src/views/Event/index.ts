@@ -1,5 +1,5 @@
 import { css } from 'styled-components';
-import { color } from 'assets/theme';
+import { color } from 'assets/styles/theme';
 
 import Event from './Event';
 

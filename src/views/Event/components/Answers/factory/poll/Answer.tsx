@@ -1,9 +1,11 @@
 import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 
+import { replaceEmojis } from 'lib/helper';
+
 import styled from 'styled-components';
-import media from 'lib/media-queries';
-import { color, fontFamily, ColorFn } from 'assets/theme';
+import media from 'assets/styles/media-queries';
+import { color, fontFamily, ColorFn } from 'assets/styles/theme';
 
 import store from 'store';
 import { questionLikesSelector, selectedAnswerSelector } from 'store/selectors';
@@ -13,7 +15,6 @@ import Button from 'components/ButtonNeumorphism';
 
 import { useSpring, animated, OpaqueInterpolation } from 'react-spring';
 
-import { useEmojis } from 'lib/hooks';
 import { useHasLiked } from '../../hooks';
 
 import easing from './easing';
@@ -58,7 +59,7 @@ const AnswerStyled = styled.div`
 
 interface AnswerTextProps {
   hasLiked: boolean;
-  ref?: typeof useEmojis;
+  ref?: typeof replaceEmojis;
 }
 
 const AnswerText = styled.div<AnswerTextProps>`
@@ -174,7 +175,7 @@ const Answer = ({ children: answer, className }: Props): JSX.Element => {
     <AnswerStyled className={className} onClick={_selectAnswer}>
       {hasLikedQuestion ? <PercentageBar hasLiked={hasLikedAnswer} percent={percent} /> : ''}
 
-      <AnswerText ref={useEmojis} hasLiked={hasLikedQuestion}>
+      <AnswerText ref={replaceEmojis} hasLiked={hasLikedQuestion}>
         {answer.text}
       </AnswerText>
 

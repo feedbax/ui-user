@@ -1,5 +1,5 @@
 import { css } from 'styled-components';
-import { color, fontFamily } from 'assets/theme';
+import { color, fontFamily } from 'assets/styles/theme';
 
 import type { Styles, Style, StyledProps } from './types';
 

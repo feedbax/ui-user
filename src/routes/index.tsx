@@ -8,9 +8,9 @@ import RouteContent from './components/RouteContent';
 
 const Routes = (): JSX.Element => (
   <RoutesWrapper>
-    {routes.map((route) => (
+    {routes.map(({ component, ...route }) => (
       <Route key={route.key} {...route}>
-        <RouteContent route={route} />
+        <RouteContent route={{ component, ...route }} />
       </Route>
     ))}
   </RoutesWrapper>

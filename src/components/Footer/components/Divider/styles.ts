@@ -1,8 +1,8 @@
 import { css } from 'styled-components';
-import media from 'lib/media-queries';
-import { color } from 'assets/theme';
+import media from 'assets/styles/media-queries';
+import { color } from 'assets/styles/theme';
 
-import type { ColorFn } from 'assets/theme';
+import type { ColorFn } from 'assets/styles/theme';
 import type { StyledProps } from './types';
 
 const mq = media('xs', 'sm', 'md');

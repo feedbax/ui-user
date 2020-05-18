@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 
 import styled from 'styled-components';
-import { fontFamily } from 'assets/theme';
+import { fontFamily } from 'assets/styles/theme';
 
 import errorImage from 'assets/images/undraw_access_denied.svg';
 import logo from 'assets/images/logo_128c.png';

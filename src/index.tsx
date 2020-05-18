@@ -15,16 +15,25 @@ import { setPointerType } from 'store/actions';
 import { PointerType } from 'store/types';
 
 import App from 'App';
+import { Normalize } from 'styled-normalize';
+
 import { rootElement } from 'lib/helper';
 import * as serviceWorker from 'serviceWorker';
 
-import 'assets/style.css';
+import 'assets/styles/style.css';
 
 if (detectIt.primaryInput === 'mouse') {
   store.dispatch(setPointerType(PointerType.MOUSE));
 }
 
-ReactDom.render(<App />, rootElement);
+const Root = (): JSX.Element => (
+  <>
+    <Normalize />
+    <App />
+  </>
+);
+
+ReactDom.render(<Root />, rootElement);
 
 function updateApp(reg: ServiceWorkerRegistration): void {
   const waitingServiceWorker = reg.waiting;

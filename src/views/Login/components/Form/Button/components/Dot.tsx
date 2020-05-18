@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-import media from 'lib/media-queries';
+import media from 'assets/styles/media-queries';
 
 const scale = keyframes`
   0% {

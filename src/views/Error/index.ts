@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 import { css } from 'styled-components';
-import media from 'lib/media-queries';
+import media from 'assets/styles/media-queries';
 
 export const component = lazy(() => import('./404'));
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styled from 'styled-components';
-import { fontFamily, color } from 'assets/theme';
+import { fontFamily, color } from 'assets/styles/theme';
 
 type StyledProps = {
   questionHeight: number;
