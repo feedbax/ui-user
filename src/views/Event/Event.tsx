@@ -17,12 +17,9 @@ import {
 
 import { Helmet } from 'react-helmet';
 
-import Logo, { LogoSize, Title, Description, Image } from 'components/Logo';
-
+import { LogoSize, FBXLogo } from 'components/Logo';
 import Button from 'components/ButtonNeumorphism';
-import Footer, { Divider, Link, Text } from 'components/Footer';
-
-import logo from 'assets/images/logo_128c.png';
+import { FBXFooter } from 'components/Footer';
 
 import Content from './components/Content';
 import Pagination from './components/Pagination';
@@ -134,11 +131,7 @@ const Event = (): JSX.Element => {
             }}
           /> */}
 
-          <Logo size={LogoSize.Small} padding="20px 0">
-            <Image image={logo} />
-            <Title>feedbax</Title>
-            <Description>by 365steps</Description>
-          </Logo>
+          <FBXLogo size={LogoSize.Small} padding="20px 0" />
 
           <Pagination />
           <Question />
@@ -147,11 +140,7 @@ const Event = (): JSX.Element => {
 
         <Answers />
 
-        <Footer $color="accent1">
-          <Divider />
-          <Text>{`© 2019-${new Date().getFullYear()} | feedb.ax by 365steps`}</Text>
-          <Link to="/legal/privacy-policy">{'Datenschutz & Impressum'}</Link>
-        </Footer>
+        <FBXFooter $color="accent1" />
       </Content>
 
       <WriteAnswer>

@@ -5,12 +5,10 @@ import { useRouteMatch, useHistory, useLocation } from 'react-router-dom';
 import api from 'lib/api';
 import { useLocationEffect } from 'lib/hooks';
 
-import logo from 'assets/images/logo_128c.png';
-
 import { Helmet } from 'react-helmet';
 
-import Logo, { Image, Title, Description } from 'components/Logo';
-import Footer, { Divider, Text, Link } from 'components/Footer';
+import { FBXLogo } from 'components/Logo';
+import { FBXFooter } from 'components/Footer';
 
 import Greeting from './components/Greeting';
 import { Form, Input, Button } from './components/Form';
@@ -60,11 +58,7 @@ function Login(): JSX.Element {
         <title>feedbax | Login</title>
       </Helmet>
 
-      <Logo margin={['0 0 30px 0', '0 0 40px 0', '0 0 50px 0']}>
-        <Image image={logo} />
-        <Title>feedbax</Title>
-        <Description>by 365steps</Description>
-      </Logo>
+      <FBXLogo margin={['0 0 30px 0', '0 0 40px 0', '0 0 50px 0']} />
 
       <Greeting>Hallo!</Greeting>
 
@@ -78,11 +72,7 @@ function Login(): JSX.Element {
         </Button>
       </Form>
 
-      <Footer $color="primary">
-        <Divider />
-        <Text>{`© 2019-${new Date().getFullYear()} | feedb.ax by 365steps`}</Text>
-        <Link to="/legal/privacy-policy">{'Datenschutz & Impressum'}</Link>
-      </Footer>
+      <FBXFooter $color="primary" />
     </>
   );
 }

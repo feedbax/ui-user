@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router-dom';
 
-import Logo, { Image, Title, Description } from 'components/Logo';
-import { Loading } from './styled';
+import { FBXLogo } from 'components/Logo';
+import { FBXFooter } from 'components/Footer';
 
-import logo from 'assets/images/logo_128c.png';
+import { Loading } from './styled';
 
 import type { MarkdownProps, LinkProps } from './types';
 
@@ -45,11 +45,7 @@ const Markdown = ({ markdownPath, helmet }: MarkdownProps): JSX.Element => {
     <>
       {helmet}
 
-      <Logo link="/" margin={['30px 0', '40px 0', '50px 0']}>
-        <Image image={logo} />
-        <Title>feedbax</Title>
-        <Description>by 365steps</Description>
-      </Logo>
+      <FBXLogo link="/" margin={['30px 0', '40px 0', '50px 0']} />
 
       <div className="content">
         {markdown ? (
@@ -58,6 +54,8 @@ const Markdown = ({ markdownPath, helmet }: MarkdownProps): JSX.Element => {
           <Loading />
         )}
       </div>
+
+      <FBXFooter $color="primary" />
     </>
   );
 };
