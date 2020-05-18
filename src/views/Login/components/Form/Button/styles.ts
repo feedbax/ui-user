@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import { css } from 'styled-components';
 import media from 'assets/styles/media-queries';
 
 import { fontFamily, color } from 'assets/styles/theme';
@@ -9,7 +9,7 @@ import type { StyledProps } from './types';
 
 const mq = media('xs', 'sm', 'md');
 
-export const buttonStyles = styled.button<StyledProps>`
+export const buttonStyles = css<StyledProps>`
   cursor: pointer;
   font-weight: bold;
   border-radius: 0;

@@ -1,7 +1,8 @@
 import { css } from 'styled-components';
 import { color, fontFamily } from 'assets/styles/theme';
 
-import type { Styles, Style, StyledProps } from './types';
+import type { Style } from 'assets/styles/theme';
+import type { Styles, StyledProps } from './types';
 
 export const wrapperStyles = css<StyledProps & Styles>`
   position: absolute;
