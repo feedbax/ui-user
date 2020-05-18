@@ -1,14 +1,18 @@
-import * as types from './types';
+import {
+  SET_CURRENT_QUESTION,
+  SET_ANSWER_FILTER,
+  SET_POINTER_TYPE,
+  SET_SELECTED_ANSWER,
+} from 'store/types';
 
-const { SET_CURRENT_QUESTION, SET_ANSWER_FILTER, SET_POINTER_TYPE, SET_SELECTED_ANSWER } = types;
+import type {
+  SetCurrentQuestionAction,
+  SetAnswerFilterAction,
+  SetPointerTypeAction,
+  SetSelectedAnswerAction,
+} from 'store/types';
 
-type SetCurrentQuestionAction = import('./types').SetCurrentQuestionAction;
-type SetAnswerFilterAction = import('./types').SetAnswerFilterAction;
-type SetPointerTypeAction = import('./types').SetPointerTypeAction;
-type SetSelectedAnswerAction = import('./types').SetSelectedAnswerAction;
-
-type AnswerFilter = import('./types').AnswerFilter;
-type PointerType = import('./types').PointerType;
+import type { AnswerFilter, PointerType } from 'store/types';
 
 export const setCurrentQuestion = (questionNumber: number): SetCurrentQuestionAction => ({
   type: SET_CURRENT_QUESTION,

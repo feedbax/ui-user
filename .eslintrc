@@ -14,23 +14,31 @@
   "rules": {
     "import/no-cycle": "error",
     "import/order": "off",
+    "import/no-duplicates": "off",
 
     "object-curly-newline": ["error", {
       "ImportDeclaration": { "multiline": true, "minProperties": 5 },
       "ExportDeclaration": { "multiline": true, "minProperties": 5 }
     }],
+
+    "@typescript-eslint/no-explicit-any": "off",
   
     "import/prefer-default-export": "off",
+  
     "no-underscore-dangle": "off",
+  
     "no-unused-vars": [
       "error", { "argsIgnorePattern": "^_.*$" }
     ],
+
     "@typescript-eslint/no-unused-vars": [
       "error", { "argsIgnorePattern": "^_.*$" }
     ],
+
     "camelcase": [
       "error", { "allow": ["^_.*"] }
     ],
+
     "@typescript-eslint/camelcase": [
       "error", { "allow": ["^_.*"] }
     ],
@@ -42,10 +50,12 @@
         "exceptAfterSingleLine": true
       }
     ],
+
     "func-names": [
       "error",
       "as-needed"
     ],
+
     "import/extensions": [
       "error",
       "ignorePackages",

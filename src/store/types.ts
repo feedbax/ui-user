@@ -1,5 +1,5 @@
-type ResetStateAction = import('@feedbax/backend-api/store/types').ResetStateAction;
-type QuestionState = import('@feedbax/backend-api/store/modules/questions/types').QuestionState;
+import type { ResetStateAction } from '@feedbax/backend-api/store/types';
+import type { QuestionState } from '@feedbax/backend-api/store/modules/questions/types';
 
 export type CurrentQuestion = Omit<QuestionState, 'answers' | 'likes'>;
 
@@ -14,9 +14,13 @@ export enum PointerType {
   TOUCH,
 }
 
-export const answerFilters = Object.values(AnswerFilter).filter(
-  (filter) => typeof filter === 'number',
-) as number[];
+export const answerFilters = (
+  Object
+    .values(AnswerFilter)
+    .filter(
+      (filter) => typeof filter === 'number',
+    ) as number[]
+);
 
 export interface AppState {
   currentQuestionNumber?: number;

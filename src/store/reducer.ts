@@ -1,13 +1,13 @@
+import { AnswerFilter, PointerType } from './types';
+
 import {
-  AppState,
-  AnswerFilter,
-  AppActionTypes,
   SET_CURRENT_QUESTION,
   SET_ANSWER_FILTER,
-  PointerType,
   SET_POINTER_TYPE,
   SET_SELECTED_ANSWER,
 } from './types';
+
+import type { AppState, AppActionTypes } from './types';
 
 const initialState: AppState = {
   currentQuestionNumber: 0,

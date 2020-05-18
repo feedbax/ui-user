@@ -1,21 +1,17 @@
 import { useContext, useEffect } from 'react';
 import { LocationContext } from 'routes';
 
-function lower(value: string): string;
-function lower(value: string[]): string[];
-function lower(value: string | string[]): string | string[] {
-  if (Array.isArray(value)) {
-    return value.map((v) => v.toLocaleLowerCase());
+import type { ToLower, UseLocationEffect } from './types';
+
+const lower: ToLower = (
+  (value: string | string[]): any => {
+    if (Array.isArray(value)) {
+      return value.map((v) => v.toLocaleLowerCase());
+    }
+
+    return value.toLowerCase();
   }
-
-  return value.toLowerCase();
-}
-
-
-type UseLocationEffect = {
-  (path: string[], handler: () => void, waitForExitComplete?: boolean): void;
-  (path: string, handler: () => void, waitForExitComplete?: boolean): void;
-};
+);
 
 const useLocationEffect: UseLocationEffect = (
   (path: string | string[], handler: () => void, waitForExitComplete = false): void => {
