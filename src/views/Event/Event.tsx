@@ -5,7 +5,6 @@ import { useHistory, useRouteMatch } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 import api from 'lib/api';
-import { getScrollbarWidth } from 'lib/helper';
 import { useLocationEffect } from 'lib/hooks';
 
 import store from 'store';
@@ -18,22 +17,20 @@ import {
 } from 'store/selectors';
 
 import { LogoSize, FBXLogo } from 'components/Logo';
-import Button from 'components/ButtonNeumorphism';
 import { FBXFooter } from 'components/Footer';
 
 import Content from './components/Content';
-import Pagination from './components/Pagination';
-import Question from './components/Question';
-import AnswerFilter from './components/AnswerFilter';
-import Answers from './components/Answers';
-import WriteAnswer, { TextArea } from './components/WriteAnswer';
-import Header from './components/Header';
+import Pagination from './components/Content/Header/components/Pagination';
+import Question from './components/Content/Header/components/Question';
+import AnswerFilter from './components/Content/Header/components/AnswerFilter';
+import Answers from './components/Content/Answers';
+import WriteAnswer, { TextArea, PostAnswerButton } from './components/WriteAnswer';
+import Header from './components/Content/Header';
 import VoteAnswer, { Button as VoteButton } from './components/VoteAnswer';
-import LogoutButton from './components/LogoutButton';
-import ShareButton from './components/ShareButton';
+import LogoutButton from './components/Content/Header/components/LogoutButton';
+import ShareButton from './components/Content/Header/components/ShareButton';
 
 const defaultElement = document.createElement('div');
-const scrollBarWidth = getScrollbarWidth();
 
 const Event = (): JSX.Element => {
   const history = useHistory();
@@ -57,17 +54,17 @@ const Event = (): JSX.Element => {
     }
   });
 
-  const $onChange = useCallback((event: React.ChangeEvent<HTMLTextAreaElement>): void => {
+  const $onAnswerTextChange = useCallback((event: React.ChangeEvent<HTMLTextAreaElement>): void => {
     setAnswerText(event.target.value);
   }, []);
 
-  const $onScrollable = useCallback((isScrollable: boolean): void => {
+  const $onScrollableChange = useCallback((isScrollable: boolean): void => {
     setTextScrollable(isScrollable);
   }, []);
 
   const $logout = useCallback((): void => {
     history.push('/login', { eventCode });
-  }, []); // eslint-disable-line
+  }, [eventCode, history]);
 
   const $share = useCallback((): void => {
     // console.log('share');
@@ -123,27 +120,16 @@ const Event = (): JSX.Element => {
 
       <WriteAnswer>
         <TextArea
-          rows={1}
           placeholder="Deine Nachricht.."
-          maxLength={500}
-
           value={answerText}
-          onChange={$onChange}
-          onScrollable={$onScrollable}
+          onChange={$onAnswerTextChange}
+          onScrollable={$onScrollableChange}
         />
 
-        <Button
-          icon="send"
-          disabled={answerText.length === 0}
+        <PostAnswerButton
+          answerText={answerText}
+          isScrollable={isTextScrollable}
           onClick={$postAnswer}
-          size={35}
-          apperance={{
-            transform: `translate(-${isTextScrollable ? scrollBarWidth : 0}px, -50%)`,
-            backgroundColor: 'accent1',
-            position: 'absolute',
-            top: [50, '%'],
-            right: 15,
-          }}
         />
       </WriteAnswer>
 

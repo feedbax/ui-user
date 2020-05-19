@@ -3,17 +3,17 @@ import Button from 'components/ButtonNeumorphism';
 
 import type { Props } from 'components/ButtonNeumorphism';
 
-const ShareButton = (
+const LogoutButton = (
   (props: Partial<Props>): JSX.Element => (
     <Button
       {...props}
 
-      icon="share"
+      icon="log-out"
       size={28}
       apperance={{
         backgroundColor: 'accent2',
         position: 'absolute',
-        right: 0,
+        left: 0,
         top: 0,
         padding: 20,
       }}
@@ -21,4 +21,4 @@ const ShareButton = (
   )
 );
 
-export default ShareButton;
+export default React.memo(LogoutButton);

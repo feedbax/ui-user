@@ -1,47 +1,13 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
-
-import styled from 'styled-components';
-import { color, fontFamily } from 'assets/styles/theme';
 import autosize from 'autosize';
-
 import { useFontLoader } from './hooks';
+import { StyledTextArea } from './styled';
 
-interface StyledProps {
-  paddingRight?: number;
-}
-
-type TextAreaProps = JSX.IntrinsicElements['textarea'];
-
-interface Props extends TextAreaProps, StyledProps {
-  onScrollable: (isScollable: boolean) => void;
-}
-
-const paddingRightProp = ({ paddingRight = 65 }: StyledProps): string => `${paddingRight}px`;
-
-const StyledTextArea = styled.textarea<StyledProps>`
-  font-size: 16px;
-  resize: none;
-  border: 0;
-  outline: 0;
-  max-height: 116px;
-  padding: 20px 15px;
-  box-sizing: border-box;
-  width: 100%;
-  border-radius: 0;
-
-  background-color: ${color('accent1')};
-  font-family: ${fontFamily('secondaryAccent')};
-  color: ${color('primary')};
-  padding-right: ${paddingRightProp};
-
-  &::placeholder {
-    color: ${color('primary')};
-    opacity: 0.7;
-  }
-`;
+import type { Props } from './types';
 
 function TextArea(props: Props): JSX.Element {
-  const { onChange, onScrollable, ..._props } = props;
+  const { onChange, onScrollable, ...$props1 } = props;
+  const { rows = 1, maxLength = 500, ...$props2 } = $props1;
 
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const [isScrollable, setScrollable] = useState(false);
@@ -91,7 +57,11 @@ function TextArea(props: Props): JSX.Element {
 
   return (
     <StyledTextArea
-      {..._props}
+      {...$props2}
+
+      rows={rows}
+      maxLength={maxLength}
+
       ref={textareaRef}
       onChange={_onChange}
       data-scroll-lock-scrollable

@@ -16,6 +16,8 @@
     "import/order": "off",
     "import/no-duplicates": "off",
 
+    "react/prop-types": "off",
+
     "object-curly-newline": ["error", {
       "ImportDeclaration": { "multiline": true, "minProperties": 5 },
       "ExportDeclaration": { "multiline": true, "minProperties": 5 }
