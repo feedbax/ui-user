@@ -82,7 +82,7 @@ const Event = (): JSX.Element => {
     }
   }, [answerText, currentQuestion]);
 
-  const $likeAnswer = useCallback(async (): Promise<void> => {
+  const $voteAnswer = useCallback(async (): Promise<void> => {
     if (selectedAnswer) {
       const props = {
         answer: { id: selectedAnswer },
@@ -134,7 +134,7 @@ const Event = (): JSX.Element => {
       </WriteAnswer>
 
       <VoteAnswer>
-        <VoteButton onClick={$likeAnswer}>
+        <VoteButton onClick={$voteAnswer}>
           Bestätigen
         </VoteButton>
       </VoteAnswer>
