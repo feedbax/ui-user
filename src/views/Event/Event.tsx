@@ -21,7 +21,7 @@ import { FBXFooter } from 'components/Footer';
 
 import Content from './components/Content';
 import Header from './components/Content/Header';
-import Pagination from './components/Content/Header/components/Pagination';
+import Pagination from './components/Content/Header/components/Pagination/Pagination';
 import Question from './components/Content/Header/components/Question';
 import AnswerFilter from './components/Content/Header/components/AnswerFilter';
 import LogoutButton from './components/Content/Header/components/LogoutButton';
