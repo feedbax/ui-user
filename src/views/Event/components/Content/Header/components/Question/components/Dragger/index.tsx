@@ -1,22 +1,15 @@
-import React, { useCallback, ReactNode } from 'react';
+import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 
-import { motion, AnimatePresence, PanInfo, Variants } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 import { questionsLengthSelector, pointerTypeSelector } from 'store/selectors';
 import { PointerType } from 'store/types';
 
-import { QuestionChangeDir, cache } from '../Question';
+import { QuestionChangeDir, cache } from '../../types';
 
-import type { QuestionState } from '@feedbax/backend-api/store/modules/questions/types';
-
-type Question = Omit<QuestionState, 'answers' | 'likes'>;
-
-interface Props {
-  children: ReactNode;
-  question: Question;
-  onQuestionChange: (newQuestionNumber: number, direction: QuestionChangeDir) => void;
-}
+import type { PanInfo, Variants } from 'framer-motion';
+import type { Props, OverlayProps, QuestionProps } from './types';
 
 const variantsOverlay: Variants = {
   lock: {
@@ -35,7 +28,6 @@ const variantsQuestion: Variants = {
   outExit: (getDir) => ({ x: `${getDir() * 100}%`, zIndex: 1 }),
 };
 
-type OverlayProps = { _key: string };
 const Overlay = ({ _key }: OverlayProps): JSX.Element => (
   <motion.div
     key={_key}
@@ -55,8 +47,6 @@ const Overlay = ({ _key }: OverlayProps): JSX.Element => (
   />
 );
 
-type OnDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => void;
-type QuestionProps = { children: ReactNode; onDragEnd: OnDragEnd; pointerType: PointerType };
 const Question = ({ children, onDragEnd, pointerType }: QuestionProps): JSX.Element => (
   <motion.div
     drag={pointerType === PointerType.TOUCH ? 'x' : undefined}

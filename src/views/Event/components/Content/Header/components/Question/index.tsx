@@ -15,27 +15,14 @@ import {
   eventCodeSelector,
 } from 'store/selectors';
 
-import Dragger from './components/Dragger';
 import Placeholder from './components/Placeholder';
-
-import StyledWrapper from './components/StyledWrapper';
-import StyledQuestionWrapper from './components/StyledQuestionWrapper';
-import StyledQuestionNumber from './components/StyledQuestionNumber';
-import StyledQuestionText from './components/StyledQuestionText';
 import MouseControl from './components/MouseControl';
+import Dragger from './components/Dragger';
 
-import type { QuestionState } from '@feedbax/backend-api/store/modules/questions/types';
+import { Wrapper, QuestionWrapper } from './styled';
+import { QuestionText, QuestionNumber } from './styled';
 
-type Question = Omit<QuestionState, 'answers' | 'likes'>;
-
-export enum QuestionChangeDir {
-  LEFT = 1,
-  RIGHT = -1,
-}
-
-export const cache = {
-  dir: QuestionChangeDir.RIGHT,
-};
+import { cache, QuestionChangeDir } from './types';
 
 const refEffect = (el: HTMLElement): void => {
   replaceEmojis(el);
@@ -52,6 +39,9 @@ function Question(): JSX.Element {
   const isEventLoaded = useSelector(isEventLoadedSelector);
   const eventCode = useSelector(eventCodeSelector);
 
+  const questionNumber = `${(currentQuestion?.order || 0) + 1}`.padStart(2, '0');
+  const questionText = currentQuestion?.text || '';
+
   useLocationEffect(`/e/${eventCode}`, () => {
     setReady(isEventLoaded);
 
@@ -59,47 +49,41 @@ function Question(): JSX.Element {
       const action = setCurrentQuestion(0);
       store.dispatch(action);
     }
-
-    // console.log('Question', 'useLocationEffect');
-    // console.log('Question', 'isEventLoaded?', isEventLoaded);
   });
 
-  const _onQuestionChange = useCallback((newQuestion: number, dir: QuestionChangeDir): void => {
+  const $onQuestionChange = useCallback((newQuestion: number, dir: QuestionChangeDir): void => {
     cache.dir = dir;
 
     const actions = [setCurrentQuestion(newQuestion), setSeletedAnswer(null)];
     store.dispatchAll(...actions);
   }, []);
 
-  const _getHeight = useCallback((questionElement: HTMLDivElement | null): void => {
+  const $getHeight = useCallback((questionElement: HTMLDivElement | null): void => {
     if (questionElement) {
       const { height } = questionElement.getBoundingClientRect();
       setQuestionHeight(height);
-      // console.log('question', 'height', height);
     }
   }, []);
 
   return (
-    <StyledWrapper questionHeight={questionHeight + 20}>
+    <Wrapper questionHeight={questionHeight + 20}>
       {isReady ? (
-        <Dragger onQuestionChange={_onQuestionChange} question={currentQuestion}>
-          <StyledQuestionWrapper pointerType={pointerType} ref={_getHeight}>
+        <Dragger onQuestionChange={$onQuestionChange} question={currentQuestion}>
+          <QuestionWrapper pointerType={pointerType} ref={$getHeight}>
             <MouseControl
               pointerType={pointerType}
               questionNumber={currentQuestion?.order || 0}
-              onQuestionChange={_onQuestionChange}
+              onQuestionChange={$onQuestionChange}
             />
 
-            <StyledQuestionNumber>
-              {`${(currentQuestion?.order || 0) + 1}`.padStart(2, '0')}
-            </StyledQuestionNumber>
-            <StyledQuestionText ref={refEffect}>{currentQuestion?.text || ''}</StyledQuestionText>
-          </StyledQuestionWrapper>
+            <QuestionNumber>{ questionNumber }</QuestionNumber>
+            <QuestionText ref={refEffect}>{ questionText }</QuestionText>
+          </QuestionWrapper>
         </Dragger>
       ) : (
-        <Placeholder ref={_getHeight} />
+        <Placeholder ref={$getHeight} />
       )}
-    </StyledWrapper>
+    </Wrapper>
   );
 }
 

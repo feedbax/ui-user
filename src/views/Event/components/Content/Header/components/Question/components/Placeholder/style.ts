@@ -1,12 +1,10 @@
-import React, { Ref } from 'react';
-
-import styled from 'styled-components';
+import { css } from 'styled-components';
 import { fontFamily } from 'assets/styles/theme';
 import media from 'assets/styles/media-queries';
 
 const mq = media('xs', 'sm', 'md');
 
-const StyledPlaceholder = styled.div`
+export const placeholderStyle = css`
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -70,23 +68,3 @@ const StyledPlaceholder = styled.div`
     }
   }
 `;
-
-const QuestionPlaceholder = (_props: unknown, ref: Ref<HTMLDivElement>): JSX.Element => (
-  <StyledPlaceholder>
-    <div className="question" ref={ref}>
-      <div className="number">01</div>
-      <div className="text">
-        {'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed'
-          .split(' ')
-          .sort(() => Math.random() - 0.5)
-          .map((word) => (
-            <span key={word} className="word">
-              {word}
-            </span>
-          ))}
-      </div>
-    </div>
-  </StyledPlaceholder>
-);
-
-export default React.memo(React.forwardRef(QuestionPlaceholder));
