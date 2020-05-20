@@ -20,13 +20,9 @@ import { LogoSize, FBXLogo } from 'components/Logo';
 import { FBXFooter } from 'components/Footer';
 
 import Content from './components/Content';
-import Header from './components/Content/Header';
-import Pagination from './components/Content/Header/components/Pagination/Pagination';
-import Question from './components/Content/Header/components/Question';
-import AnswerFilter from './components/Content/Header/components/AnswerFilter';
-import LogoutButton from './components/Content/Header/components/LogoutButton';
-import ShareButton from './components/Content/Header/components/ShareButton';
-import Answers from './components/Content/Answers';
+import { Header, Answers } from './components/Content';
+import { Pagination, Question, AnswerFilter } from './components/Content/Header';
+import { LogoutButton, ShareButton } from './components/Content/Header';
 
 import WriteAnswer, { TextArea, PostAnswerButton } from './components/WriteAnswer';
 import VoteAnswer, { Button as VoteButton } from './components/VoteAnswer';

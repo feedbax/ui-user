@@ -2,6 +2,12 @@ import React, { Ref, ReactNode } from 'react';
 import styled from 'styled-components';
 import { color } from 'assets/styles/theme';
 
+import Pagination from './components/Pagination';
+import Question from './components/Question';
+import AnswerFilter from './components/AnswerFilter';
+import LogoutButton from './components/LogoutButton';
+import ShareButton from './components/ShareButton';
+
 interface Props {
   children: ReactNode;
 }
@@ -21,3 +27,11 @@ const Content = ({ children }: Props, ref: Ref<HTMLDivElement>): JSX.Element => 
 );
 
 export default React.forwardRef(Content);
+
+export {
+  Pagination,
+  Question,
+  AnswerFilter,
+  LogoutButton,
+  ShareButton,
+};

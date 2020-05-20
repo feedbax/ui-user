@@ -2,6 +2,10 @@ import React, { Ref, ReactNode } from 'react';
 import styled from 'styled-components';
 import { color } from 'assets/styles/theme';
 
+import Answers from './Answers';
+import Header from './Header';
+
+
 interface Props {
   children: ReactNode;
 }
@@ -23,3 +27,4 @@ const Content = ({ children }: Props, ref: Ref<HTMLDivElement>): JSX.Element => 
 );
 
 export default React.forwardRef(Content);
+export { Header, Answers };

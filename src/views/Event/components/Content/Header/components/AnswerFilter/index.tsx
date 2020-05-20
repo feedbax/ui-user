@@ -1,7 +1,5 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
-
-import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
 
 import store from 'store';
 import { answerFilters, AnswerFilter } from 'store/types';
@@ -10,36 +8,7 @@ import { currentAnswerFilterSelector, currentQuestionSelector } from 'store/sele
 import { isFilterAble } from '@feedbax/backend-api/store/modules/questions/types';
 
 import Button from 'components/ButtonNeumorphism';
-
-interface FilterProps {
-  active: boolean;
-  children: ReactNode;
-  disabled: boolean;
-}
-
-const Filter = styled.div<FilterProps>`
-  display: block;
-  position: relative;
-
-  flex: 1 1 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  transition: transform 0.3s ease, opacity 0.3s ease;
-
-  ${(props): FlattenSimpleInterpolation => css`
-    transform: scale(${props.active ? 1 : 0.8});
-    opacity: ${props.disabled ? 0.5 : 1};
-  `}
-`;
-
-const Wrapper = styled.div`
-  flex: 0 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+import { Wrapper, Filter } from './styled';
 
 const getIcon = (filter: number, currentFilter: number): string => {
   switch (filter) {
