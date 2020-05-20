@@ -1,5 +1,5 @@
 import React from 'react';
-import Answer from '../factory/vote/Answer';
+import Answer from '../factory/vote';
 
 const PlaceholderEmpty = (
   <Answer className="placeholder--empty">

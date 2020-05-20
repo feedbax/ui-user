@@ -6,10 +6,10 @@ import { currentQuestionSelector } from 'store/selectors';
 import { QuestionType } from '@feedbax/backend-api/shared/models/question';
 import PlaceholderLoading from '../components/PlaceholderLoading';
 
-import AnswerVote from './vote/Answer';
-import AnswerPoll from './poll/Answer';
+import AnswerVote from './vote';
+import AnswerPoll from './poll';
 
-type AnswerState = import('@feedbax/backend-api/store/modules/answers/types').AnswerState;
+import type { AnswerState } from '@feedbax/backend-api/store/modules/answers/types';
 
 interface Props {
   answer: AnswerState;

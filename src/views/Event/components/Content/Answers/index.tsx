@@ -1,9 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
-import styled from 'styled-components';
-import { color } from 'assets/styles/theme';
-
 import { useLocationEffect } from 'lib/hooks';
 
 import {
@@ -16,29 +13,17 @@ import {
 import { answersSelector } from './selector';
 
 import AnswerFactory from './factory';
+import { Underlay, Wrapper } from './styled';
+
 import PlaceholderEmpty from './components/PlaceholderEmpty';
 import PlaceholderLoading from './components/PlaceholderLoading';
 
-type ApiState = import('@feedbax/backend-api/store').ApiStateDefault;
-type AnswerState = import('@feedbax/backend-api/store/modules/answers/types').AnswerState;
+import type { ApiStateDefault as ApiState } from '@feedbax/backend-api/store';
+import type { AnswerState } from '@feedbax/backend-api/store/modules/answers/types';
 
 const renderAnswer = (answer: AnswerState): JSX.Element => (
   <AnswerFactory key={answer.id} answer={answer} />
 );
-
-const Wrapper = styled.div`
-  background-color: #fff;
-  flex: 0 0 auto;
-  color: ${color('accent1')};
-`;
-
-const Underlay = styled.div`
-  width: 100%;
-  height: 25px;
-  background-color: ${color('accent2')};
-  position: absolute;
-  z-index: 0;
-`;
 
 function Answers(): JSX.Element {
   const answerFilter = useSelector(currentAnswerFilterSelector);

@@ -20,15 +20,16 @@ import { LogoSize, FBXLogo } from 'components/Logo';
 import { FBXFooter } from 'components/Footer';
 
 import Content from './components/Content';
+import Header from './components/Content/Header';
 import Pagination from './components/Content/Header/components/Pagination';
 import Question from './components/Content/Header/components/Question';
 import AnswerFilter from './components/Content/Header/components/AnswerFilter';
-import Answers from './components/Content/Answers';
-import WriteAnswer, { TextArea, PostAnswerButton } from './components/WriteAnswer';
-import Header from './components/Content/Header';
-import VoteAnswer, { Button as VoteButton } from './components/VoteAnswer';
 import LogoutButton from './components/Content/Header/components/LogoutButton';
 import ShareButton from './components/Content/Header/components/ShareButton';
+import Answers from './components/Content/Answers';
+
+import WriteAnswer, { TextArea, PostAnswerButton } from './components/WriteAnswer';
+import VoteAnswer, { Button as VoteButton } from './components/VoteAnswer';
 
 const defaultElement = document.createElement('div');
 

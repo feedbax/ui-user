@@ -3,17 +3,17 @@ import { AnswerFilter } from 'store/types';
 import api from 'lib/api';
 import { isFilterAble } from '@feedbax/backend-api/store/modules/questions/types';
 
-type ApiState = import('@feedbax/backend-api/store').ApiStateDefault;
-type QuestionsState = import('@feedbax/backend-api/store/modules/questions/types').QuestionsState;
-type AnswersState = import('@feedbax/backend-api/store/modules/answers/types').AnswersState;
+import type { ApiStateDefault as ApiState } from '@feedbax/backend-api/store';
+import type { QuestionsState } from '@feedbax/backend-api/store/modules/questions/types';
+import type { AnswersState, AnswerState } from '@feedbax/backend-api/store/modules/answers/types';
 
-type AnswerState = import('@feedbax/backend-api/store/modules/answers/types').AnswerState;
-
-type Output = OutputSelector<
-  ApiState,
-  AnswerState[],
-  (res1: QuestionsState, res2: AnswersState) => AnswerState[]
->;
+type Output = (
+  OutputSelector<
+    ApiState,
+    AnswerState[],
+    (res1: QuestionsState, res2: AnswersState) => AnswerState[]
+  >
+);
 
 const sortAnswers = (answers: AnswerState[], filter: AnswerFilter): AnswerState[] => {
   switch (filter) {

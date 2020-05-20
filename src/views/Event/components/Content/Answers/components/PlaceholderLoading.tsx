@@ -1,5 +1,5 @@
 import React from 'react';
-import Answer from '../factory/vote/Answer';
+import Answer from '../factory/vote';
 
 const PlaceholderLoading = new Array(3).fill(null).map((_, i) => (
   <Answer key={i} className="placeholder--loading">
