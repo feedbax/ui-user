@@ -2,11 +2,10 @@ import React, { useCallback } from 'react';
 
 import { useSelector } from 'react-redux';
 import { useSpring } from 'react-spring';
-import { useHasLiked } from '../../hooks';
 import { replaceEmojis } from 'lib/helper';
 
 import store from 'store';
-import { questionLikesSelector, selectedAnswerSelector } from 'store/selectors';
+import { selectedAnswerSelector, currentQuestionSelector } from 'store/selectors';
 import { setSeletedAnswer } from 'store/actions';
 
 import Button from 'components/ButtonNeumorphism';
@@ -20,12 +19,16 @@ import type { Props } from './types';
 
 const Answer = ({ children: answer, className }: Props): JSX.Element => {
   const selectedAnswer = useSelector(selectedAnswerSelector);
-  const likesQuestion = useSelector(questionLikesSelector);
+  const currentQuestion = useSelector(currentQuestionSelector);
 
-  const __percent = (answer.likes.length / likesQuestion.length) * 100;
+  const __percent = (answer.likes / currentQuestion.likes) * 100;
 
-  const hasLikedQuestion = useHasLiked(likesQuestion);
-  const hasLikedAnswer = useHasLiked(answer.likes);
+  const hasLikedQuestion = currentQuestion.hasLiked;
+  const hasLikedAnswer = answer.hasLiked;
+
+  console.log('currentQuestion', currentQuestion);
+  console.log('answer', answer);
+  console.log('----------');
 
   const isSelected = selectedAnswer === answer.id;
 

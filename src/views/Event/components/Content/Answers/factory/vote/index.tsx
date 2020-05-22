@@ -4,7 +4,6 @@ import api from 'lib/api';
 import { replaceEmojis } from 'lib/helper';
 
 import { isAnswer } from '@feedbax/backend-api/store/modules/answers/types';
-import { useLiked } from 'views/Event/components/Content/Answers/hooks';
 
 import Button from 'components/ButtonNeumorphism';
 
@@ -22,7 +21,7 @@ const AnswerLikes = (props: AnswerLikesProps): JSX.Element => {
       <LikesCount>{props.likes}</LikesCount>
 
       <Button
-        onClick={(): Promise<void> => api.like.toggle(toggleData)}
+        onClick={(): Promise<any> => api.like.toggle(toggleData)}
         size={28}
         icon={props.hasLiked ? 'heart-filled' : 'heart'}
         apperance={{ backgroundColor: 'primary', textColor: 'accent1' }}
@@ -31,16 +30,14 @@ const AnswerLikes = (props: AnswerLikesProps): JSX.Element => {
   );
 };
 
-const $RealAnswer = ({ answer }: { answer: AnswerState }): JSX.Element => {
-  const [likes, hasLiked] = useLiked(answer.likes);
-
-  return (
+const $RealAnswer = (
+  ({ answer }: { answer: AnswerState }): JSX.Element => (
     <AnswerStyled>
       <AnswerText ref={replaceEmojis}>{answer.text}</AnswerText>
-      <AnswerLikes answerId={answer.id} likes={likes} hasLiked={hasLiked} />
+      <AnswerLikes answerId={answer.id} likes={answer.likes} hasLiked={answer.hasLiked} />
     </AnswerStyled>
-  );
-};
+  )
+);
 
 const RealAnswer = React.memo($RealAnswer);
 
