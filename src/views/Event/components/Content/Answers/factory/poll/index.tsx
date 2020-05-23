@@ -26,10 +26,6 @@ const Answer = ({ children: answer, className }: Props): JSX.Element => {
   const hasLikedQuestion = currentQuestion.hasLiked;
   const hasLikedAnswer = answer.hasLiked;
 
-  console.log('currentQuestion', currentQuestion);
-  console.log('answer', answer);
-  console.log('----------');
-
   const isSelected = selectedAnswer === answer.id;
 
   const { percent } = useSpring({
