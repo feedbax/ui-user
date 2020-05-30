@@ -23,8 +23,8 @@ export const buttonIconStyles = css<StyledProps>`
       font-size: ${fontSize}px;
       width: ${size}px;
       height: ${size}px;
-      box-shadow: ${shadowXY}px ${shadowXY}px ${shadowBlur}px rgba(0, 0, 0, 0.1),
-        -${shadowXY}px -${shadowXY}px ${shadowBlur}px rgba(255, 255, 255, 0.1);
+      box-shadow: ${shadowXY}px ${shadowXY}px ${shadowBlur}px rgba(0, 0, 0, 0.18), 
+                  -${shadowXY}px -${shadowXY}px ${shadowBlur}px rgba(255, 255, 255, 0.18);
     `;
   }}
 `;
