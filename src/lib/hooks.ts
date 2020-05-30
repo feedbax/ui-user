@@ -52,6 +52,12 @@ const resizeQuestion = <T extends HTMLElement>(el: T | null): void => {
     if (el.clientHeight <= lineHeight + 1) {
       // eslint-disable-next-line no-param-reassign
       el.style.maxWidth = `${0.8 * el.clientWidth}px`;
+
+      const text = el.innerText.split(' ');
+      const last = text.pop();
+
+      // eslint-disable-next-line no-param-reassign
+      el.innerText = `${text.join(' ')}\n${last}`;
     }
   }
 };

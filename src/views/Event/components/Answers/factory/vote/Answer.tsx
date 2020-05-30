@@ -66,13 +66,13 @@ interface AnswerTextProps {
 
 const AnswerText = styled.span<AnswerTextProps>`
   flex: 1 1 auto;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  display: inline;
   white-space: break-spaces;
+  margin: auto 0;
 
   & img.emoji {
     display: inline-block;
+    vertical-align: middle;
     margin: 0 1px;
 
     ${mq`
