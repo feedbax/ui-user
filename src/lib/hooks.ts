@@ -53,11 +53,15 @@ const resizeQuestion = <T extends HTMLElement>(el: T | null): void => {
       // eslint-disable-next-line no-param-reassign
       el.style.maxWidth = `${0.8 * el.clientWidth}px`;
 
-      const text = el.innerText.split(' ');
-      const last = text.pop();
+      const hasWhitespace = el.innerText.includes(' ');
 
-      // eslint-disable-next-line no-param-reassign
-      el.innerText = `${text.join(' ')}\n${last}`;
+      if (hasWhitespace) {
+        const text = el.innerText.trim().split(' ');
+        const last = text.pop();
+
+        // eslint-disable-next-line no-param-reassign
+        el.innerText = `${text.join(' ')}\n${last}`;
+      }
     }
   }
 };
