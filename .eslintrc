@@ -15,6 +15,7 @@
     "import/no-cycle": "error",
     "import/order": "off",
     "import/no-duplicates": "off",
+    "import/no-extraneous-dependencies": "off",
 
     "react/prop-types": "off",
 
